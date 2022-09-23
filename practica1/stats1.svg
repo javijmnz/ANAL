@@ -959,7 +959,7 @@ font-family=".AppleSystemUIFont" font-size="13" font-weight="400" font-style="no
 font-family="Sans" font-size="9" font-weight="400" font-style="normal" 
 >
 <text fill="#000000" fill-opacity="1" stroke="none" xml:space="preserve" x="0" y="0" font-family="Sans" font-size="9" font-weight="400" font-style="normal" 
- >Numero</text>
+ >Número</text>
 </g>
 
 <g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1.00313,0,0,1.00313,323.1,476.884)"
@@ -1038,21 +1038,21 @@ font-family=".AppleSystemUIFont" font-size="13" font-weight="400" font-style="no
 <g fill="none" stroke="#9400d3" stroke-opacity="1" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" transform="matrix(1.00313,0,0,1.00313,0,0)"
 font-family=".AppleSystemUIFont" font-size="13" font-weight="400" font-style="normal" 
 >
-<polyline fill="none" vector-effect="none" points="71.5,444.5 71.5,78.5 107.5,78.5 107.5,444.5 71.5,444.5 " />
-<polyline fill="none" vector-effect="none" points="107.5,444.5 107.5,77.5 142.5,77.5 142.5,444.5 107.5,444.5 " />
-<polyline fill="none" vector-effect="none" points="142.5,444.5 142.5,78.5 178.5,78.5 178.5,444.5 142.5,444.5 " />
-<polyline fill="none" vector-effect="none" points="178.5,444.5 178.5,76.5 214.5,76.5 214.5,444.5 178.5,444.5 " />
-<polyline fill="none" vector-effect="none" points="214.5,444.5 214.5,80.5 249.5,80.5 249.5,444.5 214.5,444.5 " />
-<polyline fill="none" vector-effect="none" points="249.5,444.5 249.5,79.5 285.5,79.5 285.5,444.5 249.5,444.5 " />
+<polyline fill="none" vector-effect="none" points="71.5,444.5 71.5,79.5 107.5,79.5 107.5,444.5 71.5,444.5 " />
+<polyline fill="none" vector-effect="none" points="107.5,444.5 107.5,80.5 142.5,80.5 142.5,444.5 107.5,444.5 " />
+<polyline fill="none" vector-effect="none" points="142.5,444.5 142.5,79.5 178.5,79.5 178.5,444.5 142.5,444.5 " />
+<polyline fill="none" vector-effect="none" points="178.5,444.5 178.5,79.5 214.5,79.5 214.5,444.5 178.5,444.5 " />
+<polyline fill="none" vector-effect="none" points="214.5,444.5 214.5,78.5 249.5,78.5 249.5,444.5 214.5,444.5 " />
+<polyline fill="none" vector-effect="none" points="249.5,444.5 249.5,77.5 285.5,77.5 285.5,444.5 249.5,444.5 " />
 <polyline fill="none" vector-effect="none" points="285.5,444.5 285.5,78.5 321.5,78.5 321.5,444.5 285.5,444.5 " />
-<polyline fill="none" vector-effect="none" points="321.5,444.5 321.5,80.5 357.5,80.5 357.5,444.5 321.5,444.5 " />
-<polyline fill="none" vector-effect="none" points="357.5,444.5 357.5,79.5 392.5,79.5 392.5,444.5 357.5,444.5 " />
-<polyline fill="none" vector-effect="none" points="392.5,444.5 392.5,79.5 428.5,79.5 428.5,444.5 392.5,444.5 " />
-<polyline fill="none" vector-effect="none" points="428.5,444.5 428.5,81.5 464.5,81.5 464.5,444.5 428.5,444.5 " />
-<polyline fill="none" vector-effect="none" points="464.5,444.5 464.5,79.5 499.5,79.5 499.5,444.5 464.5,444.5 " />
+<polyline fill="none" vector-effect="none" points="321.5,444.5 321.5,77.5 357.5,77.5 357.5,444.5 321.5,444.5 " />
+<polyline fill="none" vector-effect="none" points="357.5,444.5 357.5,80.5 392.5,80.5 392.5,444.5 357.5,444.5 " />
+<polyline fill="none" vector-effect="none" points="392.5,444.5 392.5,77.5 428.5,77.5 428.5,444.5 392.5,444.5 " />
+<polyline fill="none" vector-effect="none" points="428.5,444.5 428.5,79.5 464.5,79.5 464.5,444.5 428.5,444.5 " />
+<polyline fill="none" vector-effect="none" points="464.5,444.5 464.5,78.5 499.5,78.5 499.5,444.5 464.5,444.5 " />
 <polyline fill="none" vector-effect="none" points="499.5,444.5 499.5,77.5 535.5,77.5 535.5,444.5 499.5,444.5 " />
 <polyline fill="none" vector-effect="none" points="535.5,444.5 535.5,76.5 571.5,76.5 571.5,444.5 535.5,444.5 " />
-<polyline fill="none" vector-effect="none" points="571.5,444.5 571.5,77.5 607.5,77.5 607.5,444.5 571.5,444.5 " />
+<polyline fill="none" vector-effect="none" points="571.5,444.5 571.5,79.5 607.5,79.5 607.5,444.5 571.5,444.5 " />
 </g>
 
 <g fill="none" stroke="#000000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1.00313,0,0,1.00313,0,0)"
