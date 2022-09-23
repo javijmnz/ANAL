@@ -52,7 +52,7 @@ int main(int argc, char** argv)
   ret =SelectSort(perm, 0, tamano-1);
 
   if (ret == ERR) {
-    printf("Error: Error in BubbleSort\n");
+    printf("Error: Error in SelectSort\n");
     free(perm);
     exit(-1);
   }

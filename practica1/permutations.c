@@ -31,18 +31,15 @@
 /***************************************************/
 int random_num(int inf, int sup)
 {
-  int k;
   /* Comprobación de parámetros */
-  if (inf > sup)
+  if (inf > sup || inf < 0)
     return ERR;
     
   /* Mala implementación */
   /* return inf + (rand() % (sup - inf + 1)); */
   
   /* Buena implementación */
-  k = inf + (int) ((sup - inf + 1.0) * (rand() / (RAND_MAX + 1.0)));
-  printf("%d", k);
-  return k;
+  return inf + (int) ((sup - inf + 1.0) * (rand() / (RAND_MAX + 1.0)));
 }
 
 /***************************************************/
@@ -55,16 +52,16 @@ int random_num(int inf, int sup)
 /* int n: number of elements in the permutation    */
 /* Output:                                         */
 /* int *: pointer to integer array                 */
-/* that contains the permitation                   */
+/* that contains the permutation                   */
 /* or NULL in case of error                        */
 /***************************************************/
-int* generate_perm(int N)
+int * generate_perm(int N)
 {
   int *perm, i, j, aux;
-  printf("%d N", N);
-
-  /* Semilla */
-  srand(time(NULL));
+  
+  /* Comprueba parámetros */
+  if (N <= 0)
+    return NULL;
   
   /* Reserva memoria para los números */
   perm = (int *) calloc(N, sizeof(int));
@@ -72,20 +69,16 @@ int* generate_perm(int N)
     return NULL;
   
   /* Genera los números */
-  for (i = 1; i <= N; i++) {
-    perm[i] = i;
-    printf("%d", i);
+  for (i = 0; i < N; i++) {
+    perm[i] = i + 1;
   }
 
   /* Permuta los números */
-  for (i = 0; i <= N; i++) {
-    printf("%d %d \n", i, N);
-    j = random_num(0, N-1);
-    printf("Random num: %d", j);
+  for (i = 0; i < N; i++) {
+    j = random_num(i, N-1);
     aux = perm[i];
     perm[i] = perm[j];
     perm[j] = aux;
-    printf("Perm[%d]%d   Perm[%d]%d", i, perm[i], j, perm[j]);
   }
   
   return perm;
@@ -107,20 +100,38 @@ int* generate_perm(int N)
 /* to each of the permutations                     */
 /* NULL en case of error                           */
 /***************************************************/
-/*
-int** generate_permutations(int n_perms, int N)
-{
-  int**ret, i, flag = 0;
 
-  ret = calloc(n_perms, sizeof(int*));
-  if(!ret){
+int ** generate_permutations(int n_perms, int N)
+{
+  int ** perms, i, flag = 0;
+
+  /* Comprueba parámetros */
+  if (n_perms <= 0 || N <= 0)
+    return NULL;
+
+  /* Reserva memoria para los punteros a las permutaciones */
+  perms = (int **) malloc(n_perms * sizeof(int *));
+  if (!perms) {
     return NULL;        
   }
   
-  for(i = 0; i < n_perms; i++){
-    ret[i] = generate_perm(N);
-    if(ret[i] == NULL)
+  /* Genera las permutaciones */
+  for (i = 0; i < n_perms && flag == 0; i++){
+    perms[i] = generate_perm(N);
+    if (perms[i] == NULL) {
+      flag = 1;
+    }
   }
 
+  /* Comprueba errores en la generación de permutaciones */
+  if (flag == 1) {
+    for (i -= 2; i >= 0; i--) {
+      free(perms[i]);
+      free(perms);
+      return NULL;
+    }
+  }
+  
+  return perms;
 }
-*/
+
