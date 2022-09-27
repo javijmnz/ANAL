@@ -36,10 +36,10 @@ int random_num(int inf, int sup)
     return ERR;
     
   /* Mala implementación */
-  /* return inf + (rand() % (sup - inf + 1)); */
+  return inf + (rand() % (sup - inf + 1));
   
   /* Buena implementación */
-  return inf + (int) ((sup - inf + 1.0) * (rand() / (RAND_MAX + 1.0)));
+  /* return inf + (int) ((sup - inf + 1.0) * (rand() / (RAND_MAX + 1.0))); */
 }
 
 /***************************************************/
