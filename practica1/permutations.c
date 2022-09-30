@@ -32,14 +32,14 @@
 int random_num(int inf, int sup)
 {
   /* Comprobación de parámetros */
-  if (inf > sup || inf < 0)
+  if (inf > sup || inf < 0 || inf > RAND_MAX || sup > RAND_MAX)
     return ERR;
     
   /* Mala implementación */
-  return inf + (rand() % (sup - inf + 1));
+  /* return inf + (rand() % (sup - inf + 1)); */
   
   /* Buena implementación */
-  /* return inf + (int) ((sup - inf + 1.0) * (rand() / (RAND_MAX + 1.0))); */
+  return inf + (int) ((sup - inf + 1.0) * (rand() / (RAND_MAX + 1.0)));
 }
 
 /***************************************************/
@@ -103,7 +103,7 @@ int * generate_perm(int N)
 
 int ** generate_permutations(int n_perms, int N)
 {
-  int ** perms, i, flag = 0;
+  int ** perms, i, flag = OK;
 
   /* Comprueba parámetros */
   if (n_perms <= 0 || N <= 0)
@@ -116,15 +116,15 @@ int ** generate_permutations(int n_perms, int N)
   }
   
   /* Genera las permutaciones */
-  for (i = 0; i < n_perms && flag == 0; i++){
+  for (i = 0; i < n_perms && flag == OK; i++){
     perms[i] = generate_perm(N);
     if (perms[i] == NULL) {
-      flag = 1;
+      flag = ERR;
     }
   }
 
   /* Comprueba errores en la generación de permutaciones */
-  if (flag == 1) {
+  if (flag == ERR) {
     for (i -= 2; i >= 0; i--) {
       free(perms[i]);
       free(perms);

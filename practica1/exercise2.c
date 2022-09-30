@@ -18,8 +18,7 @@
 
 int main(int argc, char** argv)
 {
-  int i;
-  unsigned int num, size, j, k;
+  int i, num, size, j, k;
   int* perm = NULL;
 
   srand(time(NULL));
