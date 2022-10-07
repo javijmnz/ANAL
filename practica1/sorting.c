@@ -37,10 +37,12 @@ int SelectSort(int* array, int ip, int iu)
   if (!array || ip < 0)
     return ERR;
   
+  minimo = ip;
+  
   /* Algoritmo */
-  for (i = ip; i <= iu; i++){
-    minimo = min(array, i, iu);
-    sum += iu - i + 1;
+  for (i = ip; i < iu; i++){
+    minimo = min(array, i+1, iu);
+    sum += iu - i;
     swap(array + i, array + minimo);   
   }
   return sum;
@@ -56,9 +58,9 @@ int SelectSortInv(int* array, int ip, int iu)
     return ERR;
   
   /* Algoritmo */
-  for (i = iu; i <= ip; i--){
-    minimo = min(array, i, ip);
-    sum += i - ip + 1;
+  for (i = iu; i > ip; i--){
+    minimo = min(array, ip, i);
+    sum += i - ip;
     swap(array + i, array + minimo);   
   }
   return sum;
