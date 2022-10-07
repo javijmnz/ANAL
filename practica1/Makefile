@@ -5,13 +5,27 @@
 
 CC = gcc -ansi -pedantic
 CFLAGS = -Wall
-EXE = exercise1 stats1 exercise2 exercise3 exercise4 exercise5
+EXE = exercise1 exercise2 exercise3 exercise4 exercise5 pruebas
+PLOTTERS = stats1
+PLOTS = stats1_bien stats1_mal
 
-all : $(EXE)
+LIMNIF_STATS1 = 1
+LIMSUP_STATS1 = 1600
+NUMN_STATS1 = 1000000
 
-.PHONY : clean
+all : $(EXE) $(PLOTTERS)
+plots : run_stats1 $(PLOTS)
+
+
+.PHONY : clean clean_plots
 clean :
-	rm -f *.o core $(EXE)
+	rm -f -r *.o core $(EXE)
+	rm -f stats/*.plotter
+	rm -f stats/*.o
+
+clean_plots :
+	rm -f stats/*.txt
+	rm -f stats/*.png
 
 $(EXE) : % : %.o sorting.o times.o permutations.o
 	@echo "#---------------------------"
@@ -19,6 +33,13 @@ $(EXE) : % : %.o sorting.o times.o permutations.o
 	@echo "# Depepends on $^"
 	@echo "# Has changed $<"
 	$(CC) $(CFLAGS) -o $@ $@.o sorting.o times.o permutations.o
+
+$(PLOTTERS) : % : stats/%.o sorting.o times.o permutations.o
+	@echo "#---------------------------"
+	@echo "# Generating $@ "
+	@echo "# Depepends on $^"
+	@echo "# Has changed $<"
+	$(CC) $(CFLAGS) -o stats/$@.plotter stats/$@.o sorting.o times.o permutations.o
 
 permutations.o : permutations.c permutations.h
 	@echo "#---------------------------"
@@ -61,3 +82,10 @@ exercise5_test:
 	@echo Running exercise5
 	@./exercise5 -num_min 1 -num_max 5 -incr 1 -numP 5 -outputFile exercise5.log
 
+$(PLOTS): % : run_stats1
+	@echo "ploteando $@"
+	@gnuplot stats/$@.gp
+
+run_stats1 : stats1
+	@echo "generando stats1_mal.txt y stats1_bien.txt"
+	@stats/stats1.plotter -limInf $(LIMNIF_STATS1) -limSup $(LIMSUP_STATS1) -numN $(NUMN_STATS1)

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include "permutations.h"
+#include "../permutations.h"
 
 int main(int argc, char** argv)
 {
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
   count = (int *) calloc(sup - inf + 1, sizeof(int));
   if (!count)
     return ERR;
-  pf = fopen("stats1.txt", "w");
+  pf = fopen("stats/stats1_bien.txt", "w");
   if (!pf) {
     free(count);
     return ERR;
@@ -60,6 +60,30 @@ int main(int argc, char** argv)
   }
 
   fclose(pf);
+  pf = NULL;
+
+  pf = fopen("stats/stats1_mal.txt", "w");
+  if (!pf) {
+    free(count);
+    return ERR;
+  }
+
+  /* print data */
+  for(j = 0; j < num; j++) {
+    i = random_num_mal(inf, sup);
+    count[i - inf]++;
+  }
+
+  for (j = inf; j <= sup; j++) {
+    if (fprintf(pf, "%d     %d\n", j, count[j - inf]) < 0) {
+        fclose(pf);
+        free(count);
+        return ERR;
+    }
+  }
+
+  fclose(pf);
+
   free(count);
 
   return 0;

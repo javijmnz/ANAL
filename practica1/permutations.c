@@ -42,6 +42,10 @@ int random_num(int inf, int sup)
   return inf + (int) ((sup - inf + 1.0) * (rand() / (RAND_MAX + 1.0)));
 }
 
+int random_num_mal(int inf, int sup) {
+  return inf + (random_num(0, 2000) % (sup - inf + 1));
+}
+
 /***************************************************/
 /* Function: generate_perm Date:                   */
 /* Authors:                                        */
