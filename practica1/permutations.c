@@ -34,11 +34,7 @@ int random_num(int inf, int sup)
   /* Comprobación de parámetros */
   if (inf > sup || inf < 0 || inf > RAND_MAX || sup > RAND_MAX)
     return ERR;
-    
-  /* Mala implementación */
-  /* return inf + (rand() % (sup - inf + 1)); */
   
-  /* Buena implementación */
   return inf + (int) ((sup - inf + 1.0) * (rand() / (RAND_MAX + 1.0)));
 }
 
@@ -105,8 +101,7 @@ int * generate_perm(int N)
 /* NULL en case of error                           */
 /***************************************************/
 
-int ** generate_permutations(int n_perms, int N)
-{
+int ** generate_permutations(int n_perms, int N) {
   int ** perms, i, flag = OK;
 
   /* Comprueba parámetros */
