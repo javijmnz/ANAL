@@ -61,6 +61,8 @@ int main(int argc, char** argv)
 
   fclose(pf);
   pf = NULL;
+  for (j = 0; j < sup - inf + 1; j++)
+    count[j] = 0;
 
   pf = fopen("stats/stats1_mal.txt", "w");
   if (!pf) {

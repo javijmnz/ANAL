@@ -11,7 +11,7 @@ PLOTS = stats1_bien stats1_mal
 
 LIMNIF_STATS1 = 1
 LIMSUP_STATS1 = 1600
-NUMN_STATS1 = 1000000
+NUMN_STATS1 = 100000000
 
 all : $(EXE) $(PLOTTERS)
 plots : run_stats1 $(PLOTS)

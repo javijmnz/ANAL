@@ -29,10 +29,9 @@
 /* Output:                                         */
 /* int: random number                              */
 /***************************************************/
-int random_num(int inf, int sup)
-{
+int random_num(int inf, int sup) {
   /* Comprobación de parámetros */
-  if (inf > sup || inf < 0 || inf > RAND_MAX || sup > RAND_MAX)
+  if (inf > sup || inf < 0)
     return ERR;
   
   return inf + (int) ((sup - inf + 1.0) * (rand() / (RAND_MAX + 1.0)));
