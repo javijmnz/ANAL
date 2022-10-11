@@ -10,8 +10,9 @@ PLOTTERS = stats1
 PLOTS = stats1_bien stats1_mal
 
 LIMNIF_STATS1 = 1
-LIMSUP_STATS1 = 1600
-NUMN_STATS1 = 100000000
+LIMSUP_STATS1 = 100
+NUMN_STATS1 = 10000000
+RAND_MAX_MAL = 440
 
 all : $(EXE) $(PLOTTERS)
 plots : run_stats1 $(PLOTS)
@@ -88,4 +89,4 @@ $(PLOTS): % : run_stats1
 
 run_stats1 : stats1
 	@echo "generando stats1_mal.txt y stats1_bien.txt"
-	@stats/stats1.plotter -limInf $(LIMNIF_STATS1) -limSup $(LIMSUP_STATS1) -numN $(NUMN_STATS1)
+	@stats/stats1.plotter -limInf $(LIMNIF_STATS1) -limSup $(LIMSUP_STATS1) -numN $(NUMN_STATS1) -randMaxMal $(RAND_MAX_MAL)

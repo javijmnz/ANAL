@@ -34,11 +34,11 @@ int random_num(int inf, int sup) {
   if (inf > sup || inf < 0)
     return ERR;
   
-  return inf + (int) ((sup - inf + 1.0) * (rand() / (RAND_MAX + 1.0)));
+  return inf + (int) ((sup - inf + 1.0) * (rand() / ((double)RAND_MAX + 1.0)));
 }
 
-int random_num_mal(int inf, int sup) {
-  return inf + (random_num(0, 2000) % (sup - inf + 1));
+int random_num_mal(int inf, int sup, int rand_max) {
+  return inf + (random_num(0, rand_max) % (sup - inf + 1));
 }
 
 /***************************************************/

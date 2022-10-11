@@ -7,19 +7,20 @@
 int main(int argc, char** argv)
 {
   int i;
-  unsigned int inf, sup, num, j;
+  unsigned int inf, sup, num, j, rand_max_mal;
   FILE *pf = NULL;
   int *count = NULL;
 
   srand(time(NULL));
 
-  if (argc != 7) {
+  if (argc != 9) {
     fprintf(stderr, "Input parameter error:\n\n");
-    fprintf(stderr, "%s -limInf <int> -limSup <int> -numN <int>\n", argv[0]);
+    fprintf(stderr, "%s -limInf <int> -limSup <int> -numN <int> -randMaxMal <int>\n", argv[0]);
     fprintf(stderr, "Where:\n");
     fprintf(stderr, " -limInf : Lower limit.\n");
     fprintf(stderr, " -limSup : Upper limit.\n");
     fprintf(stderr, " -numN : ammout of mumbers to generate.\n");
+    fprintf(stderr, " -randMaxMal: value for RAND_MAX in the non-equiprobable function");
     exit(-1);
   }
 
@@ -31,6 +32,8 @@ int main(int argc, char** argv)
       sup = atoi(argv[++i]);
     } else if (strcmp(argv[i], "-numN") == 0) {
       num = atoi(argv[++i]);
+    } else if (strcmp(argv[i], "-randMaxMal") == 0) {
+      rand_max_mal = atoi(argv[++i]);
     } else {
       fprintf(stderr, "Wrong Parameter %s \n", argv[i]);
     }
@@ -49,6 +52,7 @@ int main(int argc, char** argv)
   for(j = 0; j < num; j++) {
     i = random_num(inf, sup);
     count[i - inf]++;
+
   }
 
   for (j = inf; j <= sup; j++) {
@@ -72,7 +76,7 @@ int main(int argc, char** argv)
 
   /* print data */
   for(j = 0; j < num; j++) {
-    i = random_num_mal(inf, sup);
+    i = random_num_mal(inf, sup, rand_max_mal);
     count[i - inf]++;
   }
 
