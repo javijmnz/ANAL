@@ -16,7 +16,7 @@ void swap(int *e1, int *e2) {
   int aux;
 
   /* Comprueba parámetros */
-  if (!e1 || !e2)
+  if (!e1 || !e2 || *e1 == *e2)
     return;
   
   aux = *e1;
@@ -37,14 +37,13 @@ int SelectSort(int* array, int ip, int iu)
   if (!array || ip < 0)
     return ERR;
   
-  minimo = ip;
-  
   /* Algoritmo */
   for (i = ip; i < iu; i++){
-    minimo = min(array, i+1, iu);
+    minimo = min(array, i, iu);
     sum += iu - i;
     swap(array + i, array + minimo);   
   }
+  
   return sum;
 }
 

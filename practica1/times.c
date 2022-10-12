@@ -54,7 +54,7 @@ short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime
 
   for (i = 0; i < n_perms; i++) {
     /* Ordena la permutación i-ésima */
-    ob = metodo(array[i],0, N - 1);
+    ob = metodo(array[i], 0, N - 1);
     if (ob == ERR) {
       free_perms(array, n_perms);
       return ERR;
@@ -99,7 +99,7 @@ short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num
   int i, j, flag, num_ptimes, correction;
   
   /* Comprueba parámetros */
-  if (!method || !file || num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0 || incr < 1)
+  if (!method || !file || num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0)
     return ERR;
   
   /* Cálculo del número de tamaños a probar */
@@ -136,6 +136,10 @@ short save_time_table(char *file, PTIME_AA ptime, int n_times)
 {
   FILE *pf;
   int i;
+
+  /* Comprueba parámetros */
+  if (!file || !ptime || n_times <= 0)
+    return ERR;
   
   /* Abre el archivo en modo escritura */
   pf = fopen(file, "w");
