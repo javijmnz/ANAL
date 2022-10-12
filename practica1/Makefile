@@ -14,8 +14,14 @@ LIMSUP_STATS1 = 100
 NUMN_STATS1 = 10000000
 RAND_MAX_MAL = 440
 
+FILENAME_STATS_5 = exercise5_javi.log
+OUTPUT_STATS_5 = stats5_
+IMAGE_TYPE = .png
+COLUMS_STATS_5 = 2 3
+
 all : $(EXE) $(PLOTTERS)
 plots : run_stats1 $(PLOTS)
+plots5: $(COLUMS_STATS_5)
 
 
 .PHONY : clean clean_plots
@@ -56,7 +62,7 @@ sorting.o : sorting.c sorting.h
 	@echo "# Has changed $<"
 	$(CC) $(CFLAGS) -c $<
 
- times.o : times.c times.h
+times.o : times.c times.h
 	@echo "#---------------------------"
 	@echo "# Generating $@ "
 	@echo "# Depepends on $^"
@@ -90,3 +96,7 @@ $(PLOTS): % : run_stats1
 run_stats1 : stats1
 	@echo "generando stats1_mal.txt y stats1_bien.txt"
 	@stats/stats1.plotter -limInf $(LIMNIF_STATS1) -limSup $(LIMSUP_STATS1) -numN $(NUMN_STATS1) -randMaxMal $(RAND_MAX_MAL)
+
+$(COLUMS_STATS_5): 
+	@echo "ploteando stats 5 columna $@"
+	@gnuplot -c stats/stats5.gp stats/$(FILENAME_STATS_5) $(OUTPUT_STATS_5)$@$(IMAGE_TYPE) $@
