@@ -77,7 +77,7 @@ int min(int* array, int ip, int iu)
   /* Busca el mínimo */
   minimo = ip;
   
-  for (j = ip; j <= iu; j++)
+  for (j = ip + 1; j <= iu; j++)
       if (array[j] < array[minimo])
         minimo = j;
   
