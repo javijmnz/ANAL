@@ -5,7 +5,7 @@
 
 CC = gcc -ansi -pedantic
 CFLAGS = -Wall
-EXE = exercise1 exercise2 exercise3 exercise4 exercise5 pruebas
+EXE = exercise1 exercise2 exercise3 exercise4 exercise5 pruebas stats/stats1_alt
 PLOTTERS = stats1
 PLOTS = stats1_bien stats1_mal
 
