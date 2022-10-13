@@ -34,7 +34,6 @@ int main(int argc, char** argv){
       fprintf(stderr, "Wrong Parameter %s \n", argv[i]);
     }
   }
-    printf("Rand max: %d", RAND_MAX);
 
     array = calloc(numInter, sizeof(int));
     if(!array){
