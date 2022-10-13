@@ -14,14 +14,19 @@ LIMSUP_STATS1 = 100
 NUMN_STATS1 = 10000000
 RAND_MAX_MAL = 440
 
-FILENAME_STATS_5 = exercise5_javi.log
+MIN_STATS5 = 1
+MAX_STATS5 = 1000
+INCR_STATS5 = 1
+
+FILENAME_STATS_5 = stats5.txt
 OUTPUT_STATS_5 = stats5_
 IMAGE_TYPE = .png
-COLUMS_STATS_5 = 2 3
+COLUMNS_STATS_5 = 2 3
 
 all : $(EXE) $(PLOTTERS)
-plots : run_stats1 $(PLOTS)
-plots5: $(COLUMS_STATS_5)
+plots: plots1 plots5
+plots1 : run_stats1 $(PLOTS)
+plots5: run_stats5 $(COLUMNS_STATS_5)
 
 
 .PHONY : clean clean_plots
@@ -97,6 +102,10 @@ run_stats1 : stats1
 	@echo "generando stats1_mal.txt y stats1_bien.txt"
 	@stats/stats1.plotter -limInf $(LIMNIF_STATS1) -limSup $(LIMSUP_STATS1) -numN $(NUMN_STATS1) -randMaxMal $(RAND_MAX_MAL)
 
-$(COLUMS_STATS_5): 
+run_stats5 : exercise5
+	@echo generando stats5.txt
+	@./exercise5 -num_min $(MIN_STATS5) -num_max $(MAX_STATS5) -incr $(INCR_STATS5) -numP 100 -outputFile stats/$(FILENAME_STATS_5)
+
+$(COLUMNS_STATS_5):
 	@echo "ploteando stats 5 columna $@"
-	@gnuplot -c stats/stats5.gp stats/$(FILENAME_STATS_5) $(OUTPUT_STATS_5)$@$(IMAGE_TYPE) $@
+	@gnuplot -c stats/stats5.gp stats/$(FILENAME_STATS_5) stats/$(OUTPUT_STATS_5)$@$(IMAGE_TYPE) $@
