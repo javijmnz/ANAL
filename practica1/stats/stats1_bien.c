@@ -41,7 +41,7 @@ int main(int argc, char** argv){
         return 1;
     }
 
-    pf = fopen("stats_alt.txt", "w");
+    pf = fopen("stats1_bien.txt", "w");
     if (!pf) {
         free(array);
         return ERR;

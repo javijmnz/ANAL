@@ -3,9 +3,8 @@
  * Descripcion: Implementation of time measurement functions
  *
  * Fichero: times.c
- * Autor: Carlos Aguirre Maeso
+ * Autores: Javier Jiménez, Pablo Fernández
  * Version: 1.0
- * Fecha: 16-09-2019
  *
  */
 
@@ -29,7 +28,7 @@ void free_perms(int **array, int num){
 /***************************************************/
 /* Function: average_sorting_time Date:            */
 /*                                                 */
-/* Your documentation                              */
+/* Comentarios en el código                        */
 /***************************************************/
 short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime)
 {
@@ -91,12 +90,12 @@ short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime
 /***************************************************/
 /* Function: generate_sorting_times Date:          */
 /*                                                 */
-/* Your documentation                              */
+/* Comentarios en el código                        */
 /***************************************************/
 short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num_max, int incr, int n_perms)
 {
   PTIME_AA sorting_times;
-  int i, j, flag, num_ptimes, correction;
+  int i, j, flag, num_ptimes;
   
   /* Comprueba parámetros */
   if (!method || !file || num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0)
@@ -130,7 +129,7 @@ short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num
 /***************************************************/
 /* Function: save_time_table Date:                 */
 /*                                                 */
-/* Your documentation                              */
+/* Comentarios en el código                        */
 /***************************************************/
 short save_time_table(char *file, PTIME_AA ptime, int n_times)
 {

@@ -1,6 +1,6 @@
 /********************************************************/
-/* Program: exercise2      Date: 14/10/2022             */
-/* Authors: Javier Jiménez y Pablo Fernández            */
+/* Program: exeercise2      Date:                       */
+/* Authors:                                             */
 /*                                                      */
 /* Program that generates random permutations           */
 /*                                                      */
@@ -33,8 +33,8 @@ int main(int argc, char** argv)
   }
 
   printf("Practice number 1, section 2\n");
-  printf("Done by: your names\n");
-  printf("Group: Your group\n");
+  printf("Done by: Javier Jiménez, Pablo Fernández\n");
+  printf("Group: 1202\n");
 
   /* check command line */
   for(i = 1; i < argc; i++) {

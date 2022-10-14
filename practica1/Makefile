@@ -5,39 +5,27 @@
 
 CC = gcc -ansi -pedantic
 CFLAGS = -Wall
-EXE = exercise1 exercise2 exercise3 exercise4 exercise5 pruebas stats/stats1_alt
-PLOTTERS = stats1
-PLOTS = stats1_bien stats1_mal
+EXE = exercise1 exercise2 exercise3 exercise4 exercise5
+PLOTTERS = stats1_bien stats1_mal
 
-LIMNIF_STATS1 = 1
-LIMSUP_STATS1 = 100
-NUMN_STATS1 = 10000000
-RAND_MAX_MAL = 440
+INTER_STATS1 = 200000
+NUMINTER_STATS1 = 1000
+AVG_STATS1 = 100
 
 MIN_STATS5 = 1
 MAX_STATS5 = 1000
 INCR_STATS5 = 1
-
-FILENAME_STATS_5 = stats5.txt
-OUTPUT_STATS_5 = stats5_
-IMAGE_TYPE = .png
-COLUMNS_STATS_5 = 2 3
+FILENAME_STATS5 = stats5.txt
+NUMP_STATS5 = 100
 
 all : $(EXE) $(PLOTTERS)
-plots: plots1 plots5
-plots1 : run_stats1 $(PLOTS)
-plots5: run_stats5 $(COLUMNS_STATS_5)
+stats : stats1 stats5
 
-
-.PHONY : clean clean_plots
+.PHONY : clean
 clean :
 	rm -f -r *.o core $(EXE)
 	rm -f stats/*.plotter
 	rm -f stats/*.o
-
-clean_plots :
-	rm -f stats/*.txt
-	rm -f stats/*.png
 
 $(EXE) : % : %.o sorting.o times.o permutations.o
 	@echo "#---------------------------"
@@ -45,13 +33,6 @@ $(EXE) : % : %.o sorting.o times.o permutations.o
 	@echo "# Depepends on $^"
 	@echo "# Has changed $<"
 	$(CC) $(CFLAGS) -o $@ $@.o sorting.o times.o permutations.o
-
-$(PLOTTERS) : % : stats/%.o sorting.o times.o permutations.o
-	@echo "#---------------------------"
-	@echo "# Generating $@ "
-	@echo "# Depepends on $^"
-	@echo "# Has changed $<"
-	$(CC) $(CFLAGS) -o stats/$@.plotter stats/$@.o sorting.o times.o permutations.o
 
 permutations.o : permutations.c permutations.h
 	@echo "#---------------------------"
@@ -80,32 +61,32 @@ exercise1_test:
 
 exercise2_test:
 	@echo Running exercise2
-	@./exercise2 -size 20 -numP 5
+	@./exercise2 -size 1 -numP 5
 
 exercise3_test:
 	@echo Running exercise3
-	@./exercise3 -size 9 -numP 5
+	@./exercise3 -size 1 -numP 5
 
 exercise4_test:
 	@echo Running exercise4
-	@./exercise4 -size 10
+	@./exercise4 -size 1
 
 exercise5_test:
 	@echo Running exercise5
 	@./exercise5 -num_min 1 -num_max 5 -incr 1 -numP 5 -outputFile exercise5.log
 
-$(PLOTS): % : run_stats1
-	@echo "ploteando $@"
-	@gnuplot stats/$@.gp
+$(PLOTTERS) : % : stats/%.o sorting.o times.o permutations.o
+	@echo "#---------------------------"
+	@echo "# Generating $@ "
+	@echo "# Depepends on $^"
+	@echo "# Has changed $<"
+	$(CC) $(CFLAGS) -o stats/$@.plotter stats/$@.o sorting.o times.o permutations.o
 
-run_stats1 : stats1
+stats1 : stats1_bien stats1_mal
 	@echo "generando stats1_mal.txt y stats1_bien.txt"
-	@stats/stats1.plotter -limInf $(LIMNIF_STATS1) -limSup $(LIMSUP_STATS1) -numN $(NUMN_STATS1) -randMaxMal $(RAND_MAX_MAL)
+	@stats/stats1_bien.plotter -inter $(INTER_STATS1) -numInter $(NUMINTER_STATS1) -avg $(AVG_STATS1)
+	@stats/stats1_mal.plotter -inter $(INTER_STATS1) -numInter $(NUMINTER_STATS1) -avg $(AVG_STATS1)
 
-run_stats5 : exercise5
+stats5 : exercise5
 	@echo generando stats5.txt
-	@./exercise5 -num_min $(MIN_STATS5) -num_max $(MAX_STATS5) -incr $(INCR_STATS5) -numP 100 -outputFile stats/$(FILENAME_STATS_5)
-
-$(COLUMNS_STATS_5):
-	@echo "ploteando stats 5 columna $@"
-	@gnuplot -c stats/stats5.gp stats/$(FILENAME_STATS_5) stats/$(OUTPUT_STATS_5)$@$(IMAGE_TYPE) $@
+	@./exercise5 -num_min $(MIN_STATS5) -num_max $(MAX_STATS5) -incr $(INCR_STATS5) -numP $(NUMP_STATS5) -outputFile stats/$(FILENAME_STATS5)

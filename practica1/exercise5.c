@@ -1,6 +1,6 @@
 /***********************************************************/
-/* Program: exercise5                  Date: 14/10/2022    */
-/* Authors: Javier Jiménez y Pablo Fernández               */
+/* Program: exercise5                  Date:               */
+/* Authors:                                                */
 /*                                                         */
 /* Programa that writes in a file                          */
 /* the average times of the algorithm                      */
@@ -45,8 +45,8 @@ int main(int argc, char** argv)
   }
 
   printf("Practice number 1, section 5\n");
-  printf("Done by: your names\n");
-  printf("Group: Your group\n");
+  printf("Done by: Javier Jiménez, Pablo Fernández\n");
+  printf("Group: 1202\n");
   
   /* check command line */
   for(i = 1; i < argc ; i++) {
@@ -66,7 +66,7 @@ int main(int argc, char** argv)
   }
 
   /* compute times */
-  ret = generate_sorting_times(SelectSortInv, nombre,num_min, num_max,incr, n_perms);
+  ret = generate_sorting_times(SelectSort, nombre,num_min, num_max,incr, n_perms);
   if (ret == ERR) { /* ERR_TIME should be a negative number */
     printf("Error in function generate_sorting_times\n");
     exit(-1);

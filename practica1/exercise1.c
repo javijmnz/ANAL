@@ -1,6 +1,6 @@
 /***********************************************/
-/* Program: exercise1     Date: 14/10/2022     */
-/* Authors: Javier Jiménez y Pablo Fernández   */
+/* Program: exercise1     Date:                */
+/* Authors:                                    */
 /*                                             */
 /* Program that generates two random nunmbers  */
 /* between two given numbers                   */
@@ -20,8 +20,7 @@
 
 int main(int argc, char** argv)
 {
-  int i;
-  int inf, sup, num, j;
+  int i, inf, sup, num, j;
 
   srand(time(NULL));
 
@@ -35,8 +34,8 @@ int main(int argc, char** argv)
     exit(-1);
   }
   printf("Practice no 1, Section 1\n");
-  printf("Done by: Your names\n");
-  printf("Grupo: Your group\n");
+  printf("Done by: Javier Jiménez, Pablo Fernández\n");
+  printf("Grupo: 1202\n");
 
   /* check command line */
   for(i = 1; i < argc; i++) {
