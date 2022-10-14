@@ -26,13 +26,15 @@ void swap(int *e1, int *e2) {
 
 /***************************************************/
 /* Function: SelectSort    Date:                   */
-/* Ordena una permutación de enteros en orden ascendente               
-/* Input:                                         
-/*  int* array: puntero a la permutación           
-/*  int ip: índice inferior de la sección a ordenar
-/*  int iu: índice superior de la sección a ordenar
-/* Output: 
-/*  int: el número de OB realizadas si todo ha ido bien o ERR (-1) en caso contrario                                   
+/* Ordena una permutación de enteros en orden      */
+/* ascendente                                      */
+/* Input:                                          */
+/*  int* array: puntero a la permutación           */
+/*  int ip: índice inferior de la sección a ordenar*/
+/*  int iu: índice superior de la sección a ordenar*/
+/* Output:                                         */ 
+/*  int: el número de OB realizadas si todo ha ido */
+/*    bien o ERR (-1) en caso contrario            */                     
 /***************************************************/
 int SelectSort(int* array, int ip, int iu)
 {
@@ -54,13 +56,15 @@ int SelectSort(int* array, int ip, int iu)
 
 /***************************************************/
 /* Function: SelectSortInv    Date:                */
-/* Ordena permutaciones de enteros en orden descendente
-/* Input:                                         
-/*  int* array: puntero a la permutación           
-/*  int ip: índice inferior de la sección a ordenar
-/*  int iu: índice superior de la sección a ordenar
-/* Output: 
-/*  int: el número de OB realizadas si todo ha ido bien o ERR (-1) en caso contrario   
+/* Ordena permutaciones de enteros en orden        */
+/* descendente                                     */
+/* Input:                                          */
+/*  int* array: puntero a la permutación           */
+/*  int ip: índice inferior de la sección a ordenar*/
+/*  int iu: índice superior de la sección a ordenar*/
+/* Output:                                         */
+/*  int: el número de OB realizadas si todo ha ido */
+/*    bien o ERR (-1) en caso contrario            */
 /***************************************************/
 int SelectSortInv(int* array, int ip, int iu)
 {
