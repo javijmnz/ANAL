@@ -18,7 +18,7 @@
 
 /***************************************************/
 /* Function: random_num Date:                      */
-/* Authors:                                        */
+/* Authors: Javier Jiménez y Pablo Fernández       */
 /*                                                 */
 /* Rutine that generates a random number           */
 /* between two given numbers                       */

@@ -1,6 +1,6 @@
 /**************************************************/
-/* Programa: ejercise4       Date:                */
-/* Authors:                                       */
+/* Programa: ejercise4       Date: 14/10/2022     */
+/* Authors: Javier Jiménez y Pablo Fernández      */
 /*                                                */
 /* Program that checks InsertSort                 */
 /*                                                */

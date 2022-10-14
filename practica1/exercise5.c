@@ -1,6 +1,6 @@
 /***********************************************************/
-/* Program: exercise5                  Date:               */
-/* Authors:                                                */
+/* Program: exercise5                  Date: 14/10/2022    */
+/* Authors: Javier Jiménez y Pablo Fernández               */
 /*                                                         */
 /* Programa that writes in a file                          */
 /* the average times of the algorithm                      */

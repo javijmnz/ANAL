@@ -1,6 +1,6 @@
 /**************************************************/
-/* Program: exercise3       Date:                 */
-/* Authors:                                       */
+/* Program: exercise3       Date: 14/10/2022      */
+/* Authors: Javier Jiménez y Pablo Fernández      */
 /*                                                */
 /* Program that generates N random permutations   */
 /* with M elementos each                          */

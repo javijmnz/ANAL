@@ -1,6 +1,6 @@
 /********************************************************/
-/* Program: exeercise2      Date:                       */
-/* Authors:                                             */
+/* Program: exercise2      Date: 14/10/2022             */
+/* Authors: Javier Jiménez y Pablo Fernández            */
 /*                                                      */
 /* Program that generates random permutations           */
 /*                                                      */

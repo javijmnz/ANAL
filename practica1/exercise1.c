@@ -1,6 +1,6 @@
 /***********************************************/
-/* Program: exercise1     Date:                */
-/* Authors:                                    */
+/* Program: exercise1     Date: 14/10/2022     */
+/* Authors: Javier Jiménez y Pablo Fernández   */
 /*                                             */
 /* Program that generates two random nunmbers  */
 /* between two given numbers                   */
