@@ -1,6 +1,6 @@
 /**************************************************/
-/* Programa: ejercise4       Date: 14/10/2022     */
-/* Authors: Javier Jiménez y Pablo Fernández      */
+/* Programa: ejercise4       Date:                */
+/* Authors:                                       */
 /*                                                */
 /* Program that checks InsertSort                 */
 /*                                                */
@@ -30,8 +30,8 @@ int main(int argc, char** argv)
     return 0;
   }
   printf("Practice number 1, section 4\n");
-  printf("Done by: your names\n");
-  printf("Group: Your group\n");
+  printf("Done by: Javier Jiménez, Pablo Fernández\n");
+  printf("Group: 1202\n");
 
   /* check command line */
   for(i = 1; i < argc; i++) {
@@ -52,7 +52,7 @@ int main(int argc, char** argv)
   ret =SelectSort(perm, 0, tamano-1);
 
   if (ret == ERR) {
-    printf("Error: Error in SelectSort\n");
+    printf("Error: Error in BubbleSort\n");
     free(perm);
     exit(-1);
   }

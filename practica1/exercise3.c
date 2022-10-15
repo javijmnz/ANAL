@@ -1,6 +1,6 @@
 /**************************************************/
-/* Program: exercise3       Date: 14/10/2022      */
-/* Authors: Javier Jiménez y Pablo Fernández      */
+/* Program: exercise3       Date:                 */
+/* Authors:                                       */
 /*                                                */
 /* Program that generates N random permutations   */
 /* with M elementos each                          */
@@ -34,8 +34,8 @@ int main(int argc, char** argv)
   }
 
   printf("Practice number 1, section 3\n");
-  printf("Done by: your names\n");
-  printf("Group: Your group\n");
+  printf("Done by: Javier Jiménez, Pablo Fernández\n");
+  printf("Group: 1202\n");
 
 
   /* check command line la linea de comandos */
@@ -68,3 +68,4 @@ int main(int argc, char** argv)
 
   return 0;
 }
+

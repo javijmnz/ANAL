@@ -41,7 +41,7 @@ int main(int argc, char** argv){
         return 1;
     }
 
-    pf = fopen("stats_alt.txt", "w");
+    pf = fopen("stat1_mal.txt", "w");
     if (!pf) {
         free(array);
         return ERR;
@@ -50,7 +50,7 @@ int main(int argc, char** argv){
     for (j = 0; j < inter; j++){
         for(k = 0; k < numInter; k++){
             for(i = 0; i < avg; i++){
-                array[random_num(0, numInter * inter) / inter]++;
+                array[random_num_mal(0, numInter * inter) / inter]++;
             }
         }
     }

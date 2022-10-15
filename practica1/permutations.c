@@ -3,9 +3,8 @@
  * Descripcion: Implementation of function that generate permutations
  *
  * File: permutations.c
- * Autor: Carlos Aguirre
+ * Autores: Javier Jiménez, Pablo Fernández
  * Version: 1.1
- * Fecha: 21-09-2019
  *
  */
 
@@ -37,8 +36,8 @@ int random_num(int inf, int sup) {
   return inf + (int) ((sup - inf + 1.0) * (rand() / ((double)RAND_MAX + 1.0)));
 }
 
-int random_num_mal(int inf, int sup, int rand_max) {
-  return inf + (random_num(0, rand_max) % (sup - inf + 1));
+int random_num_mal(int inf, int sup) {
+  return inf + (rand() % (sup - inf + 1));
 }
 
 /***************************************************/
@@ -132,4 +131,3 @@ int ** generate_permutations(int n_perms, int N) {
   
   return perms;
 }
-

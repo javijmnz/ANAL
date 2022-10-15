@@ -3,9 +3,8 @@
  * Descripcion: Implementation of time measurement functions
  *
  * Fichero: times.c
- * Autor: Carlos Aguirre Maeso
+ * Autores: Javier Jiménez, Pablo Fernández
  * Version: 1.0
- * Fecha: 16-09-2019
  *
  */
 
@@ -29,7 +28,18 @@ void free_perms(int **array, int num){
 /***************************************************/
 /* Function: average_sorting_time Date:            */
 /*                                                 */
-/* Your documentation                              */
+/* Calcula los tiempos de ejecución de una función */
+/* de ordenación de permutadciones de enteros      */
+/* Input:                                          */
+/*  pfunc_sort metodo: puntero a la función de     */
+/*    ordenacción                                  */
+/*  int n_perms: número de permutaciones a ordenar */
+/*  int N: tamaño de las permutaciones a ordenar   */
+/*  PTIME_AA ptime: puntero a la estructura donde  */
+/*    se almacenan los tiempos                     */
+/* Output:                                         */
+/*  short: OK si todo ha ido bien o ERR si ha      */
+/*    habido algún problema                        */
 /***************************************************/
 short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime)
 {
@@ -91,12 +101,30 @@ short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime
 /***************************************************/
 /* Function: generate_sorting_times Date:          */
 /*                                                 */
-/* Your documentation                              */
+/* Calcula los tiempos de ejecución de una función */
+/* de ordenación de permutadciones de enteros para */
+/* un conjunto de tamaños                          */
+/* Input:                                          */
+/*  pfunc_sort method: puntero a la función de     */
+/*    ordenacción                                  */
+/*  char* file: nombre del fichero donde se va a   */
+/*    guardar la información                       */
+/*  int num_min: tamaño mínimo de las permutaciones*/
+/*    a ordenar                                    */
+/*  int num_max: tamaño máximo de las permutaciones*/
+/*    a ordenar                                    */
+/*  int incr: diferencia entre cada tamaño de      */
+/*    permutacioens para el test                   */
+/*  int n_perms: número de permutaciones a ordenar */
+/*    por cada tamaño                              */
+/* Output:                                         */
+/*  short: OK si todo ha ido bien o ERR si ha      */
+/*    habido algún problema                        */
 /***************************************************/
 short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num_max, int incr, int n_perms)
 {
   PTIME_AA sorting_times;
-  int i, j, flag, num_ptimes, correction;
+  int i, j, flag, num_ptimes;
   
   /* Comprueba parámetros */
   if (!method || !file || num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0)
@@ -130,7 +158,18 @@ short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num
 /***************************************************/
 /* Function: save_time_table Date:                 */
 /*                                                 */
-/* Your documentation                              */
+/* Guarda los tiempos de ejecución almacenados en  */
+/* unas estructuras TIME_AA en un fichero de texto */
+/* Input:                                          */ 
+/*  char* file: nombre del fichero donde se va a   */
+/*    guardar la información                       */
+/*  PTIME_AA ptime: puntero al array de estructuras*/
+/*    TIME_AA cuya información se quiere guardar   */
+/*  int n_times: tamaño del array de estructuras   */
+/*    TIME_AA                                      */
+/* Output:                                         */
+/*  short: OK si todo ha ido bien o ERR si ha      */
+/*    habido algún problema                        */
 /***************************************************/
 short save_time_table(char *file, PTIME_AA ptime, int n_times)
 {
