@@ -11,6 +11,7 @@
 
 #include "sorting.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void swap(int *e1, int *e2) {
   int aux;
@@ -106,15 +107,15 @@ int min(int* array, int ip, int iu)
 /* Function: MergeSort    Date:                */
 /***************************************************/
 int MergeSort(int* tabla, int ip, int iu) {
-  
   int medio, ob1, ob2, ob3;
+
   /* Comprueba parámetros */
-  if (!tabla || ip > iu) {
+  if (!tabla || ip > iu) 
     return ERR;
-  }
+
   /* Caso base */
   if (ip == iu)
-    return OK;
+    return 0;
   
   /* Recursión */
   medio = (ip + iu) / 2;
@@ -171,36 +172,62 @@ int merge(int* tabla, int ip, int iu, int imedio) {
 /***************************************************/
 
 int QuickSort(int* tabla, int ip, int iu){
-  int medio, ob = 0;
+  int medio, ob1, ob2 = 0, ob3 = 0;
+  printf("Iteración: ip %d // iu %d\n", ip, iu);
   /* Comprueba parámetros */
   if (!tabla || ip > iu) {
+    printf("Error de parámetros\n");
     return ERR;
   }
+
   /* Caso base */
   if (ip == iu)
     return OK;
   
-  ob += partition(tabla, ip, iu, &medio);
+  /* Recursión */
+  ob1 = partition(tabla, ip, iu, &medio);
+  if (ob1 == ERR) {
+    printf("Error ob1\n");
+    return ERR;
+  }
+
   if (ip < medio - 1)
-    ob += QuickSort(tabla, ip, medio - 1);
+    ob2 = QuickSort(tabla, ip, medio - 1);
+  if (ob2 == ERR) {
+    printf("Error ob2\n");
+    return ERR;
+  }
   
   if (medio + 1 < iu) 
-    ob += QuickSort(tabla, medio + 1, iu);
+    ob3 = QuickSort(tabla, medio + 1, iu);
+  if (ob3 == ERR) {
+    printf("Error ob3\n");
+    return ERR;
+  }
   
-  return ob;
+  return ob1 + ob2 + ob3;
 }
 
 int partition(int* tabla, int ip, int iu, int *pos) {
   int medio, i, k, ob = 0;
 
+  if (!tabla)
+    printf("Error en tabla\n");
+  if (ip > iu)
+    printf("Error en índices: %d %d\n", ip, iu);
+  if (!pos)
+    printf("Error en puntero\n");
+
   /* Comprueba parámetros */
-  if (!tabla || ip < iu || !pos)
+  if (!tabla || ip > iu || !pos)
     return ERR;
 
-  medio = median(tabla, ip, iu, pos);
+  median_avg(tabla, ip, iu, &medio);
+
   k = tabla[medio];
   swap(tabla + ip, tabla + medio);
   medio = ip;
+
   for (i = ip + 1; i <= iu; i++) {
     if (tabla[i] < k) {
       medio++;
@@ -208,15 +235,29 @@ int partition(int* tabla, int ip, int iu, int *pos) {
     }
     ob++;
   }
+
   swap(tabla + ip, tabla + medio);
+
+  *pos = medio;
+
   return ob;
 }
 
 int median(int *tabla, int ip, int iu, int *pos) {
-  /* Comprueba parámetros */
-  if (!tabla || ip > iu || !pos)
-    return ERR;
+  /* No es necesario comprobar parámetros porque ya lo hemos hecho en partition */
+  *pos = ip;
+  return 0;
+}
 
-  *pos = 0;
-  return OK;
+int median_avg(int *tabla, int ip, int iu, int *pos) {
+  /* No es necesario comprobar parámetros porque ya lo hemos hecho en partition */
+  *pos = (ip + iu) / 2;
+  return 0;
+}
+
+int median_stat(int *tabla, int ip, int iu, int *pos) {
+  /* No es necesario comprobar parámetros porque ya lo hemos hecho en partition */
+
+  /* ME ESTÁ PETANDO UN OJO CON ESTA FUNCIÓN */
+  return 3;
 }
