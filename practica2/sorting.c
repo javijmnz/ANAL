@@ -257,7 +257,7 @@ int median_avg(int *tabla, int ip, int iu, int *pos) {
 
 int median_stat(int *tabla, int ip, int iu, int *pos) {
   /* No es necesario comprobar parámetros porque ya lo hemos hecho en partition */
-
+  
   /* ME ESTÁ PETANDO UN OJO CON ESTA FUNCIÓN */
   return 3;
 }
