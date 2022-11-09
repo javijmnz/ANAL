@@ -1,0 +1,15 @@
+TO DO
+    Cambiar ob del mergesort para contar memoria reservada
+    times.c sacar el generate perms fuera
+    Comprobar errores en absolutamente todos los lados
+    
+
+PLOTS
+    Permutaciones aleatorias
+        Mergesort tiempo con funcion de ref
+        Quicksort tiempo con funcion de ref 
+        Mergesort ob todas
+        Quicksort ob todas
+    
+    Comparación tiempo
+        
