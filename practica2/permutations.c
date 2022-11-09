@@ -37,6 +37,10 @@ int random_num(int inf, int sup) {
 }
 
 int random_num_mal(int inf, int sup) {
+  /* Comprobación de parámetros */
+  if (inf > sup || inf < 0)
+    return ERR;
+  
   return inf + (rand() % (sup - inf + 1));
 }
 
@@ -74,6 +78,9 @@ int * generate_perm(int N)
   /* Permuta los números */
   for (i = 0; i < N; i++) {
     j = random_num(i, N-1);
+    if (j == ERR)
+      return ERR;
+
     aux = perm[i];
     perm[i] = perm[j];
     perm[j] = aux;

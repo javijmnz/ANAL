@@ -79,6 +79,9 @@ int SelectSortInv(int* array, int ip, int iu)
   /* Algoritmo */
   for (i = iu; i > ip; i--){
     minimo = min(array, ip, i);
+    if (minimo == ERR)
+      return ERR;
+    
     sum += i - ip;
     _swap(array + i, array + minimo);   
   }
