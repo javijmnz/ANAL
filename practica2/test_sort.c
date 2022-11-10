@@ -1,11 +1,13 @@
 /**************************************************/
-/* Programa: ejercise4       Date:                */
-/* Authors:                                       */
+/* Programa: test_sort       Date:                */
+/* Authors: Javier Jiménez, Pablo Fernández       */
 /*                                                */
-/* Program that checks InsertSort                 */
+/* Uses a given sorting method to sort a          */
+/* random permutation                             */
 /*                                                */
 /* Input: Command Line                            */
 /* -size: number of elements of each permutation  */
+/* -func: index of sorting method                 */
 /* Output: 0: OK, -1: ERR                         */
 /**************************************************/
 #include <stdlib.h>
@@ -37,7 +39,7 @@ int main(int argc, char** argv)
     fprintf(stderr, " \t (5) QuickSort_v3\n");
     return 0;
   }
-  printf("Practice number 2, section 4\n");
+  printf("Practice number 2, Sorting test\n");
   printf("Done by: Javier Jiménez, Pablo Fernández\n");
   printf("Group: 1202\n");
 
@@ -66,14 +68,14 @@ int main(int argc, char** argv)
   perm = generate_perm(tamano);
 
   if (perm == NULL) { /* error */
-    printf("Error: Out of memory\n");
+    printf("ERROR: Could not generate permutations\n");
     exit(-1);
   }
 
   ret = func[numfunc](perm, 0, tamano-1);
 
   if (ret == ERR) {
-    printf("Error: Error in sorting function\n");
+    printf("ERROR: Error in sorting function\n");
     free(perm);
     exit(-1);
   }

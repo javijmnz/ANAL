@@ -5,12 +5,12 @@
 
 CC = gcc -ansi -pedantic
 CFLAGS = -Wall
-EXE = exercise1 exercise2 exercise3 exercise4 exercise5
+EXE = test_sort stats_single stats_double
 
 NUM_MIN = 1
-NUM_MAX = 100001
-INCR = 1000
-NUMP = 1000
+NUM_MAX = 100
+INCR = 1
+NUMP = 10000
 
 all : $(EXE)
 
@@ -67,11 +67,12 @@ exercise5_test:
 	@./exercise5 -num_min 1 -num_max 5 -incr 1 -numP 5000 -outputFile exercise5.log
 
 tests:
+	@echo "Probando algoritmos para tamaños $(NUM_MIN)-$(NUM_MAX) con incrementos de $(INCR) y $(NUMP) permutaciones"
 	@echo "Probando MergeSort"
-	@./exercise5 -func 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_single -func 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 	@echo "Probando QuickSort_v1"
-	@./exercise5 -func 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_single -func 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 	@echo "Probando QuickSort_v2"
-	@./exercise5 -func 4 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_single -func 4 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 	@echo "Probando QuickSort_v3"
-	@./exercise5 -func 5 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_single -func 5 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)

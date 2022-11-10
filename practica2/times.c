@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <math.h>
 
 /* FUNCIONES PRIVADAS */
 
@@ -24,6 +25,8 @@ void free_perms(int **array, int num){
     free(array[i]);
   free(array);
 }
+
+void perm_worst_case_mergesort_rec(int pot, int*array); 
 
 /***************************************************/
 /* Function: average_sorting_time Date:            */
@@ -41,8 +44,7 @@ void free_perms(int **array, int num){
 /*  short: OK si todo ha ido bien o ERR si ha      */
 /*    habido algún problema                        */
 /***************************************************/
-short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime)
-{
+short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime){
   int **array, total_ob = 0, i, ob, min_ob, max_ob;
   clock_t comienzo, final;
   
@@ -98,7 +100,7 @@ short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime
   return OK;
 }
 
-short average_sorting_time_alt(pfunc_sort metodo, int n_perms, int **array, PTIME_AA ptime) {
+short average_sorting_time_alt(pfunc_sort metodo, int n_perms, int N, int **array, PTIME_AA ptime) {
   int total_ob = 0, i, ob, min_ob, max_ob;
   clock_t comienzo, final;
   
@@ -117,7 +119,6 @@ short average_sorting_time_alt(pfunc_sort metodo, int n_perms, int **array, PTIM
     /* Ordena la permutación i-ésima */
     ob = metodo(array[i], 0, N - 1);
     if (ob == ERR) {
-      free_perms(array, n_perms);
       return ERR;
     }
     
@@ -134,9 +135,6 @@ short average_sorting_time_alt(pfunc_sort metodo, int n_perms, int **array, PTIM
   
   /* Termina el test de rendimiento*/
   final = clock();
-  
-  /* Libera las permutaciones */
-  free_perms(array, n_perms);
 
   /* Almacenamos los datos necesarios en la estructura ptime */
   ptime->n_elems = n_perms;
@@ -172,8 +170,7 @@ short average_sorting_time_alt(pfunc_sort metodo, int n_perms, int **array, PTIM
 /*  short: OK si todo ha ido bien o ERR si ha      */
 /*    habido algún problema                        */
 /***************************************************/
-short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num_max, int incr, int n_perms)
-{
+short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num_max, int incr, int n_perms){
   PTIME_AA sorting_times;
   int i, j, flag, num_ptimes;
   
@@ -206,13 +203,12 @@ short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num
   return flag;
 }
 
-short generate_sorting_times_alt(pfunc_sort method, char* file, int num_min, int num_max, int incr, int n_perms)
-{
+short generate_sorting_times_2func(pfunc_sort method_1, pfunc_sort method_2, char* file_1, char* file_2, int num_min, int num_max, int incr, int n_perms){
   PTIME_AA sorting_times_1, sorting_times_2;
-  int i, j, flag_1, flag_2, num_ptimes;
+  int i, j, flag_1, flag_2, num_ptimes, **perms;
   
   /* Comprueba parámetros */
-  if (!method || !file || num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0)
+  if (!method_1 ||!method_2 || !file_1 || !file_2 || num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0)
     return ERR;
   
   /* Cálculo del número de tamaños a probar */
@@ -225,20 +221,57 @@ short generate_sorting_times_alt(pfunc_sort method, char* file, int num_min, int
   
   sorting_times_2 = (PTIME_AA) malloc(num_ptimes * sizeof(TIME_AA));
   if (!sorting_times_2){
-    free(sorting_times_2)
+    free(sorting_times_2);
     return ERR;
   }
     
   
   /* Cálculo de los sorting times para cada tamaño */
   for (i = num_min, j = 0, flag_1 = OK, flag_2 = OK ; i <= num_max && flag_1 == OK && flag_2 == OK; i+= incr, j++)
-    flag_1 = average_sorting_time(method, n_perms, i, sorting_times_1 + j);
-    flag_2 = average_sorting_time(method, n_perms, i, sorting_times_2 + j);
+    perms = generate_permutations(n_perms, i);
+    flag_1 = average_sorting_time_alt(method_1, n_perms, i, perms, sorting_times_1 + j);
+    flag_2 = average_sorting_time_alt(method_2, n_perms, i, perms, sorting_times_2 + j);
   
   /* Control de errores */
   if (flag_1 == ERR || flag_2 == ERR) {
     free(sorting_times_1);
     free(sorting_times_2);
+    return ERR;
+  }
+
+  /* Guarda los sorting times en un fichero */
+  flag_1 = save_time_table(file_1, sorting_times_1, num_ptimes);
+  flag_2 = save_time_table(file_2, sorting_times_2, num_ptimes);
+
+  free(sorting_times_1);
+  free(sorting_times_2);
+
+  return (flag_1 || flag_2);
+}
+
+short generate_sorting_times_worst(pfunc_sort method, char* file, int num_min, int num_max, int incr, int n_perms){
+  PTIME_AA sorting_times;
+  int i, j, flag, num_ptimes;
+  
+  /* Comprueba parámetros */
+  if (!method || !file || num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0)
+    return ERR;
+  
+  /* Cálculo del número de tamaños a probar */
+  num_ptimes = (num_max - num_min) / incr + 1;
+
+  /* Reserva de memoria para las estructuras que almacenan los datos */
+  sorting_times = (PTIME_AA) malloc(num_ptimes * sizeof(TIME_AA));
+  if (!sorting_times)
+    return ERR;
+  
+  /* Cálculo de los sorting times para cada tamaño */
+  for (i = num_min, j = 0, flag = OK; i <= num_max && flag == OK; i+= incr, j++)
+    flag = average_sorting_time(method, n_perms, i, sorting_times + j);
+  
+  /* Control de errores */
+  if (flag == ERR) {
+    free(sorting_times);
     return ERR;
   }
 
@@ -286,6 +319,37 @@ short save_time_table(char *file, PTIME_AA ptime, int n_times)
   
   fclose(pf);
   return OK;
+}
+
+int* perm_worst_case_mergesort(int pot){
+  int *array, i, size = (int) pow(pot, 2);
+
+  array = (int*) malloc(size * sizeof(int));
+  if (!array)
+    return NULL;
+  
+  for(i = 0; i < size; i++)
+    array[i] = i;
+
+  perm_worst_case_mergesort_rec(pot, array);
+  
+  return array;
+}
+
+void perm_worst_case_mergesort_rec(int pot, int*array) {
+  int i, size;
+  if(pot == 0){
+    array[0] = 1;
+    return; 
+  }
+
+  perm_worst_case_mergesort_rec(pot - 1, array);
+  perm_worst_case_mergesort_rec(pot - 1, array + (int) pow(pot, 2));
+  size = pow(pot - 1, 2);
+  for(i = 0; i < size; i++){
+    array[i] = 2 * array[i];
+    array[size + i] = 2 * array[i] - 1;
+  }
 }
 
 
