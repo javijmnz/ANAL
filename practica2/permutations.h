@@ -24,5 +24,6 @@ int random_num_mal(int inf, int sup);
 int* generate_perm(int N);
 int** generate_permutations(int n_perms, int N);
 int *generate_mergesort_worst_perm(int pot);
+int * generate_quicksort_worst_perm(int N);
 
 #endif

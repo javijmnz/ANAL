@@ -167,3 +167,17 @@ int *generate_mergesort_worst_perm(int pot) {
   
   return array;
 }
+
+int * generate_quicksort_worst_perm(int N){
+  int *array, i;
+
+  array = (int*) malloc(N * sizeof(int));
+  if (!array)
+    return NULL;
+
+  for (i = 0; i < N; i++){
+    array[i] = i;
+  }
+
+  return array;
+}
