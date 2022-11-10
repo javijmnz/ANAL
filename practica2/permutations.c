@@ -139,15 +139,15 @@ int ** generate_permutations(int n_perms, int N) {
   return perms;
 }
 
-void perm_worst_case_mergesort_rec(int pot, int*array) {
+void generate_mergesort_worst_perm_rec(int pot, int*array) {
   int i, size;
   if(pot == 0){
     array[0] = 1;
     return; 
   }
 
-  perm_worst_case_mergesort_rec(pot - 1, array);
-  perm_worst_case_mergesort_rec(pot - 1, array + (int) pow(2, pot - 1));
+  generate_mergesort_worst_perm_rec(pot - 1, array);
+  generate_mergesort_worst_perm_rec(pot - 1, array + (int) pow(2, pot - 1));
   size = pow(2, pot - 1);
 
   for(i = 0; i < size; i++){
@@ -156,14 +156,14 @@ void perm_worst_case_mergesort_rec(int pot, int*array) {
   }
 }
 
-int* perm_worst_case_mergesort(int pot){
+int *generate_mergesort_worst_perm(int pot) {
   int *array, i, size = (int) pow(pot, 2), aux;
 
   array = (int*) malloc(size * sizeof(int));
   if (!array)
     return NULL;
 
-  perm_worst_case_mergesort_rec(pot, array);
+  generate_mergesort_worst_perm_rec(pot, array);
   
   return array;
 }
