@@ -93,7 +93,7 @@ int * generate_perm(int N)
   for (i = 0; i < N; i++) {
     j = random_num(i, N-1);
     if (j == ERR)
-      return ERR;
+      return NULL;
 
     aux = perm[i];
     perm[i] = perm[j];
@@ -173,7 +173,7 @@ void _generate_mergesort_worst_perm_rec(int pot, int* array) {
 }
 
 int *generate_mergesort_worst_perm(int pot) {
-  int *array, i, size = (int) pow(pot, 2), aux;
+  int *array, size = (int) pow(pot, 2);
 
   array = (int*) malloc(size * sizeof(int));
   if (!array)
@@ -199,7 +199,7 @@ int *generate_quicksort_worst_perm_v1(int N){
 }
 
 int *generate_quicksort_worst_perm_v2(int N){
-  int *array, i, j, k, l;
+  int *array, i, j, k;
 
   array = (int*) malloc(N * sizeof(int));
   if (!array)

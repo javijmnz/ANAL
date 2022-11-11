@@ -54,7 +54,7 @@ int main(int argc, char** argv)
     }
   }
 
-  snprintf(nombreFichero, BufLength, "stats/worst_data/MergeSort_pot%d-pot%d_worst.log", pot_min, pot_max);
+  sprintf(nombreFichero, "stats/worst_data/MergeSort_pot%d-pot%d_worst.log", pot_min, pot_max);
 
   /* compute times */
   

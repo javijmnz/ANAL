@@ -26,7 +26,7 @@
 
 int main(int argc, char** argv)
 {
-  int i, num_min, num_max, incr, n_perms, numfunc;
+  int i, num_min, num_max, incr, numfunc;
   short ret;
   pfunc_sort func[6] = {QuickSort_v1, QuickSort_v2, QuickSort_v3};
   char *nombresAlgoritmos[6] = {"QuickSort_v1", "QuickSort_v2", "QuickSort_v3"};
@@ -37,7 +37,7 @@ int main(int argc, char** argv)
   if (argc != 9) {
     fprintf(stderr, "Error in input parameters:\n\n");
     fprintf(stderr, "%s -func  <pfunc_sort> -num_min <int> -num_max <int>\n", argv[0]);
-    fprintf(stderr, "\t\t -incr <int> -numP <int>\n");
+    fprintf(stderr, "\t\t -incr <int>\n");
     fprintf(stderr, "Donde:\n");
     fprintf(stderr, " -func : sorting method:\n");
     fprintf(stderr, " \t (1) QuickSort_v1\n");
