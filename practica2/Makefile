@@ -69,13 +69,13 @@ exercise5_test:
 
 tests:
 	@echo "Probando algoritmos para tamaños $(NUM_MIN)-$(NUM_MAX) con incrementos de $(INCR) y $(NUMP) permutaciones"
-	@echo "Probando MergeSort"
-	@./stats_single -func 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
-	@echo "Probando QuickSort_v1"
-	@./stats_single -func 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
-	@echo "Probando QuickSort_v2"
-	@./stats_single -func 4 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
-	@echo "Probando QuickSort_v3"
-	@./stats_single -func 5 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
-
+#	@echo "Probando MergeSort"
+#	@./stats_single -func 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+#	@echo "Probando QuickSort_v1"
+#	@./stats_single -func 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+#	@echo "Probando QuickSort_v2"
+#	@./stats_single -func 4 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+#	@echo "Probando QuickSort_v3"
+#	@./stats_single -func 5 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_all -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 

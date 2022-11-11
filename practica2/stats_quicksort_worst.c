@@ -49,7 +49,7 @@ int main(int argc, char** argv)
     exit(-1);
   }
 
-  printf("Practice number 2, section 5\n");
+  printf("Practice number 2, QuickSort Worst Case\n");
   printf("Done by: Javier Jiménez, Pablo Fernández\n");
   printf("Group: 1202\n");
   
@@ -68,7 +68,7 @@ int main(int argc, char** argv)
     }
   }
 
-  if (numfunc < 3 || numfunc > 5) {
+  if (numfunc < 1 || numfunc > 3) {
     fprintf(stderr, "ERROR: Selecciona un método de ordenación válido:\n");
     fprintf(stderr, " \t (1) QuickSort_v1\n");
     fprintf(stderr, " \t (2) QuickSort_v2\n");
