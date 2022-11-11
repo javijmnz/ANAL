@@ -236,12 +236,17 @@ short generate_sorting_times_n(pfunc_sort *method, char** file, int num_func, in
   /* Control de errores */
   if (flag == ERR) {
     free(sorting_times);
+    printf("ERROR: calculo");
     return ERR;
   }
 
   /* Guarda los sorting times en un fichero */
-  for(k = 0; k < num_func && flag == OK; k++)
+  for(k = 0; k < num_func && flag == OK; k++){
     flag = save_time_table(file[k], sorting_times + k * num_ptimes, num_ptimes);
+    if (flag == ERR)
+      printf("ERROR guardado en algoritmo %d", k);
+  }
+    
   free(sorting_times);
 
   return flag;
@@ -351,8 +356,7 @@ short generate_sorting_times_quicksort_worst(pfunc_sort _quicksort, char* file, 
 /*  short: OK si todo ha ido bien o ERR si ha      */
 /*    habido algún problema                        */
 /***************************************************/
-short save_time_table(char *file, PTIME_AA ptime, int n_times)
-{
+short save_time_table(char *file, PTIME_AA ptime, int n_times){
   FILE *pf;
   int i;
 
@@ -362,8 +366,11 @@ short save_time_table(char *file, PTIME_AA ptime, int n_times)
   
   /* Abre el archivo en modo escritura */
   pf = fopen(file, "w");
-  if (!pf)
+  if (!pf){
+    printf("ERROR: save_time_table: failed to open file, file: %s", file);
     return ERR;
+  }
+    
   
   /* Imprime los datos del array ptime en el fichero */
   for (i = 0; i < n_times; i++) {

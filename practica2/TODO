@@ -15,7 +15,10 @@ PLOTS
         Permutaciones aleatorias
             Ejecución 4 juntas y 
         Worst case
-            por separado
+            Cada uno por separado
+            El worst de cada uno verlo para todos
+    
+    Reventar la pila
     
     Comparación tiempo
         

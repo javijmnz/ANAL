@@ -112,7 +112,6 @@ set ylabel 'OB'
 set xrange [0: 100001]
 #set yrange [0: 10000]
 
-do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"]
 plot    'single_data/'.alg.'_1-100001_incr1000_per1000.log' using 1:3 title alg with l, \
         x title 'n' with l, \
         x * log(x) / log(2) title 'nlog(n)' with l

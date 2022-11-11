@@ -31,7 +31,21 @@ int main(int argc, char** argv)
   short ret;
   pfunc_sort func[4] = {MergeSort, QuickSort_v1, QuickSort_v2, QuickSort_v3};
   char *nombresAlgoritmos[4] = {"MergeSort", "QuickSort_v1", "QuickSort_v2", "QuickSort_v3"};
-  char nombresFicheros[4][BufLength] = {"\0", "\0", "\0", "\0"};
+  char **nombresFicheros;
+  char *array;
+
+  nombresFicheros = (char **) malloc(4 * sizeof(BufLength));
+  if (!nombresFicheros)
+    exit(-1);
+
+  array = (char *) malloc(4 * BufLength * sizeof(char));
+  if (!array){
+    free(nombresFicheros);
+    exit(-1);
+  }
+  
+  for (i = 0; i < 4; i++)
+    nombresFicheros[i] = array + i * BufLength;
 
   srand(time(NULL));
 
