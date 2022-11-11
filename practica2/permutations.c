@@ -28,6 +28,19 @@
 /* Output:                                         */
 /* int: random number                              */
 /***************************************************/
+
+void _swap(int *e1, int *e2) {
+  int aux;
+
+  /* Comprueba parámetros */
+  if (!e1 || !e2 || *e1 == *e2)
+    return;
+
+  aux = *e1;
+  *e1 = *e2;
+  *e2 = aux;
+}
+
 int random_num(int inf, int sup) {
   /* Comprobación de parámetros */
   if (inf > sup || inf < 0)
@@ -139,9 +152,11 @@ int ** generate_permutations(int n_perms, int N) {
   return perms;
 }
 
-void generate_mergesort_worst_perm_rec(int pot, int*array) {
+/* Generación de permutaciones para casos peores */
+
+void _generate_mergesort_worst_perm_rec(int pot, int* array) {
   int i, size;
-  if(pot == 0){
+  if (pot == 0) {
     array[0] = 1;
     return; 
   }
@@ -150,7 +165,7 @@ void generate_mergesort_worst_perm_rec(int pot, int*array) {
   generate_mergesort_worst_perm_rec(pot - 1, array + (int) pow(2, pot - 1));
   size = pow(2, pot - 1);
 
-  for(i = 0; i < size; i++){
+  for (i = 0; i < size; i++) {
     array[i] = 2 * array[i] -1;
     array[size + i] = 2 * array[size + i];
   }
@@ -163,12 +178,12 @@ int *generate_mergesort_worst_perm(int pot) {
   if (!array)
     return NULL;
 
-  generate_mergesort_worst_perm_rec(pot, array);
+  _generate_mergesort_worst_perm_rec(pot, array);
   
   return array;
 }
 
-int * generate_quicksort_worst_perm(int N){
+int *generate_quicksort_worst_perm_v1(int N){
   int *array, i;
 
   array = (int*) malloc(N * sizeof(int));
@@ -180,4 +195,55 @@ int * generate_quicksort_worst_perm(int N){
   }
 
   return array;
+}
+
+int *generate_quicksort_worst_perm_v2(int N){
+  int *array, i, j, k, l;
+
+  array = (int*) malloc(N * sizeof(int));
+  if (!array)
+    return NULL;
+
+  for (i = N/2 - 1, j = N/2, k= 1; i >= 0; i--, j++, k += 2){
+    array[i] = k;
+    array[j] = k + 1;
+  }
+  if (N % 2)
+    array[j] = k;
+
+  return array;
+}
+
+int *generate_quicksort_worst_perm_v3(int N){
+  int *p, *v, i, pivot0, pivot1;
+
+  p = (int *) malloc(N * sizeof(int));
+  if (!p)
+    return NULL;
+
+  v = (int *) malloc(N * sizeof(int));
+  if (!v) {
+    free(p);
+    return NULL;
+  }
+
+  for (i = 1; i <= N; i++)
+    p[i] = i;
+
+  for(i = 0; i < N; i += 2){
+    pivot0 = i;
+    pivot1 = (i + N - 1)/2;
+    v[p[pivot1]] = i + 1;
+    v[p[pivot0]] = i;
+    _swap(p + pivot1, p + i + 1);
+    
+  }
+
+  if(i == N)
+    v[N -1] = i - 1;
+
+  for (i = 0; i < N; i++)
+    v[i]++;
+  
+  return v;
 }

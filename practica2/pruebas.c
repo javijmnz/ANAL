@@ -3,15 +3,30 @@
 #include <math.h>
 
 int* perm_worst_case_mergesort(int pot);
+int * generate_quicksort_worst_perm_v2(int N);
+int * generate_quicksort_worst_perm_v3(int N);
+
+void _swap(int *e1, int *e2) {
+  int aux;
+
+  /* Comprueba parámetros */
+  if (!e1 || !e2 || *e1 == *e2)
+    return;
+
+  aux = *e1;
+  *e1 = *e2;
+  *e2 = aux;
+}
 
 int main(){
     int *array, i;
 
-    array = perm_worst_case_mergesort(4);
+    array = generate_quicksort_worst_perm_v3(21);
 
-    for (i = 0; i < 16; i++)
+    for (i = 0; i < 21; i++)
         printf("%d ", array[i]);
     
+    free(array);
     return 0;
 }
 
@@ -42,4 +57,54 @@ int* perm_worst_case_mergesort(int pot){
   perm_worst_case_mergesort_rec(pot, array);
   
   return array;
+}
+
+int * generate_quicksort_worst_perm_v2(int N){
+  int *array, i, j, k, l;
+
+  array = (int*) malloc(N * sizeof(int));
+  if (!array)
+    return NULL;
+
+  for (i = N/2 - 1, j = N/2, k= 1; i >= 0; i--, j++, k += 2){
+    array[i] = k;
+    array[j] = k + 1;
+  }
+  if (N % 2)
+    array[j] = k;
+
+  return array;
+}
+
+int *generate_quicksort_worst_perm_v3(int N){
+  int *p, *v, i, pivot0, pivot1;
+
+
+  p = (int*) malloc(N * sizeof(int));
+  if (!p)
+    return NULL;
+
+  v = (int*) malloc(N * sizeof(int));
+  if (!v){
+    free(p);
+    return NULL;
+  }
+
+  for (i = 0; i < N; i++)
+    p[i] = i;
+
+  for(i = 0; i < N; i += 2){
+    pivot0 = i;
+    pivot1 = (i + N - 1)/2;
+    v[p[pivot1]] = i + 1;
+    v[p[pivot0]] = i;
+    _swap(p + pivot1, p + i + 1);
+    
+  }
+
+  if(i == N){
+    v[N -1] = i - 1;
+  }
+
+  return v;
 }

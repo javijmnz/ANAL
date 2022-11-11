@@ -208,7 +208,7 @@ short generate_sorting_times_2func(pfunc_sort method_1, pfunc_sort method_2, cha
   int i, j, flag, num_ptimes, **perms;
   
   /* Comprueba parámetros */
-  if (!method_1 ||!method_2 || !file_1 || !file_2 || num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0)
+  if (!method_1 || !method_2 || !file_1 || !file_2 || num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0)
     return ERR;
   
   /* Cálculo del número de tamaños a probar */
@@ -254,6 +254,69 @@ short generate_sorting_times_2func(pfunc_sort method_1, pfunc_sort method_2, cha
   return flag;
 }
 
+short generate_sorting_times_2func(pfunc_sort method_1, pfunc_sort method_2, pfunc_sort method_3, char* file_1, char* file_2, char* file_3, int num_min, int num_max, int incr, int n_perms){ 
+  PTIME_AA sorting_times_1, sorting_times_2, sorting_times_3;
+  int i, j, flag, num_ptimes, **perms;
+  
+  /* Comprueba parámetros */
+  if (!method_1 || !method_2 || !method_3 || !file_1 || !file_2 || !file_3 || num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0)
+    return ERR;
+  
+  /* Cálculo del número de tamaños a probar */
+  num_ptimes = (num_max - num_min) / incr + 1;
+
+  /* Reserva de memoria para las estructuras que almacenan los datos */
+  sorting_times_1 = (PTIME_AA) malloc(num_ptimes * sizeof(TIME_AA));
+  if (!sorting_times_1)
+    return ERR;
+  
+  sorting_times_2 = (PTIME_AA) malloc(num_ptimes * sizeof(TIME_AA));
+  if (!sorting_times_2){
+    free(sorting_times_2);
+    return ERR;
+  }
+
+  sorting_times_3 = (PTIME_AA) malloc(num_ptimes * sizeof(TIME_AA));
+  if (!sorting_times_3){
+    free(sorting_times_1);
+    free(sorting_times_2);
+    return ERR;
+  } 
+  
+  /* Cálculo de los sorting times para cada tamaño */
+  for (i = num_min, j = 0, flag = OK ; i <= num_max && flag == OK; i+= incr, j++)
+    perms = generate_permutations(n_perms, i);
+    if(!perms)
+      flag = ERR;
+    if(flag == OK)
+      flag = average_sorting_time_alt(method_1, n_perms, i, perms, sorting_times_1 + j);
+    if(flag == OK)
+      flag = average_sorting_time_alt(method_2, n_perms, i, perms, sorting_times_2 + j);
+    if(flag == OK)
+      flag = average_sorting_time_alt(method_3, n_perms, i, perms, sorting_times_3 + j);
+  
+  /* Control de errores */
+  if (flag == ERR) {
+    free(sorting_times_1);
+    free(sorting_times_2);
+    free(sorting_times_3);
+    return ERR;
+  }
+
+  /* Guarda los sorting times en un fichero */
+  flag = save_time_table(file_1, sorting_times_1, num_ptimes);
+  if (flag == OK)
+    flag = save_time_table(file_2, sorting_times_2, num_ptimes);
+  if (flag == OK)
+    flag = save_time_table(file_3, sorting_times_3, num_ptimes);
+
+  free(sorting_times_1);
+  free(sorting_times_2);
+  free(sorting_times_3);
+
+  return flag;
+}
+
 short generate_sorting_times_mergesort_worst(char* file, int pot_min, int pot_max){
   PTIME_AA sorting_times;
   int i, j, flag, num_ptimes, *perm[1];
@@ -291,15 +354,21 @@ short generate_sorting_times_mergesort_worst(char* file, int pot_min, int pot_ma
 short generate_sorting_times_quicksort_worst(pfunc_sort _quicksort, char* file, int num_min, int num_max, int incr){
   PTIME_AA sorting_times;
   int i, j, flag, num_ptimes, *perm[1];
+  pfunc_perm func_perm;
   
   /* Comprueba parámetros */
   if (!_quicksort || !file || num_min <= 0 || num_max < num_min || incr <= 0)
     return ERR;
   
   /* Comprueba quicksort */
-  if (_quicksort != QuickSort_v1 && _quicksort != QuickSort_v2 && _quicksort != QuickSort_v3){
+  if(_quicksort == QuickSort_v1)
+    func_perm = generate_quicksort_worst_perm_v1;
+  else if(_quicksort == QuickSort_v2)
+    func_perm = generate_quicksort_worst_perm_v2;
+  else if (_quicksort == QuickSort_v3)
+    func_perm = generate_quicksort_worst_perm_v3;
+  else
     return ERR;
-  }
   
   /* Cálculo de los sorting times para cada tamaño */
   /* Cálculo del número de tamaños a probar */
@@ -312,7 +381,7 @@ short generate_sorting_times_quicksort_worst(pfunc_sort _quicksort, char* file, 
   
   /* Cálculo de los sorting times para cada tamaño */
   for (i = num_min, j = 0, flag = OK; i <= num_max && flag == OK; i+= incr, j++)
-    perm[0] = generate_quicksort_worst_perm(i);
+    perm[0] = func_perm(i);
     if(!perm[0])
       flag == ERR;
     if(flag == OK)

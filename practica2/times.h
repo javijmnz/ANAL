@@ -31,6 +31,8 @@ typedef struct time_aa {
   int max_ob;      /* maximum of executions of the OB */
 } TIME_AA, *PTIME_AA;
 
+typedef int* (* pfunc_perm)(int);
+
 
 /* Functions */
 short average_sorting_time(pfunc_sort method, int n_perms,int N, PTIME_AA ptime);
