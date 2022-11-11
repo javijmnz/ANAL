@@ -14,6 +14,19 @@
 #include <stdlib.h>
 #include <time.h>
 #include <limits.h>
+#include <math.h>
+
+void __swap(int *e1, int *e2) {
+  int aux;
+
+  /* Comprueba parámetros */
+  if (!e1 || !e2 || *e1 == *e2)
+    return;
+
+  aux = *e1;
+  *e1 = *e2;
+  *e2 = aux;
+}
 
 /***************************************************/
 /* Function: random_num Date:                      */
@@ -28,18 +41,6 @@
 /* Output:                                         */
 /* int: random number                              */
 /***************************************************/
-
-void _swap(int *e1, int *e2) {
-  int aux;
-
-  /* Comprueba parámetros */
-  if (!e1 || !e2 || *e1 == *e2)
-    return;
-
-  aux = *e1;
-  *e1 = *e2;
-  *e2 = aux;
-}
 
 int random_num(int inf, int sup) {
   /* Comprobación de parámetros */
@@ -161,8 +162,8 @@ void _generate_mergesort_worst_perm_rec(int pot, int* array) {
     return; 
   }
 
-  generate_mergesort_worst_perm_rec(pot - 1, array);
-  generate_mergesort_worst_perm_rec(pot - 1, array + (int) pow(2, pot - 1));
+  _generate_mergesort_worst_perm_rec(pot - 1, array);
+  _generate_mergesort_worst_perm_rec(pot - 1, array + (int) pow(2, pot - 1));
   size = pow(2, pot - 1);
 
   for (i = 0; i < size; i++) {
@@ -235,7 +236,7 @@ int *generate_quicksort_worst_perm_v3(int N){
     pivot1 = (i + N - 1)/2;
     v[p[pivot1]] = i + 1;
     v[p[pivot0]] = i;
-    _swap(p + pivot1, p + i + 1);
+    __swap(p + pivot1, p + i + 1);
     
   }
 

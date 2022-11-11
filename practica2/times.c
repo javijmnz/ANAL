@@ -203,6 +203,51 @@ short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num
   return flag;
 }
 
+short generate_sorting_times_n(pfunc_sort *method, char** file, int num_func, int num_min, int num_max, int incr, int n_perms){
+  PTIME_AA sorting_times;
+  int i, j, k, flag, num_ptimes, **perms;
+  
+  /* Comprueba parámetros */
+  if (!method || !file || num_func < 1|| num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0)
+    return ERR;
+  
+  for (i = 0; i < num_func; i++)
+    if(!method[i] || !file[i])
+      return ERR;
+  
+  /* Cálculo del número de tamaños a probar */
+  num_ptimes = (num_max - num_min) / incr + 1;
+
+  /* Reserva de memoria para las estructuras que almacenan los datos */
+  sorting_times = (PTIME_AA) malloc(num_ptimes * num_func * sizeof(TIME_AA));
+  if (!sorting_times)
+    return ERR;
+  
+  /* Cálculo de los sorting times para cada tamaño */
+  for (i = num_min, j = 0, flag = OK; i <= num_max && flag == OK; i+= incr, j++){
+    perms = generate_permutations(n_perms, i);
+    if (!perms)
+      flag = ERR; 
+    for (k = 0; k < num_func && flag == OK; k++)
+      flag = average_sorting_time_alt(method[k], n_perms, i, perms, sorting_times + k * num_ptimes + j);
+  }
+    
+  
+  /* Control de errores */
+  if (flag == ERR) {
+    free(sorting_times);
+    return ERR;
+  }
+
+  /* Guarda los sorting times en un fichero */
+  for(k = 0; k < num_func && flag == OK; k++)
+    flag = save_time_table(file[k], sorting_times + k * num_ptimes, num_ptimes);
+  free(sorting_times);
+
+  return flag;
+}
+
+
 short generate_sorting_times_2func(pfunc_sort method_1, pfunc_sort method_2, char* file_1, char* file_2, int num_min, int num_max, int incr, int n_perms){ 
   PTIME_AA sorting_times_1, sorting_times_2;
   int i, j, flag, num_ptimes, **perms;
@@ -254,7 +299,7 @@ short generate_sorting_times_2func(pfunc_sort method_1, pfunc_sort method_2, cha
   return flag;
 }
 
-short generate_sorting_times_2func(pfunc_sort method_1, pfunc_sort method_2, pfunc_sort method_3, char* file_1, char* file_2, char* file_3, int num_min, int num_max, int incr, int n_perms){ 
+short generate_sorting_times_3func(pfunc_sort method_1, pfunc_sort method_2, pfunc_sort method_3, char* file_1, char* file_2, char* file_3, int num_min, int num_max, int incr, int n_perms){ 
   PTIME_AA sorting_times_1, sorting_times_2, sorting_times_3;
   int i, j, flag, num_ptimes, **perms;
   

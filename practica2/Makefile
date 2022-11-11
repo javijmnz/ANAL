@@ -5,7 +5,8 @@
 
 CC = gcc -ansi -pedantic
 CFLAGS = -Wall
-EXE = test_sort stats_single stats_double
+EXTRA_FLAGS = -lm
+EXE = test_sort stats_single stats_all stats_mergesort_worst stats_quicksort_worst
 
 NUM_MIN = 1
 NUM_MAX = 100
@@ -23,7 +24,7 @@ $(EXE) : % : %.o sorting.o times.o permutations.o
 	@echo "# Generating $@ "
 	@echo "# Depepends on $^"
 	@echo "# Has changed $<"
-	$(CC) $(CFLAGS) -o $@ $@.o sorting.o times.o permutations.o
+	$(CC) $(CFLAGS) -o $@ $@.o sorting.o times.o permutations.o $(EXTRA_FLAGS)
 
 permutations.o : permutations.c permutations.h
 	@echo "#---------------------------"
@@ -76,3 +77,5 @@ tests:
 	@./stats_single -func 4 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 	@echo "Probando QuickSort_v3"
 	@./stats_single -func 5 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+
+

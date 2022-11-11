@@ -100,19 +100,20 @@ do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
             x * log(x) / log(2) title 'nlog(n)' with l
 }
 
+#comparación ob
 # Tamaños 1-100001 con incremento de 1000 y 1000 permutaciones
-do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
-    set terminal png size 1000,1000
-    set output 'single_graph/'.alg.'_1-100001_incr1000_per1000_avg_ob.png'
-    set title alg.' Caso Medio (incr = 1000, numP = 1000)'
+set terminal png size 1000,1000
+set output 'comp_graph/_1-100001_incr1000_per1000_avg_ob.png'
+set title alg.' Caso Medio (incr = 1000, numP = 1000)'
 
-    set xlabel 'Tamaño'
-    set ylabel 'OB'
+set xlabel 'Tamaño'
+set ylabel 'OB'
 
-    set xrange [0: 100001]
-    #set yrange [0: 10000]
+set xrange [0: 100001]
+#set yrange [0: 10000]
 
-    plot    'single_data/'.alg.'_1-100001_incr1000_per1000.log' using 1:3 title alg with l, \
-            x title 'n' with l, \
-            x * log(x) / log(2) title 'nlog(n)' with l
-}
+do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"]
+plot    'single_data/'.alg.'_1-100001_incr1000_per1000.log' using 1:3 title alg with l, \
+        x title 'n' with l, \
+        x * log(x) / log(2) title 'nlog(n)' with l
+
