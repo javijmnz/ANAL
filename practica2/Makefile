@@ -9,9 +9,9 @@ EXTRA_FLAGS = -lm
 EXE = test_sort stats_single stats_all stats_mergesort_worst stats_quicksort_worst
 
 NUM_MIN = 1
-NUM_MAX = 100
-INCR = 1
-NUMP = 100
+NUM_MAX = 10001
+INCR = 100
+NUMP = 1000
 
 all : $(EXE)
 

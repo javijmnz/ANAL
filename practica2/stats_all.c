@@ -34,7 +34,7 @@ int main(int argc, char** argv)
   char **nombresFicheros;
   char *array;
 
-  nombresFicheros = (char **) malloc(4 * sizeof(BufLength));
+  nombresFicheros = (char **) malloc(4 * sizeof(char *));
   if (!nombresFicheros)
     exit(-1);
 
@@ -84,12 +84,14 @@ int main(int argc, char** argv)
     sprintf(nombresFicheros[i], "stats/data/%s_%d-%d_incr%d_per%d.log", nombresAlgoritmos[i], num_min, num_max, incr, n_perms);
 
   /* compute times */
-  ret = generate_sorting_times_n(func, (char **) nombresFicheros, 4, num_min, num_max,incr, n_perms);
+  ret = generate_sorting_times_n(func, nombresFicheros, 4, num_min, num_max,incr, n_perms);
   if (ret == ERR) { /* ERR_TIME should be a negative number */
     printf("Error in function generate_sorting_times\n");
     exit(-1);
   }
   printf("Correct output \n");
+  free(array);
+  free(nombresFicheros);
 
   return 0;
 }

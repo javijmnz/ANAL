@@ -117,6 +117,8 @@ short average_sorting_time_alt(pfunc_sort metodo, int n_perms, int N, int **arra
 
   for (i = 0; i < n_perms; i++) {
     /* Ordena la permutación i-ésima */
+    printf("Entra en el tamaño: %d\n", N);
+    printf("primero del array: %d\n", array[i][0]);
     ob = metodo(array[i], 0, N - 1);
     if (ob == ERR) {
       return ERR;
@@ -144,6 +146,7 @@ short average_sorting_time_alt(pfunc_sort metodo, int n_perms, int N, int **arra
   ptime->min_ob = min_ob;
   ptime->max_ob = max_ob;
 
+  printf("Bien para el tamaño: %d\n", N);
   return OK;
 }
 
@@ -269,15 +272,19 @@ short generate_sorting_times_mergesort_worst(char* file, int pot_min, int pot_ma
   /* Cálculo de los sorting times para cada tamaño */
   for (i = pot_min, j = 0, flag = OK; i <= pot_max && flag == OK; i++, j++){
     perm[0] = generate_mergesort_worst_perm(i);
-    if(!perm[0])
+    if(!perm[0]) {
       flag = ERR;
+      fprintf(stderr, "ERROR: Error generando permutaciones en pot: %d\n", i);
+    }
     if(flag == OK)  
       flag = average_sorting_time_alt(MergeSort, 1, pow(2, i), perm, sorting_times + j);
+    free(perm[0]);
   }
     
   
   /* Control de errores */
   if (flag == ERR) {
+    fprintf(stderr, "ERROR: Error de cálculo");
     free(sorting_times);
     return ERR;
   }
