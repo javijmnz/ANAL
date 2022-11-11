@@ -85,7 +85,7 @@ int main(int argc, char** argv)
     exit(-1);
   }
 
-  sprintf(nombreFichero, "single/stats/%s_%d-%d_incr%d_per%d.log", nombresAlgoritmos[numfunc], num_min, num_max, incr, n_perms);
+  snprintf(nombreFichero, BufLength, "single/stats/%s_%d-%d_incr%d_per%d.log", nombresAlgoritmos[numfunc], num_min, num_max, incr, n_perms);
 
   /* compute times */
   ret = generate_sorting_times(func[numfunc], nombreFichero, num_min, num_max,incr, n_perms);
