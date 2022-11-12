@@ -21,9 +21,9 @@ void _swap(int *e1, int *e2) {
 int main(){
     int *array, i;
 
-    array = generate_quicksort_worst_perm_v3(21);
+    array = perm_worst_case_mergesort(3);
 
-    for (i = 0; i < 21; i++)
+    for (i = 0; i < 8; i++)
         printf("%d ", array[i]);
     
     free(array);
@@ -48,7 +48,7 @@ void perm_worst_case_mergesort_rec(int pot, int*array) {
 }
 
 int* perm_worst_case_mergesort(int pot){
-  int *array, i, size = (int) pow(pot, 2), aux;
+  int *array, i, size = (int) pow(2, pot), aux;
 
   array = (int*) malloc(size * sizeof(int));
   if (!array)

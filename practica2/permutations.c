@@ -173,7 +173,7 @@ void _generate_mergesort_worst_perm_rec(int pot, int* array) {
 }
 
 int *generate_mergesort_worst_perm(int pot) {
-  int *array, size = (int) pow(pot, 2);
+  int *array, size = (int) pow(2, pot);
 
   array = (int*) malloc(size * sizeof(int));
   if (!array)
