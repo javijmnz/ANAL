@@ -309,7 +309,8 @@ do for [alg in "QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"]{
 
         plot    x title 'n' with l lw 2, \
                 x * log(x) / log(2) title 'nlog(n)' with l lw 2, \
-                x * x *0.5 title 'xx' with l lw 2, \
+                x * x * 0.5 title 'x^2/2' with l lw 2, \
+                x * x *0.25 title 'x^2/4' with l lw 2, \
                 'worst_data/MergeSort_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:3 title "MergeSort" with l, \
                 'worst_data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:3 title "Quicksort_v1" with l, \
                 'worst_data/Quicksort_v2_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:3 title "Quicksort_v2" with l, \
