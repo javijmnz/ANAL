@@ -195,14 +195,14 @@ int _QuickSort(int *tabla, int ip, int iu, pfunc_median median) {
   }
 
   if (ip < medio - 1)
-    ob2 = QuickSort_v1(tabla, ip, medio - 1);
+    ob2 = _QuickSort(tabla, ip, medio - 1, median);
   if (ob2 == ERR) {
     printf("Error ob2\n");
     return ERR;
   }
 
   if (medio + 1 < iu) 
-    ob3 = QuickSort_v1(tabla, medio + 1, iu);
+    ob3 = _QuickSort(tabla, medio + 1, iu, median);
   if (ob3 == ERR) {
     printf("Error ob3\n");
     return ERR;
@@ -273,7 +273,7 @@ int median_avg(int *tabla, int ip, int iu, int *pos) {
 
 int median_stat(int *tabla, int ip, int iu, int *pos) {
   /* No es necesario comprobar parámetros porque ya lo hemos hecho en partition */
-  int im = (ip + iu) / 2, min, a1, a2;
+  int im = (ip + iu) / 2, min, a1;
 
   if (tabla[ip] < tabla[im]) {
     min = ip;

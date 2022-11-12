@@ -153,6 +153,37 @@ int ** generate_permutations(int n_perms, int N) {
   return perms;
 }
 
+int ** generate_permutations_alt(pfunc_perm func_perm, int n_perms, int N) {
+  int **perms, i, flag = OK;
+
+  /* Comprueba parámetros */
+  if (!func_perm || n_perms <= 0 || N <= 0)
+    return NULL;
+
+  /* Reserva memoria para los punteros a las permutaciones */
+  perms = (int **) malloc(n_perms * sizeof(int *));
+  if (!perms)
+    return NULL;        
+
+  /* Genera las permutaciones */
+  for (i = 0; i < n_perms && flag == OK; i++){
+    perms[i] = func_perm(N);
+    if (perms[i] == NULL)
+      flag = ERR;
+  }
+
+  /* Comprueba errores en la generación de permutaciones */
+  if (flag == ERR) {
+    for (i -= 2; i >= 0; i--) {
+      free(perms[i]);
+      free(perms);
+      return NULL;
+    }
+  }
+
+  return perms;
+}
+
 /* Generación de permutaciones para casos peores */
 
 void _generate_mergesort_worst_perm_rec(int pot, int* array) {

@@ -30,7 +30,7 @@ int main(){
     return 0;
 }
 
-void perm_worst_case_mergesort_rec(int pot, int*array) {
+void perm_worst_case_mergesort_rec(int pot, int* array) {
   int i, size;
   if(pot == 0){
     array[0] = 1;
@@ -66,6 +66,7 @@ int * generate_quicksort_worst_perm_v2(int N){
   if (!array)
     return NULL;
 
+  
   for (i = N/2 - 1, j = N/2, k= 1; i >= 0; i--, j++, k += 2){
     array[i] = k;
     array[j] = k + 1;

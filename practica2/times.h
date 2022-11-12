@@ -19,6 +19,7 @@
   #define OK (!(ERR))
 #endif
 
+#include "permutations.h"
 #include "sorting.h"
 
 /* type definitions */
@@ -31,9 +32,6 @@ typedef struct time_aa {
   int max_ob;      /* maximum of executions of the OB */
 } TIME_AA, *PTIME_AA;
 
-typedef int* (* pfunc_perm)(int);
-
-
 /* Functions */
 short average_sorting_time(pfunc_sort method, int n_perms,int N, PTIME_AA ptime);
 short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num_max, int incr, int n_perms);
@@ -41,7 +39,7 @@ short save_time_table(char* file, PTIME_AA time, int n_times);
 
 short generate_sorting_times_2func(pfunc_sort method_1, pfunc_sort method_2, char* file_1, char* file_2, int num_min, int num_max, int incr, int n_perms);
 short generate_sorting_times_mergesort_worst(char* file, int pot_min, int pot_max);
-short generate_sorting_times_quicksort_worst(pfunc_sort _quicksort, char* file, int num_min, int num_max, int incr);
+short generate_sorting_times_quicksort_worst(pfunc_sort _quicksort, pfunc_perm worst_perm, char* file, int num_min, int num_max, int incr, int n_perms);
 short generate_sorting_times_n(pfunc_sort *method, char** file, int num_func, int num_min, int num_max, int incr, int n_perms);
 
 #endif

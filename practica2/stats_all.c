@@ -31,8 +31,7 @@ int main(int argc, char** argv)
   short ret;
   pfunc_sort func[4] = {MergeSort, QuickSort_v1, QuickSort_v2, QuickSort_v3};
   char *nombresAlgoritmos[4] = {"MergeSort", "QuickSort_v1", "QuickSort_v2", "QuickSort_v3"};
-  char **nombresFicheros;
-  char *array;
+  char *array, **nombresFicheros;
 
   nombresFicheros = (char **) malloc(4 * sizeof(char *));
   if (!nombresFicheros)

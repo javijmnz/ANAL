@@ -10,8 +10,10 @@ EXE = test_sort stats_single stats_all stats_mergesort_worst stats_quicksort_wor
 
 NUM_MIN = 1
 NUM_MAX = 10001
-INCR = 100
-NUMP = 1000
+INCR = 200
+NUMP = 10
+
+QS_WORST_VERSION = 2
 
 all : $(EXE)
 
@@ -79,3 +81,11 @@ tests:
 #	@./stats_single -func 5 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 	@./stats_all -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 
+tests_quicksort_worst:
+	@echo "Probando QuickSort para tamaños $(NUM_MIN)-$(NUM_MAX) con incrementos de $(INCR) y $(NUMP) permutaciones, con la versión $(QS_WORST_VERSION) del worst case"
+	@echo "Probando QuickSort_v1"
+	@./stats_quicksort_worst -func 1 -worst_version $(QS_WORST_VERSION) -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@echo "Probando QuickSort_v2"
+	@./stats_quicksort_worst -func 2 -worst_version $(QS_WORST_VERSION) -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@echo "Probando QuickSort_v3"
+	@./stats_quicksort_worst -func 3 -worst_version $(QS_WORST_VERSION) -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)

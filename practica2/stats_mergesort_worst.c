@@ -26,8 +26,7 @@ int main(int argc, char** argv)
 {
   int i, pot_min, pot_max;
   short ret;
-  char nombreFichero[BufLength] = "stats/worst_data/prueba.log";
-  fprintf(stdout, "%p\n", nombreFichero);
+  char nombreFichero[BufLength] ="\0";
 
   srand(time(NULL));
 
@@ -55,7 +54,7 @@ int main(int argc, char** argv)
     }
   }
 
-  // sprintf(nombreFichero, "stats/worst_data/MergeSort_pot%d-pot%d_worst.log", pot_min, pot_max);
+  sprintf(nombreFichero, "stats/worst_data/MergeSort_pot%d-pot%d_worst.log", pot_min, pot_max);
 
   /* compute times */
   
