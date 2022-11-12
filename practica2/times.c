@@ -205,7 +205,7 @@ short generate_sorting_times(pfunc_sort method, char* file, int num_min, int num
 
 short generate_sorting_times_n(pfunc_sort *method, char** file, int num_func, int num_min, int num_max, int incr, int n_perms){
   PTIME_AA sorting_times;
-  int i, j, k, flag, num_ptimes, **perms;
+  int i, j, k, flag, num_ptimes, **perms, **copy_perms;
   
   /* Comprueba parámetros */
   if (!method || !file || num_func < 1|| num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0)
@@ -228,8 +228,15 @@ short generate_sorting_times_n(pfunc_sort *method, char** file, int num_func, in
     perms = generate_permutations(n_perms, i);
     if (!perms)
       flag = ERR; 
-    for (k = 0; k < num_func && flag == OK; k++)
-      flag = average_sorting_time_alt(method[k], n_perms, i, perms, sorting_times + k * num_ptimes + j);
+    for (k = 0; k < num_func && flag == OK; k++){
+      copy_perms = copy_permutations(perms, n_perms, i);
+      if (!perms)
+        flag = ERR;
+      if (flag == OK)
+        flag = average_sorting_time_alt(method[k], n_perms, i, copy_perms, sorting_times + k * num_ptimes + j);
+      free_perms(copy_perms, n_perms);
+    }
+      
     free_perms(perms, n_perms);
   }
     
@@ -253,12 +260,12 @@ short generate_sorting_times_n(pfunc_sort *method, char** file, int num_func, in
   return flag;
 }
 
-short generate_sorting_times_mergesort_worst(char* file, int pot_min, int pot_max){
+short generate_sorting_times_mergesort_worst_perm(pfunc_sort method, char* file, int pot_min, int pot_max){
   PTIME_AA sorting_times;
   int i, j, flag, num_ptimes , *perm[1];
   
   /* Comprueba parámetros */
-  if (!file || pot_min < 0 || pot_max < pot_min)
+  if (!method || !file || pot_min < 0 || pot_max < pot_min)
     return ERR;
 
   /* Reserva de memoria para las estructuras que almacenan los datos */
@@ -274,7 +281,7 @@ short generate_sorting_times_mergesort_worst(char* file, int pot_min, int pot_ma
       flag = ERR;
     }
     if(flag == OK)  
-      flag = average_sorting_time_alt(MergeSort, 1, pow(2, i), perm, sorting_times + j);
+      flag = average_sorting_time_alt(method, 1, pow(2, i), perm, sorting_times + j);
     free(perm[0]);
   }
     
@@ -293,12 +300,12 @@ short generate_sorting_times_mergesort_worst(char* file, int pot_min, int pot_ma
   return flag;
 }
 
-short generate_sorting_times_quicksort_worst(pfunc_sort _quicksort, pfunc_perm worst_perm, char* file, int num_min, int num_max, int incr, int n_perms){
+short generate_sorting_times_quicksort_worst_perm(pfunc_sort method, pfunc_perm worst_perm, char* file, int num_min, int num_max, int incr){
   PTIME_AA sorting_times;
-  int i, j, flag, num_ptimes, **perms;
+  int i, j, flag, num_ptimes, *perm[1];
   
   /* Comprueba parámetros */
-  if (!_quicksort || !worst_perm || !file || num_min <= 0 || num_max < num_min || incr <= 0 || n_perms <= 0)
+  if (!method || !worst_perm || !file || num_min <= 0 || num_max < num_min || incr <= 0)
     return ERR;
   
   /* Cálculo de los sorting times para cada tamaño */
@@ -312,12 +319,12 @@ short generate_sorting_times_quicksort_worst(pfunc_sort _quicksort, pfunc_perm w
   
   /* Cálculo de los sorting times para cada tamaño */
   for (i = num_min, j = 0, flag = OK; i <= num_max && flag == OK; i+= incr, j++){
-    perms = generate_permutations_alt(worst_perm, n_perms, i);
-    if (!perms)
+    perm[0] = worst_perm(i);
+    if (!perm[0])
       flag = ERR;
     if (flag == OK)
-      flag = average_sorting_time_alt(_quicksort, n_perms, i, perms, sorting_times + j);
-    free_perms(perms, n_perms);
+      flag = average_sorting_time_alt(method, 1, i, perm, sorting_times + j);
+    free(perm[0]);
   }
     
   

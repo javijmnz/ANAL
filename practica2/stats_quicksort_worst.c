@@ -26,7 +26,7 @@
 
 int main(int argc, char** argv)
 {
-  int i, num_min, num_max, incr, n_perms, numfunc, worst_version;
+  int i, num_min, num_max, incr, numfunc, worst_version;
   short ret;
   pfunc_sort func_sort[4] = {MergeSort, QuickSort_v1, QuickSort_v2, QuickSort_v3};
   pfunc_perm func_perm[3] = {generate_quicksort_worst_perm_v1, generate_quicksort_worst_perm_v2, generate_quicksort_worst_perm_v3};
@@ -35,12 +35,13 @@ int main(int argc, char** argv)
 
   srand(time(NULL));
 
-  if (argc != 13) {
+  if (argc != 11) {
     fprintf(stderr, "Error in input parameters:\n\n");
     fprintf(stderr, "%s -func  <pfunc_sort> -worst_version <pfunc_perm> -num_min <int> -num_max <int>\n", argv[0]);
     fprintf(stderr, "\t\t -incr <int> -numP <int>\n");
     fprintf(stderr, "Donde:\n");
     fprintf(stderr, "-func : sorting method:\n");
+    fprintf(stderr, " \t (0) Mergesort\n");
     fprintf(stderr, " \t (1) QuickSort_v1\n");
     fprintf(stderr, " \t (2) QuickSort_v2\n");
     fprintf(stderr, " \t (3) QuickSort_v3\n");
@@ -51,7 +52,6 @@ int main(int argc, char** argv)
     fprintf(stderr, "-num_min: lowest number of table elements\n");
     fprintf(stderr, "-num_max: highest number of table elements\n");
     fprintf(stderr, "-incr: increment\n");
-    fprintf(stderr, "-numP: number of permutations to average\n");
     exit(-1);
   }
 
@@ -71,15 +71,14 @@ int main(int argc, char** argv)
       num_max = atoi(argv[++i]);
     } else if (strcmp(argv[i], "-incr") == 0) {
       incr = atoi(argv[++i]);
-    } else if (strcmp(argv[i], "-numP") == 0) {
-      n_perms = atoi(argv[++i]);
-    } else {
+    }  else {
       fprintf(stderr, "Wrong paramenter %s\n", argv[i]);
     }
   }
 
-  if (numfunc < 1 || numfunc > 3) {
+  if (numfunc < 0 || numfunc > 4) {
     fprintf(stderr, "ERROR: Selecciona un método de ordenación válido:\n");
+    fprintf(stderr, " \t (0) Mergesort\n");   
     fprintf(stderr, " \t (1) QuickSort_v1\n");
     fprintf(stderr, " \t (2) QuickSort_v2\n");
     fprintf(stderr, " \t (3) QuickSort_v3\n");
@@ -94,10 +93,10 @@ int main(int argc, char** argv)
     exit(-1);
   }
 
-  sprintf(nombreFichero, "stats/worst_data/%s_%d-%d_incr%d_per%d_with_worst_v%d.log", nombresAlgoritmos[numfunc], num_min, num_max, incr, n_perms, worst_version);
+  sprintf(nombreFichero, "stats/worst_data/%s_%d-%d_incr%d_with_worst_QuickSort_v%d.log", nombresAlgoritmos[numfunc], num_min, num_max, incr, worst_version);
 
   /* compute times */
-  ret = generate_sorting_times_quicksort_worst(func_sort[numfunc], func_perm[worst_version - 1], nombreFichero, num_min, num_max, incr, n_perms);
+  ret = generate_sorting_times_quicksort_worst_perm(func_sort[numfunc], func_perm[worst_version - 1], nombreFichero, num_min, num_max, incr);
   if (ret == ERR) { /* ERR_TIME should be a negative number */
     printf("Error in function generate_sorting_times\n");
     exit(-1);

@@ -30,5 +30,7 @@ int *generate_mergesort_worst_perm(int pot);
 int * generate_quicksort_worst_perm_v1(int N);
 int * generate_quicksort_worst_perm_v2(int N);
 int * generate_quicksort_worst_perm_v3(int N);
+int **copy_permutations(int **array, int n_perms, int N);
+int *copy_perm(int *array, int N);
 
 #endif

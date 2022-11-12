@@ -10,8 +10,10 @@ EXE = test_sort stats_single stats_all stats_mergesort_worst stats_quicksort_wor
 
 NUM_MIN = 1
 NUM_MAX = 10001
-INCR = 200
-NUMP = 10
+INCR = 100
+NUMP = 1000
+POT_MIN = 1
+POT_MAX = 20
 
 QS_WORST_VERSION = 2
 
@@ -89,3 +91,27 @@ tests_quicksort_worst:
 	@./stats_quicksort_worst -func 2 -worst_version $(QS_WORST_VERSION) -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 	@echo "Probando QuickSort_v3"
 	@./stats_quicksort_worst -func 3 -worst_version $(QS_WORST_VERSION) -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+
+tests_worst_m:
+	@./stats_mergesort_worst -func 0 -pot_min $(POT_MIN) -pot_max $(POT_MAX)
+	@./stats_mergesort_worst -func 1 -pot_min $(POT_MIN) -pot_max $(POT_MAX)
+	@./stats_mergesort_worst -func 2 -pot_min $(POT_MIN) -pot_max $(POT_MAX)
+	@./stats_mergesort_worst -func 3 -pot_min $(POT_MIN) -pot_max $(POT_MAX)
+
+tests_worst_q1:
+	@./stats_quicksort_worst -func 0 -worst_version 1 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+	@./stats_quicksort_worst -func 1 -worst_version 1 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+	@./stats_quicksort_worst -func 2 -worst_version 1 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+	@./stats_quicksort_worst -func 3 -worst_version 1 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+
+tests_worst_q2:
+	@./stats_quicksort_worst -func 0 -worst_version 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+	@./stats_quicksort_worst -func 1 -worst_version 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+	@./stats_quicksort_worst -func 2 -worst_version 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+	@./stats_quicksort_worst -func 3 -worst_version 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+
+tests_worst_q3:
+	@./stats_quicksort_worst -func 0 -worst_version 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+	@./stats_quicksort_worst -func 1 -worst_version 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+	@./stats_quicksort_worst -func 2 -worst_version 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+	@./stats_quicksort_worst -func 3 -worst_version 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)	

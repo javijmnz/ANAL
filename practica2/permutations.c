@@ -145,12 +145,63 @@ int ** generate_permutations(int n_perms, int N) {
   if (flag == ERR) {
     for (i -= 2; i >= 0; i--) {
       free(perms[i]);
-      free(perms);
-      return NULL;
     }
+    free(perms);
+    return NULL;
   }
   
   return perms;
+}
+
+int **copy_permutations(int **array, int n_perms, int N){
+  int ** perms, i, flag = OK;
+
+  /* Comprueba parámetros */
+  if (n_perms <= 0 || N <= 0 || !array)
+    return NULL;
+
+  /* Reserva memoria para los punteros a las permutaciones */
+  perms = (int **) malloc(n_perms * sizeof(int *));
+  if (!perms) {
+    return NULL;        
+  }
+  
+  /* copia las permutaciones */
+  for (i = 0; i < n_perms && flag == OK; i++){
+    perms[i] = copy_perm(array[i], N);
+    if (perms[i] == NULL) {
+      flag = ERR;
+    }
+  }
+  /* Comprueba errores en la copia de permutaciones */
+  if (flag == ERR) {
+    for (i -= 2; i >= 0; i--) {
+      free(perms[i]);
+    }
+    free(perms);
+    return NULL;
+  }
+  
+  return perms;
+  
+}
+
+int *copy_perm(int *array, int N){
+  int *copy, i;
+
+  if (N <= 0 || !array)
+    return NULL;
+  
+  /* Reserva memoria para los números */
+  copy = (int *) calloc(N, sizeof(int));
+  if (!copy)
+    return NULL;
+  
+  /* Genera los números */
+  for (i = 0; i < N; i++) {
+    copy[i] = array[i];
+  }
+  return copy;
 }
 
 int ** generate_permutations_alt(pfunc_perm func_perm, int n_perms, int N) {

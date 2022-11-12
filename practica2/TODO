@@ -3,6 +3,22 @@ TO DO
     times.c sacar el generate perms fuera
     Comprobar errores en absolutamente todos los lados
     
+Tipos y tamaños
+NUM_MIN = 1
+NUM_MAX = 101
+INCR = 1
+NUMP = 100000
+
+NUM_MIN = 1
+NUM_MAX = 1001
+INCR = 10
+NUMP = 1000
+
+NUM_MIN = 1
+NUM_MAX = 10001
+INCR = 100
+NUMP = 1000
+
 
 PLOTS
     Permutaciones aleatorias
@@ -15,10 +31,11 @@ PLOTS
         Permutaciones aleatorias
             Ejecución 4 juntas y 
         Worst case
-            Cada uno por separado
+            Cada uno por separado y juntar en el gnuplot
             El worst de cada uno verlo para todos
     
-    Reventar la pila
+    Reventar la pila??
+
     
     Comparación tiempo
         
