@@ -15,8 +15,6 @@ NUMP = 1000
 POT_MIN = 1
 POT_MAX = 20
 
-QS_WORST_VERSION = 2
-
 all : $(EXE)
 
 .PHONY : clean
@@ -50,47 +48,10 @@ times.o : times.c times.h
 	@echo "# Depepends on $^"
 	@echo "# Has changed $<"
 	$(CC) $(CFLAGS) -c $<
-	
-exercise1_test:
-	@echo Running exercise1
-	@./exercise1 -limInf 1 -limSup 5 -numN 10
-
-exercise2_test:
-	@echo Running exercise2
-	@./exercise2 -size 1 -numP 5
-
-exercise3_test:
-	@echo Running exercise3
-	@./exercise3 -size 1 -numP 5
-
-exercise4_test:
-	@echo Running exercise4
-	@./exercise4 -size 1
-
-exercise5_test:
-	@echo Running exercise5
-	@./exercise5 -num_min 1 -num_max 5 -incr 1 -numP 5000 -outputFile exercise5.log
 
 tests:
 	@echo "Probando algoritmos para tamaños $(NUM_MIN)-$(NUM_MAX) con incrementos de $(INCR) y $(NUMP) permutaciones"
-#	@echo "Probando MergeSort"
-#	@./stats_single -func 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
-#	@echo "Probando QuickSort_v1"
-#	@./stats_single -func 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
-#	@echo "Probando QuickSort_v2"
-#	@./stats_single -func 4 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
-#	@echo "Probando QuickSort_v3"
-#	@./stats_single -func 5 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 	@./stats_all -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
-
-tests_quicksort_worst:
-	@echo "Probando QuickSort para tamaños $(NUM_MIN)-$(NUM_MAX) con incrementos de $(INCR) y $(NUMP) permutaciones, con la versión $(QS_WORST_VERSION) del worst case"
-	@echo "Probando QuickSort_v1"
-	@./stats_quicksort_worst -func 1 -worst_version $(QS_WORST_VERSION) -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
-	@echo "Probando QuickSort_v2"
-	@./stats_quicksort_worst -func 2 -worst_version $(QS_WORST_VERSION) -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
-	@echo "Probando QuickSort_v3"
-	@./stats_quicksort_worst -func 3 -worst_version $(QS_WORST_VERSION) -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 
 tests_worst_m:
 	@./stats_mergesort_worst -func 0 -pot_min $(POT_MIN) -pot_max $(POT_MAX)
