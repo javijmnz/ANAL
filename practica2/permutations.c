@@ -286,13 +286,19 @@ int *generate_quicksort_worst_perm_v2(int N){
   array = (int*) malloc(N * sizeof(int));
   if (!array)
     return NULL;
-
-  for (i = N/2 - 1, j = N/2, k= 1; i >= 0; i--, j++, k += 2){
-    array[i] = k;
-    array[j] = k + 1;
+  
+  if (N % 2) {
+    for (i = N/2, j = N/2 + 1, k = 1; i > 0; i--, j++, k += 2){
+      array[i] = k;
+      array[j] = k + 1;
+    }
+    array[0] = k;
+  } else {
+    for (i = N/2 - 1, j = N/2, k= 1; i >= 0; i--, j++, k += 2){
+      array[i] = k;
+      array[j] = k + 1;
+    }
   }
-  if (N % 2)
-    array[j] = k;
 
   return array;
 }
