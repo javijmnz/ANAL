@@ -8,16 +8,29 @@ NUM_MIN = 1
 NUM_MAX = 101
 INCR = 1
 NUMP = 100000
+POT_MIN = 1
+POT_MAX = 20
 
 NUM_MIN = 1
 NUM_MAX = 1001
 INCR = 10
 NUMP = 1000
+POT_MIN = 1
+POT_MAX = 20
 
 NUM_MIN = 1
 NUM_MAX = 10001
 INCR = 100
 NUMP = 1000
+POT_MIN = 1
+POT_MAX = 20
+
+comprobación valgrind
+./stats_all -num_min 1 -num_max 10 -incr 1 -numP 10
+./stats_mergesort_worst -func 0 -pot_min 1 -pot_max 4 -numP 10
+./stats_quicksort_worst -func 1 -worst_version 1 -num_min 1 -num_max 11 -incr 1 -numP 10
+./stats_quicksort_worst -func 2 -worst_version 2 -num_min 1 -num_max 11 -incr 1 -numP 10
+./stats_quicksort_worst -func 3 -worst_version 3 -num_min 2 -num_max 10 -incr 2 -numP 10
 
 
 PLOTS
@@ -38,4 +51,3 @@ PLOTS
 
     
     Comparación tiempo
-        

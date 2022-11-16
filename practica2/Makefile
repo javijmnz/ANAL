@@ -8,12 +8,12 @@ CFLAGS = -Wall
 EXTRA_FLAGS = -lm
 EXE = test_sort stats_single stats_all stats_mergesort_worst stats_quicksort_worst
 
-NUM_MIN = 1
-NUM_MAX = 10001
-INCR = 100
-NUMP = 1000
+NUM_MIN = 2
+NUM_MAX = 20
+INCR = 2
+NUMP = 10
 POT_MIN = 1
-POT_MAX = 20
+POT_MAX = 4
 
 all : $(EXE)
 
@@ -54,25 +54,25 @@ tests:
 	@./stats_all -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 
 tests_worst_m:
-	@./stats_mergesort_worst -func 0 -pot_min $(POT_MIN) -pot_max $(POT_MAX)
-	@./stats_mergesort_worst -func 1 -pot_min $(POT_MIN) -pot_max $(POT_MAX)
-	@./stats_mergesort_worst -func 2 -pot_min $(POT_MIN) -pot_max $(POT_MAX)
-	@./stats_mergesort_worst -func 3 -pot_min $(POT_MIN) -pot_max $(POT_MAX)
+	@./stats_mergesort_worst -func 0 -pot_min $(POT_MIN) -pot_max $(POT_MAX) -numP $(NUMP)
+	@./stats_mergesort_worst -func 1 -pot_min $(POT_MIN) -pot_max $(POT_MAX) -numP $(NUMP)
+	@./stats_mergesort_worst -func 2 -pot_min $(POT_MIN) -pot_max $(POT_MAX) -numP $(NUMP)
+	@./stats_mergesort_worst -func 3 -pot_min $(POT_MIN) -pot_max $(POT_MAX) -numP $(NUMP)
 
 tests_worst_q1:
-	@./stats_quicksort_worst -func 0 -worst_version 1 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
-	@./stats_quicksort_worst -func 1 -worst_version 1 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
-	@./stats_quicksort_worst -func 2 -worst_version 1 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
-	@./stats_quicksort_worst -func 3 -worst_version 1 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+	@./stats_quicksort_worst -func 0 -worst_version 1 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_quicksort_worst -func 1 -worst_version 1 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_quicksort_worst -func 2 -worst_version 1 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_quicksort_worst -func 3 -worst_version 1 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 
 tests_worst_q2:
-	@./stats_quicksort_worst -func 0 -worst_version 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
-	@./stats_quicksort_worst -func 1 -worst_version 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
-	@./stats_quicksort_worst -func 2 -worst_version 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
-	@./stats_quicksort_worst -func 3 -worst_version 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
+	@./stats_quicksort_worst -func 0 -worst_version 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_quicksort_worst -func 1 -worst_version 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_quicksort_worst -func 2 -worst_version 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_quicksort_worst -func 3 -worst_version 2 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
 
 tests_worst_q3:
-	@./stats_quicksort_worst -func 0 -worst_version 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
-	@./stats_quicksort_worst -func 1 -worst_version 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
-	@./stats_quicksort_worst -func 2 -worst_version 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)
-	@./stats_quicksort_worst -func 3 -worst_version 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)	
+	@./stats_quicksort_worst -func 0 -worst_version 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_quicksort_worst -func 1 -worst_version 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_quicksort_worst -func 2 -worst_version 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -numP $(NUMP)
+	@./stats_quicksort_worst -func 3 -worst_version 3 -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR)	-numP $(NUMP)

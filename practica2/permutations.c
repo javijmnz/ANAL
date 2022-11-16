@@ -166,7 +166,7 @@ int **copy_permutations(int **array, int n_perms, int N){
     return NULL;        
   }
   
-  /* copia las permutaciones */
+  /* Copia las permutaciones */
   for (i = 0; i < n_perms && flag == OK; i++){
     perms[i] = copy_perm(array[i], N);
     if (perms[i] == NULL) {
@@ -201,6 +201,7 @@ int *copy_perm(int *array, int N){
   for (i = 0; i < N; i++) {
     copy[i] = array[i];
   }
+
   return copy;
 }
 
@@ -227,9 +228,9 @@ int ** generate_permutations_alt(pfunc_perm func_perm, int n_perms, int N) {
   if (flag == ERR) {
     for (i -= 2; i >= 0; i--) {
       free(perms[i]);
-      free(perms);
       return NULL;
     }
+    free(perms);
   }
 
   return perms;
@@ -239,17 +240,20 @@ int ** generate_permutations_alt(pfunc_perm func_perm, int n_perms, int N) {
 
 void _generate_mergesort_worst_perm_rec(int pot, int* array) {
   int i, size;
+
+  /* Caso base */
   if (pot == 0) {
     array[0] = 1;
     return; 
   }
 
-  _generate_mergesort_worst_perm_rec(pot - 1, array);
-  _generate_mergesort_worst_perm_rec(pot - 1, array + (int) pow(2, pot - 1));
+  /* Recursión */
   size = pow(2, pot - 1);
-
+  _generate_mergesort_worst_perm_rec(pot - 1, array);
+  _generate_mergesort_worst_perm_rec(pot - 1, array + size);
+  
   for (i = 0; i < size; i++) {
-    array[i] = 2 * array[i] -1;
+    array[i] = 2 * array[i] - 1;
     array[size + i] = 2 * array[size + i];
   }
 }
@@ -257,10 +261,16 @@ void _generate_mergesort_worst_perm_rec(int pot, int* array) {
 int *generate_mergesort_worst_perm(int pot) {
   int *array, size = (int) pow(2, pot);
 
-  array = (int*) malloc(size * sizeof(int));
+  /* Comprueba parámetros */
+  if (pot < 0)
+    return NULL;
+  
+  /* Reserva memoria para la permutación */
+  array = (int *) malloc(size * sizeof(int));
   if (!array)
     return NULL;
 
+  /* Genera la función recursivamente */
   _generate_mergesort_worst_perm_rec(pot, array);
   
   return array;
@@ -269,10 +279,16 @@ int *generate_mergesort_worst_perm(int pot) {
 int *generate_quicksort_worst_perm_v1(int N){
   int *array, i;
 
+  /* Comprueba parámetros */
+  if (N <= 0)
+    return NULL;
+
+  /* Reserva memoria para la permutación */
   array = (int*) malloc(N * sizeof(int));
   if (!array)
     return NULL;
 
+  /* Genera la permutación */
   for (i = 0; i < N; i++){
     array[i] = i;
   }
@@ -283,10 +299,16 @@ int *generate_quicksort_worst_perm_v1(int N){
 int *generate_quicksort_worst_perm_v2(int N){
   int *array, i, j, k;
 
+  /* Comprueba parámetros */
+  if (N < 0)
+    return NULL;
+
+  /* Reserva memoria para las permutaciones*/
   array = (int*) malloc(N * sizeof(int));
   if (!array)
     return NULL;
   
+  /* Genera las permutaciones (caso par e impar) */
   if (N % 2) {
     for (i = N/2, j = N/2 + 1, k = 1; i > 0; i--, j++, k += 2){
       array[i] = k;
@@ -306,19 +328,26 @@ int *generate_quicksort_worst_perm_v2(int N){
 int *generate_quicksort_worst_perm_v3(int N){
   int *p, *v, i, pivot0, pivot1;
 
+  /* Comprueba parámetros */
+  if (N < 0)
+    return NULL;
+
+  /* Reserva memoria para las permutaciones y el índice de referencia */
   p = (int *) malloc(N * sizeof(int));
   if (!p)
     return NULL;
 
   v = (int *) malloc(N * sizeof(int));
-  if (!v) {
+  if (!v){
     free(p);
     return NULL;
   }
 
-  for (i = 1; i <= N; i++)
+  /* Índice de referencia de los números */
+  for (i = 0; i < N; i++)
     p[i] = i;
 
+  /* Generación de la permutación de 0 a N-1 */
   for(i = 0; i < N; i += 2){
     pivot0 = i;
     pivot1 = (i + N - 1)/2;
@@ -328,11 +357,15 @@ int *generate_quicksort_worst_perm_v3(int N){
     
   }
 
-  if(i == N)
+  if(i == N){
     v[N -1] = i - 1;
+  }
 
+  /* Incremento de una unidad para tener la permutación de 1 a N */
   for (i = 0; i < N; i++)
     v[i]++;
-  
+
+  free(p);
+
   return v;
 }

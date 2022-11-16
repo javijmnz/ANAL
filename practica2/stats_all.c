@@ -85,7 +85,7 @@ int main(int argc, char** argv)
   /* compute times */
   ret = generate_sorting_times_n(func, nombresFicheros, 4, num_min, num_max,incr, n_perms);
   if (ret == ERR) { /* ERR_TIME should be a negative number */
-    printf("Error in function generate_sorting_times\n");
+    printf("Error in function generate_sorting_times_n\n");
     exit(-1);
   }
   printf("Correct output \n");

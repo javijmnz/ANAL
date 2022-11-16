@@ -113,7 +113,7 @@ int MergeSort(int* tabla, int ip, int iu) {
   int medio, ob1, ob2, ob3;
 
   /* Comprueba parámetros */
-  if (!tabla || ip > iu) 
+  if (!tabla || ip < 0 || ip > iu) 
     return ERR;
 
   /* Caso base */
@@ -138,14 +138,19 @@ int MergeSort(int* tabla, int ip, int iu) {
 }
 
 
-int merge(int* tabla, int ip, int iu, int imedio) {
+int merge(int *tabla, int ip, int iu, int imedio) {
   int *aux, i, j, k, ob = 0;
 
+  /* Comprobación de parámetros */
+  if (!tabla || ip < 0 || ip > iu || imedio < ip || imedio > iu)
+    return ERR;
 
+  /* Reserva memoria para tabla auxiliar */
   aux = (int *) malloc((iu - ip + 1) * sizeof(int));
   if (!aux)
     return ERR;
 
+  /* Combina las tablas */
   for (i = ip, j = imedio + 1, k = 0; i <= imedio && j <= iu; k++) {
     if (tabla[i] < tabla[j]){
       aux[k] = tabla[i];
@@ -164,10 +169,12 @@ int merge(int* tabla, int ip, int iu, int imedio) {
     for (; i <= imedio; i++, k++)
       aux[k] = tabla[i];
 
+  /* Copia la tabla auxiliar (ordenada) en la original */
   for (i = ip, j = 0; i <= iu; i++, j++)
     tabla[i] = aux[j];
 
   free(aux);
+
   return ob;
 }
 /***************************************************/
@@ -178,10 +185,8 @@ int _QuickSort(int *tabla, int ip, int iu, pfunc_median median) {
   int medio, ob1, ob2 = 0, ob3 = 0;
 
   /* Comprueba parámetros */
-  if (!tabla || ip > iu) {
-    printf("Error de parámetros\n");
+  if (!tabla || !median || ip < 0 || ip > iu)
     return ERR;
-  }
 
   /* Caso base */
   if (ip == iu)
@@ -189,56 +194,44 @@ int _QuickSort(int *tabla, int ip, int iu, pfunc_median median) {
 
   /* Recursión */
   ob1 = partition(tabla, ip, iu, &medio, median);
-  if (ob1 == ERR) {
-    printf("Error ob1\n");
+  if (ob1 == ERR)
     return ERR;
-  }
 
   if (ip < medio - 1)
     ob2 = _QuickSort(tabla, ip, medio - 1, median);
-  if (ob2 == ERR) {
-    printf("Error ob2\n");
+  if (ob2 == ERR)
     return ERR;
-  }
 
   if (medio + 1 < iu) 
     ob3 = _QuickSort(tabla, medio + 1, iu, median);
-  if (ob3 == ERR) {
-    printf("Error ob3\n");
+  if (ob3 == ERR)
     return ERR;
-  }
 
   return ob1 + ob2 + ob3;
 
 }
 
-int QuickSort_v1(int* tabla, int ip, int iu){
+int QuickSort_v1(int *tabla, int ip, int iu){
   return _QuickSort(tabla, ip, iu, median);
 }
 
-int QuickSort_v2(int* tabla, int ip, int iu){
+int QuickSort_v2(int *tabla, int ip, int iu){
   return _QuickSort(tabla, ip, iu, median_avg);
 }
 
-int QuickSort_v3(int* tabla, int ip, int iu){
+int QuickSort_v3(int *tabla, int ip, int iu){
   return _QuickSort(tabla, ip, iu, median_stat);
 }
 
 int partition(int* tabla, int ip, int iu, int *pos, pfunc_median median_func) {
   int medio, i, k, ob = 0;
 
-  if (!tabla)
-    printf("Error en tabla\n");
-  if (ip > iu)
-    printf("Error en índices: %d %d\n", ip, iu);
-  if (!pos)
-    printf("Error en puntero\n");
-
   /* Comprueba parámetros */
-  if (!tabla || ip > iu || !pos)
+  if (!tabla || !median_func || ip < 0 || ip > iu || !pos)
     return ERR;
 
-  median_func(tabla, ip, iu, &medio);
+  if (median_func(tabla, ip, iu, &medio) == ERR)
+    return ERR;
 
   k = tabla[medio];
   _swap(tabla + ip, tabla + medio);
@@ -260,20 +253,29 @@ int partition(int* tabla, int ip, int iu, int *pos, pfunc_median median_func) {
 }
 
 int median(int *tabla, int ip, int iu, int *pos) {
-  /* No es necesario comprobar parámetros porque ya lo hemos hecho en partition */
+  /* Comprueba parámetros */
+  if (!tabla || !median_func || ip < 0 || ip > iu || !pos)
+    return ERR;
+
   *pos = ip;
   return 0;
 }
 
 int median_avg(int *tabla, int ip, int iu, int *pos) {
-  /* No es necesario comprobar parámetros porque ya lo hemos hecho en partition */
+  /* Comprueba parámetros */
+  if (!tabla || !median_func || ip < 0 || ip > iu || !pos)
+    return ERR;
+
   *pos = (ip + iu) / 2;
   return 0;
 }
 
 int median_stat(int *tabla, int ip, int iu, int *pos) {
-  /* No es necesario comprobar parámetros porque ya lo hemos hecho en partition */
   int im = (ip + iu) / 2, min, a1;
+
+  /* Comprueba parámetros */
+  if (!tabla || !median_func || ip < 0 || ip > iu || !pos)
+    return ERR;
 
   if (tabla[ip] < tabla[im]) {
     min = ip;

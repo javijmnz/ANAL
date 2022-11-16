@@ -21,8 +21,14 @@
 
 void free_perms(int **array, int num){
   int i;
-  for(i = 0; i < num; i++)
+
+  /* Comprueba parámetros (poco útil) */
+  if (!array || num < 0)
+    return;
+  
+  for (i = 0; i < num; i++)
     free(array[i]);
+
   free(array);
 }
 
@@ -105,7 +111,7 @@ short average_sorting_time_alt(pfunc_sort metodo, int n_perms, int N, int **arra
   clock_t comienzo, final;
   
   /* Comprueba parámetros */
-  if (!metodo || n_perms <= 0 || !ptime || !array)
+  if (!metodo || n_perms <= 0 || N <= 0|| !ptime || !array)
     return ERR;
   
   /* Definimos valores por defecto para OB mínimas y máximas (son límites) */
@@ -212,7 +218,7 @@ short generate_sorting_times_n(pfunc_sort *method, char** file, int num_func, in
     return ERR;
   
   for (i = 0; i < num_func; i++)
-    if(!method[i] || !file[i])
+    if (!method[i] || !file[i])
       return ERR;
   
   /* Cálculo del número de tamaños a probar */
@@ -244,15 +250,12 @@ short generate_sorting_times_n(pfunc_sort *method, char** file, int num_func, in
   /* Control de errores */
   if (flag == ERR) {
     free(sorting_times);
-    printf("ERROR: calculo");
     return ERR;
   }
 
-  /* Guarda los sorting times en un fichero */
-  for(k = 0; k < num_func && flag == OK; k++){
+  /* Guarda los sorting times en ficheros */
+  for (k = 0; k < num_func && flag == OK; k++){
     flag = save_time_table(file[k], sorting_times + k * num_ptimes, num_ptimes);
-    if (flag == ERR)
-      printf("ERROR guardado en algoritmo %d", k);
   }
     
   free(sorting_times);
@@ -260,12 +263,12 @@ short generate_sorting_times_n(pfunc_sort *method, char** file, int num_func, in
   return flag;
 }
 
-short generate_sorting_times_mergesort_worst_perm(pfunc_sort method, char* file, int pot_min, int pot_max){
+short generate_sorting_times_mergesort_worst_perm(pfunc_sort method, char* file, int pot_min, int pot_max, int n_perms){
   PTIME_AA sorting_times;
-  int i, j, flag, num_ptimes , *perm[1];
+  int i, j, flag, num_ptimes , **perm;
   
   /* Comprueba parámetros */
-  if (!method || !file || pot_min < 0 || pot_max < pot_min)
+  if (!method || !file || pot_min < 0 || pot_max < pot_min || n_perms < 1)
     return ERR;
 
   /* Reserva de memoria para las estructuras que almacenan los datos */
@@ -276,19 +279,17 @@ short generate_sorting_times_mergesort_worst_perm(pfunc_sort method, char* file,
   
   /* Cálculo de los sorting times para cada tamaño */
   for (i = pot_min, j = 0, flag = OK; i <= pot_max && flag == OK; i++, j++){
-    perm[0] = generate_mergesort_worst_perm(i);
-    if(!perm[0]) {
+    perm = generate_permutations_alt(generate_mergesort_worst_perm, n_perms, i);
+    if (!perm)
       flag = ERR;
-    }
-    if(flag == OK)  
+    if (flag == OK)  
       flag = average_sorting_time_alt(method, 1, pow(2, i), perm, sorting_times + j);
-    free(perm[0]);
+    free_perms(perm, n_perms);
   }
     
   
   /* Control de errores */
   if (flag == ERR) {
-    fprintf(stderr, "ERROR: Error de cálculo");
     free(sorting_times);
     return ERR;
   }
@@ -300,12 +301,14 @@ short generate_sorting_times_mergesort_worst_perm(pfunc_sort method, char* file,
   return flag;
 }
 
-short generate_sorting_times_quicksort_worst_perm(pfunc_sort method, pfunc_perm worst_perm, char* file, int num_min, int num_max, int incr){
+short generate_sorting_times_quicksort_worst_perm(pfunc_sort method, pfunc_perm worst_perm, char* file, int num_min, int num_max, int incr, int n_perms){
   PTIME_AA sorting_times;
-  int i, j, flag, num_ptimes, *perm[1];
+  int i, j, flag, num_ptimes, **perm;
   
   /* Comprueba parámetros */
   if (!method || !worst_perm || !file || num_min <= 0 || num_max < num_min || incr <= 0)
+    return ERR;
+  if (worst_perm == generate_quicksort_worst_perm_v3 && (num_min % 2 || incr % 2))
     return ERR;
   
   /* Cálculo de los sorting times para cada tamaño */
@@ -319,12 +322,12 @@ short generate_sorting_times_quicksort_worst_perm(pfunc_sort method, pfunc_perm 
   
   /* Cálculo de los sorting times para cada tamaño */
   for (i = num_min, j = 0, flag = OK; i <= num_max && flag == OK; i+= incr, j++){
-    perm[0] = worst_perm(i);
-    if (!perm[0])
+    perm = generate_permutations_alt(worst_perm, n_perms, i);
+    if (!perm)
       flag = ERR;
     if (flag == OK)
       flag = average_sorting_time_alt(method, 1, i, perm, sorting_times + j);
-    free(perm[0]);
+    free_perms(perm, n_perms);
   }
     
   
@@ -367,16 +370,13 @@ short save_time_table(char *file, PTIME_AA ptime, int n_times){
   
   /* Abre el archivo en modo escritura */
   pf = fopen(file, "w");
-  if (!pf){
-    printf("ERROR: save_time_table: failed to open file, file: %s", file);
+  if (!pf)
     return ERR;
-  }
     
   
   /* Imprime los datos del array ptime en el fichero */
-  for (i = 0; i < n_times; i++) {
-    fprintf(pf, "%d %lf %lf %d %d\n", ptime[i].N, ptime[i].time, ptime[i].average_ob, ptime[i].max_ob, ptime[i].min_ob);
-  }
+  for (i = 0; i < n_times; i++)
+    fprintf(pf, "%d %f %f %d %d\n", ptime[i].N, ptime[i].time, ptime[i].average_ob, ptime[i].max_ob, ptime[i].min_ob);
   
   fclose(pf);
   return OK;

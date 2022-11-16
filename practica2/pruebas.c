@@ -21,9 +21,9 @@ void _swap(int *e1, int *e2) {
 int main(){
     int *array, i;
 
-    array = generate_quicksort_worst_perm_v2(20);
+    array = generate_quicksort_worst_perm_v3(3);
 
-    for (i = 0; i < 20; i++)
+    for (i = 0; i < 3; i++)
         printf("%d ", array[i]);
     
     free(array);
@@ -84,7 +84,8 @@ int *generate_quicksort_worst_perm_v2(int N){
 int *generate_quicksort_worst_perm_v3(int N){
   int *p, *v, i, pivot0, pivot1;
 
-
+  N *= 2;
+  
   p = (int*) malloc(N * sizeof(int));
   if (!p)
     return NULL;
@@ -110,6 +111,11 @@ int *generate_quicksort_worst_perm_v3(int N){
   if(i == N){
     v[N -1] = i - 1;
   }
+
+  for (i = 0; i < N; i++)
+    v[i]++;
+
+  free(p);
 
   return v;
 }

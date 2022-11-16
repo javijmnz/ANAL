@@ -24,7 +24,7 @@
 
 int main(int argc, char** argv)
 {
-  int i, numfunc, pot_min, pot_max;
+  int i, numfunc, pot_min, pot_max, n_perms;
   short ret;
   char nombreFichero[BufLength] ="\0";
   pfunc_sort func_sort[4] = {MergeSort, QuickSort_v1, QuickSort_v2, QuickSort_v3};
@@ -32,7 +32,7 @@ int main(int argc, char** argv)
 
   srand(time(NULL));
 
-  if (argc != 7) {
+  if (argc != 9) {
     fprintf(stderr, "Error in input parameters:\n\n");
     fprintf(stderr, "%s -func <pfunc_sort> -pot_min <int> -pot_max <int>\n", argv[0]);
     fprintf(stderr, "Donde:\n");
@@ -43,6 +43,7 @@ int main(int argc, char** argv)
     fprintf(stderr, " \t (3) QuickSort_v3\n");
     fprintf(stderr, "-pot_min: lowest power of 2 size of table\n");
     fprintf(stderr, "-pot_max: highest power of 2 size of table\n");
+    fprintf(stderr, "-numP: number of permutations to average\n");
     exit(-1);
   }
 
@@ -58,7 +59,9 @@ int main(int argc, char** argv)
       pot_min = atoi(argv[++i]);
     } else if (strcmp(argv[i], "-pot_max") == 0) {
       pot_max = atoi(argv[++i]);
-    } else {
+    } else if (strcmp(argv[i], "-numP") == 0) {
+      n_perms = atoi(argv[++i]);
+    }else {
       fprintf(stderr, "Wrong paramenter %s\n", argv[i]);
     }
   }
@@ -76,10 +79,10 @@ int main(int argc, char** argv)
 
   /* compute times */
   
-  ret = generate_sorting_times_mergesort_worst_perm(func_sort[numfunc], nombreFichero, pot_min, pot_max);
+  ret = generate_sorting_times_mergesort_worst_perm(func_sort[numfunc], nombreFichero, pot_min, pot_max, n_perms);
   
   if (ret == ERR) { /* ERR_TIME should be a negative number */
-    printf("Error in function generate_sorting_times\n");
+    printf("Error in function generate_sorting_times_mergesort_worst_perm\n");
     exit(-1);
   }
   printf("Correct output \n");
