@@ -504,7 +504,7 @@ set ylabel 'OB'
 set xrange [int(num_min): int(num_max)]
 
 plot    x * log(x) / log(2) title 'nlog(n)' with l lw 2, \
-        x * x  title 'x^2' with l lw 2, \
+        x * x  title 'n^2' with l lw 2, \
         'worst_data/MergeSort_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:3 title "MergeSort" with l, \
         'worst_data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:3 title "Quicksort_v1" with l, \
         'worst_data/Quicksort_v2_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:3 title "Quicksort_v2" with l, \
@@ -531,7 +531,7 @@ do for [alg in "QuickSort\_v2 QuickSort\_v3"]{
         set xrange [int(num_min): int(num_max)]
 
         plot    x * log(x) / log(2) title 'nlog(n)' with l lw 2, \
-                x * x  title 'x^2' with l lw 2, \
+                x * x  title 'n^2' with l lw 2, \
                 'worst_data/MergeSort_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:3 title "MergeSort" with l, \
                 'worst_data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:3 title "Quicksort_v1" with l, \
                 'worst_data/Quicksort_v2_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:3 title "Quicksort_v2" with l, \
