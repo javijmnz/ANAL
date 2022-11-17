@@ -5,39 +5,39 @@ incr = "1"
 perm = "100000"
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
-    set terminal png size 1000,1000
-    set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_ob.png'
-    set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
+        set terminal png size 1000,1000
+        set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_ob.png'
+        set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
 
-    set xlabel 'Tamaño'
-    set ylabel 'OB'
+        set xlabel 'Tamaño'
+        set ylabel 'OB'
 
-    set xrange [int(num_min): int(num_max)]
+        set xrange [int(num_min): int(num_max)]
 
-    plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title alg with l, \
-            x title 'n' with l, \
-            x * log(x) / log(2) title 'nlog(n)' with l
+        plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title alg with l, \
+                x title 'n' with l, \
+                x * log(x) / log(2) title 'nlog(n)' with l
 }
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
-    set terminal png size 1000,1000
-    set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_time.png'
-    set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
+        set terminal png size 1000,1000
+        set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_time.png'
+        set title alg.' Caso Medio (incr = '.incr.', numP = '.perm. ')'
 
-    set xlabel 'Tamaño'
-    set ylabel 'Tiempo (microsegundos)'
+        set xlabel 'Tamaño'
+        set ylabel 'Tiempo (microsegundos)'
 
-    set xrange [int(num_min): int(num_max)]
+        set xrange [int(num_min): int(num_max)]
 
-    f1(x) = k * x
+        f1(x) = k * x
 
-    f2(x) = k * x * log(x) / log(2)
-    fit f2(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 via k
+        f2(x) = k * x * log(x) / log(2)
+        fit f2(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 via k
 
-    plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 title alg with l, \
-            f1(x) title 'kn' with l, \
-            f2(x) title 'knlog(n)' with l
-}
+        plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 title alg with l, \
+                f1(x) title 'kn' with l, \
+                f2(x) title 'knlog(n)' with l
+}       
 
 # Tamaños 1-1001 con incremento de 10 y 1000 permutaciones
 num_min = "1"
@@ -46,38 +46,38 @@ incr = "10"
 perm = "1000"
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
-    set terminal png size 1000,1000
-    set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_ob.png'
-    set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
+        set terminal png size 1000,1000
+        set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_ob.png'
+        set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
 
-    set xlabel 'Tamaño'
-    set ylabel 'OB'
+        set xlabel 'Tamaño'
+        set ylabel 'OB'
 
-    set xrange [int(num_min): int(num_max)]
+        set xrange [int(num_min): int(num_max)]
 
-    plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title alg with l, \
-            x title 'n' with l, \
-            x * log(x) / log(2) title 'nlog(n)' with l
+        plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title alg with l, \
+                x title 'n' with l, \
+                x * log(x) / log(2) title 'nlog(n)' with l
 }
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
-    set terminal png size 1000,1000
-    set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_time.png'
-    set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
+        set terminal png size 1000,1000
+        set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_time.png'
+        set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
 
-    set xlabel 'Tamaño'
-    set ylabel 'Tiempo (microsegundos)'
+        set xlabel 'Tamaño'
+        set ylabel 'Tiempo (microsegundos)'
 
-    set xrange [int(num_min): int(num_max)]
+        set xrange [int(num_min): int(num_max)]
 
-    f1(x) = k * x
+        f1(x) = k * x
 
-    f2(x) = k * x * log(x) / log(2)
-    fit f2(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 via k
+        f2(x) = k * x * log(x) / log(2)
+        fit f2(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 via k
 
-    plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 title alg with l, \
-            f1(x) title 'kn' with l, \
-            f2(x) title 'knlog(n)' with l
+        plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 title alg with l, \
+                f1(x) title 'kn' with l, \
+                f2(x) title 'knlog(n)' with l
 }
 
 # Tamaños 1-10001 con incremento de 100 y 1000 permutaciones
@@ -87,42 +87,42 @@ incr = "100"
 perm = "1000"
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
-    set terminal png size 1000,1000
-    set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_ob.png'
-    set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
+        set terminal png size 1000,1000
+        set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_ob.png'
+        set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
 
-    set xlabel 'Tamaño'
-    set ylabel 'OB'
+        set xlabel 'Tamaño'
+        set ylabel 'OB'
 
-    set xrange [int(num_min): int(num_max)]
+        set xrange [int(num_min): int(num_max)]
 
-    plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title alg with l, \
-            x title 'n' with l, \
-            x * log(x) / log(2) title 'nlog(n)' with l
+        plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title alg with l, \
+                x title 'n' with l, \
+                x * log(x) / log(2) title 'nlog(n)' with l
 }
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
-    set terminal png size 1000,1000
-    set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_time.png'
-    set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
+        set terminal png size 1000,1000
+        set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_time.png'
+        set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
 
-    set xlabel 'Tamaño'
-    set ylabel 'Tiempo (microsegundos)'
+        set xlabel 'Tamaño'
+        set ylabel 'Tiempo (microsegundos)'
 
-    set xrange [int(num_min): int(num_max)]
+        set xrange [int(num_min): int(num_max)]
 
-    f1(x) = k * x
+        f1(x) = k * x
 
-    f2(x) = k * x * log(x) / log(2)
-    fit f2(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 via k
+        f2(x) = k * x * log(x) / log(2)
+        fit f2(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 via k
 
-    plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 title alg with l, \
-            f1(x) title 'kn' with l, \
-            f2(x) title 'knlog(n)' with l
+        plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 title alg with l, \
+                f1(x) title 'kn' with l, \
+                f2(x) title 'knlog(n)' with l
 }
 
 #__________________________________________________________________________________________________________________________________________
-#COMPARACIÓN OBS
+# COMPARACIÓN OBS
 #__________________________________________________________________________________________________________________________________________
 num_min = "1"
 num_max = "101"
@@ -150,7 +150,9 @@ set xrange [int(num_min): int(num_max)]
 plot    'data/MergeSort_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "MergeSort" with l, \
         'data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v1" with l, \
         'data/Quicksort_v2_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v2" with l, \
-        'data/Quicksort_v3_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v3" with l
+        'data/Quicksort_v3_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v3" with l, \
+        x title 'n' with lw 2, \
+        x * log(x) / log(2) title 'nlog(n)' with lw 2
 
 #__________________________________________________________________________________________________________________________________________
 
@@ -180,7 +182,9 @@ set xrange [int(num_min): int(num_max)]
 plot    'data/MergeSort_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "MergeSort" with l, \
         'data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v1" with l, \
         'data/Quicksort_v2_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v2" with l, \
-        'data/Quicksort_v3_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v3" with l
+        'data/Quicksort_v3_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v3" with l, \
+        x title 'n' with lw 2, \
+        x * log(x) / log(2) title 'nlog(n)' with lw 2
 
 #__________________________________________________________________________________________________________________________________________
 
@@ -214,7 +218,9 @@ set xrange [int(num_min): int(num_max)]
 plot    'data/MergeSort_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "MergeSort" with l, \
         'data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v1" with l, \
         'data/Quicksort_v2_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v2" with l, \
-        'data/Quicksort_v3_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v3" with l
+        'data/Quicksort_v3_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v3" with l, \
+        x title 'n' with lw 2, \
+        x * log(x) / log(2) title 'nlog(n)' with lw 2
 
 #__________________________________________________________________________________________________________________________________________
 #COMPARACIÓN TIEMPOS
@@ -329,9 +335,9 @@ do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"]{
         fm(x) = km * x * log(x) / log(2)
         fw(x) = kw * x * log(x) / log(2)
         
-        fit fm(x) 'data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 via km
-        fit fw(x) 'data/Quicksort_v2_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:4 via kw
-        fit fb(x) 'data/Quicksort_v3_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:5 via kb
+        fit fm(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 via km
+        fit fw(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:4 via kw
+        fit fb(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:5 via kb
 
         set terminal png size 1000,1000
         set output 'comp_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_best_avg_worst_ob.png'
@@ -344,7 +350,9 @@ do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"]{
 
         plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title alg." avg" with l, \
                 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:4 title alg." worst" with l, \
-                'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:5 title alg." best" with l
+                'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:5 title alg." best" with l, \
+                x title 'n' with lw 2, \
+                x * log(x) / log(2) title 'nlog(n)' with lw 2
 }
 
 #__________________________________________________________________________________________________________________________________________
@@ -354,10 +362,17 @@ incr = "10"
 perm = "1000"
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"]{
+        fb(x) = kb * x * log(x) / log(2)
+        fm(x) = km * x * log(x) / log(2)
+        fw(x) = kw * x * log(x) / log(2)
+        
+        fit fm(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 via km
+        fit fw(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:4 via kw
+        fit fb(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:5 via kb
 
         set terminal png size 1000,1000
         set output 'comp_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_best_avg_worst_ob.png'
-        set title 'Comparación '.alg.' caso mejor, medio y peor empíricos (incr = '.incr.', numP = '.perm.')'
+        set title 'Comparación '.alg.' caso mejor, medio y peor empíricos (incr = '.incr.', numP = '.perm.')'."\n".sprintf("Mejor -> %f*nlogn \n", kb).sprintf("Medio -> %f*nlogn \n", km).sprintf("Peor -> %f*nlogn", kw)
 
         set xlabel 'Tamaño'
         set ylabel 'OB'
@@ -378,10 +393,17 @@ incr = "100"
 perm = "1000"
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"]{
+        fb(x) = kb * x * log(x) / log(2)
+        fm(x) = km * x * log(x) / log(2)
+        fw(x) = kw * x * log(x) / log(2)
+        
+        fit fm(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 via km
+        fit fw(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:4 via kw
+        fit fb(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:5 via kb
 
         set terminal png size 1000,1000
         set output 'comp_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_best_avg_worst_ob.png'
-        set title 'Comparación '.alg.' caso mejor, medio y peor empíricos (incr = '.incr.', numP = '.perm.')'
+        set title 'Comparación '.alg.' caso mejor, medio y peor empíricos (incr = '.incr.', numP = '.perm.')'."\n".sprintf("Mejor -> %f*nlogn \n", kb).sprintf("Medio -> %f*nlogn \n", km).sprintf("Peor -> %f*nlogn", kw)
 
         set xlabel 'Tamaño'
         set ylabel 'OB'
