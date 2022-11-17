@@ -19,8 +19,8 @@ do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
         set xrange [int(num_min): int(num_max)]
 
         plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title alg with l, \
-                f1(x) title sprintf("%f",k).'n' with l, \
-                f2(x) title sprintf("%f",k).'nlog(n)' with l
+                x title 'n' with l, \
+                x * log(x) / log(2) title 'nlog(n)' with l
 }
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
@@ -63,8 +63,8 @@ do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
         set xrange [int(num_min): int(num_max)]
 
         plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title alg with l, \
-                f1(x) title sprintf("%f",k).'n' with l, \
-                f2(x) title sprintf("%f",k).'nlog(n)' with l
+                x title 'n' with l, \
+                x * log(x) / log(2) title 'nlog(n)' with l
 }
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
@@ -107,8 +107,8 @@ do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
         set xrange [int(num_min): int(num_max)]
 
         plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title alg with l, \
-                f1(x) title sprintf("%f",k).'n' with l, \
-                f2(x) title sprintf("%f",k).'nlog(n)' with l
+                x title 'n' with l, \
+                x * log(x) / log(2) title 'nlog(n)' with l
 }
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
