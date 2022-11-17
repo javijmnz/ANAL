@@ -22,7 +22,7 @@
 void free_perms(int **array, int num){
   int i;
 
-  /* Comprueba parámetros (poco útil) */
+  /* Comprueba parámetros */
   if (!array || num < 0)
     return;
   
