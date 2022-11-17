@@ -283,7 +283,7 @@ short generate_sorting_times_mergesort_worst_perm(pfunc_sort method, char* file,
     if (!perm)
       flag = ERR;
     if (flag == OK)  
-      flag = average_sorting_time_alt(method, 1, pow(2, i), perm, sorting_times + j);
+      flag = average_sorting_time_alt(method, n_perms, pow(2, i), perm, sorting_times + j);
     free_perms(perm, n_perms);
   }
     
@@ -326,7 +326,7 @@ short generate_sorting_times_quicksort_worst_perm(pfunc_sort method, pfunc_perm 
     if (!perm)
       flag = ERR;
     if (flag == OK)
-      flag = average_sorting_time_alt(method, 1, i, perm, sorting_times + j);
+      flag = average_sorting_time_alt(method, n_perms, i, perm, sorting_times + j);
     free_perms(perm, n_perms);
   }
     

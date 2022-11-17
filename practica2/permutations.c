@@ -315,7 +315,7 @@ int *generate_quicksort_worst_perm_v2(int N){
   for (i = 0; i < N; i++){
     pivot = (N - 1 + i) / 2;
     v[p[pivot]] = i;
-    _swap(p + pivot, p + i);
+    __swap(p + pivot, p + i);
   }
 
   free(p);

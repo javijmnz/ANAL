@@ -254,7 +254,7 @@ int partition(int* tabla, int ip, int iu, int *pos, pfunc_median median_func) {
 
 int median(int *tabla, int ip, int iu, int *pos) {
   /* Comprueba parámetros */
-  if (!tabla || !median_func || ip < 0 || ip > iu || !pos)
+  if (!tabla || ip < 0 || ip > iu || !pos)
     return ERR;
 
   *pos = ip;
@@ -263,7 +263,7 @@ int median(int *tabla, int ip, int iu, int *pos) {
 
 int median_avg(int *tabla, int ip, int iu, int *pos) {
   /* Comprueba parámetros */
-  if (!tabla || !median_func || ip < 0 || ip > iu || !pos)
+  if (!tabla || ip < 0 || ip > iu || !pos)
     return ERR;
 
   *pos = (ip + iu) / 2;
@@ -274,7 +274,7 @@ int median_stat(int *tabla, int ip, int iu, int *pos) {
   int im = (ip + iu) / 2, min, a1;
 
   /* Comprueba parámetros */
-  if (!tabla || !median_func || ip < 0 || ip > iu || !pos)
+  if (!tabla || ip < 0 || ip > iu || !pos)
     return ERR;
 
   if (tabla[ip] < tabla[im]) {
