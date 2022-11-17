@@ -622,8 +622,6 @@ set ylabel 'OB'
 
 set xrange [int(num_min): int(num_max)]
 
-
-
 plot    x * log(x) / log(2) title 'nlog(n)' with l lw 2, \
         'worst_data/MergeSort_pot'.pot_min.'-pot'.pot_max.'_with_worst_Mergesort.log' using 1:3 title "MergeSort" with l, \
         'worst_data/Quicksort_v1_pot'.pot_min.'-pot'.pot_max.'_with_worst_Mergesort.log' using 1:3 title "Quicksort_v1" with l, \
@@ -647,9 +645,7 @@ set title 'Comparación Caso Peor forzado de MergeSort'."\n".sprintf("Mergesort 
 set xlabel 'Tamaño'
 set ylabel 'Tiempo (microsegundos)'
 
-set xrange [int(num_min): int(num_max)]
-
-
+set xrange [int(num_min): int(num_max) ]
 
 plot    'worst_data/MergeSort_pot'.pot_min.'-pot'.pot_max.'_with_worst_Mergesort.log' using 1:2 title "MergeSort" with l, \
         'worst_data/Quicksort_v1_pot'.pot_min.'-pot'.pot_max.'_with_worst_Mergesort.log' using 1:2 title "Quicksort_v1" with l, \

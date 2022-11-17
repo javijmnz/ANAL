@@ -51,8 +51,9 @@ void perm_worst_case_mergesort_rec(int pot, int*array);
 /*    habido algún problema                        */
 /***************************************************/
 short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime){
-  int **array, total_ob = 0, i, ob, min_ob, max_ob;
+  int **array, i, ob, min_ob, max_ob;
   clock_t comienzo, final;
+  long long total_ob = 0;
   
   /* Comprueba parámetros */
   if (!metodo || n_perms <= 0 || N <= 0 || !ptime)
@@ -107,8 +108,9 @@ short average_sorting_time(pfunc_sort metodo, int n_perms, int N, PTIME_AA ptime
 }
 
 short average_sorting_time_alt(pfunc_sort metodo, int n_perms, int N, int **array, PTIME_AA ptime) {
-  int total_ob = 0, i, ob, min_ob, max_ob;
+  int i, ob, min_ob, max_ob;
   clock_t comienzo, final;
+  long long total_ob = 0;
   
   /* Comprueba parámetros */
   if (!metodo || n_perms <= 0 || N <= 0|| !ptime || !array)
