@@ -20,23 +20,22 @@ do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
 }
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
+        f1(x) = k * x
+        f2(x) = k * x * log(x) / log(2)
+        fit f2(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 via k
+
         set terminal png size 1000,1000
         set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_time.png'
-        set title alg.' Caso Medio (incr = '.incr.', numP = '.perm. ')'
+        set title alg.' Caso Medio (incr = '.incr.', numP = '.perm. ')'.sprintf("\nSemejante a %fnlogn", k)
 
         set xlabel 'Tamaño'
         set ylabel 'Tiempo (microsegundos)'
 
-        set xrange [int(num_min): int(num_max)]
-
-        f1(x) = k * x
-
-        f2(x) = k * x * log(x) / log(2)
-        fit f2(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 via k
+        set xrange [int(num_min): int(num_max)]        
 
         plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 title alg with l, \
-                f1(x) title 'kn' with l, \
-                f2(x) title 'knlog(n)' with l
+                f1(x) title sprintf("%f",k).'n' with l, \
+                f2(x) title sprintf("%f",k).'nlog(n)' with l
 }       
 
 # Tamaños 1-1001 con incremento de 10 y 1000 permutaciones
@@ -61,24 +60,23 @@ do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
 }
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
+        f1(x) = k * x
+        f2(x) = k * x * log(x) / log(2)
+        fit f2(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 via k
+
         set terminal png size 1000,1000
         set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_time.png'
-        set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
+        set title alg.' Caso Medio (incr = '.incr.', numP = '.perm. ')'.sprintf("\nSemejante a %fnlogn", k)
 
         set xlabel 'Tamaño'
         set ylabel 'Tiempo (microsegundos)'
 
-        set xrange [int(num_min): int(num_max)]
-
-        f1(x) = k * x
-
-        f2(x) = k * x * log(x) / log(2)
-        fit f2(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 via k
+        set xrange [int(num_min): int(num_max)]        
 
         plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 title alg with l, \
-                f1(x) title 'kn' with l, \
-                f2(x) title 'knlog(n)' with l
-}
+                f1(x) title sprintf("%f",k).'n' with l, \
+                f2(x) title sprintf("%f",k).'nlog(n)' with l
+}       
 
 # Tamaños 1-10001 con incremento de 100 y 1000 permutaciones
 num_min = "1"
@@ -102,23 +100,22 @@ do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
 }
 
 do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"] {
+        f1(x) = k * x
+        f2(x) = k * x * log(x) / log(2)
+        fit f2(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 via k
+
         set terminal png size 1000,1000
         set output 'single_graph/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_time.png'
-        set title alg.' Caso Medio (incr = '.incr.', numP = '.perm.')'
+        set title alg.' Caso Medio (incr = '.incr.', numP = '.perm. ')'.sprintf("\nSemejante a %fnlogn", k)
 
         set xlabel 'Tamaño'
         set ylabel 'Tiempo (microsegundos)'
 
-        set xrange [int(num_min): int(num_max)]
-
-        f1(x) = k * x
-
-        f2(x) = k * x * log(x) / log(2)
-        fit f2(x) 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 via k
+        set xrange [int(num_min): int(num_max)]        
 
         plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:2 title alg with l, \
-                f1(x) title 'kn' with l, \
-                f2(x) title 'knlog(n)' with l
+                f1(x) title sprintf("%f",k).'n' with l, \
+                f2(x) title sprintf("%f",k).'nlog(n)' with l
 }
 
 #__________________________________________________________________________________________________________________________________________
