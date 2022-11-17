@@ -297,32 +297,29 @@ int *generate_quicksort_worst_perm_v1(int N){
 }
 
 int *generate_quicksort_worst_perm_v2(int N){
-  int *array, i, j, k;
+  int *p, *v, i, pivot;
 
-  /* Comprueba parámetros */
-  if (N < 0)
+  p = (int*) malloc(N * sizeof(int));
+  if (!p)
     return NULL;
 
-  /* Reserva memoria para las permutaciones*/
-  array = (int*) malloc(N * sizeof(int));
-  if (!array)
+  v = (int*) malloc(N * sizeof(int));
+  if (!v){
+    free(p);
     return NULL;
-  
-  /* Genera las permutaciones (caso par e impar) */
-  if (N % 2) {
-    for (i = N/2, j = N/2 + 1, k = 1; i > 0; i--, j++, k += 2){
-      array[i] = k;
-      array[j] = k + 1;
-    }
-    array[0] = k;
-  } else {
-    for (i = N/2 - 1, j = N/2, k= 1; i >= 0; i--, j++, k += 2){
-      array[i] = k;
-      array[j] = k + 1;
-    }
   }
 
-  return array;
+  for (i = 0; i < N; i++)
+    p[i] = i;
+
+  for (i = 0; i < N; i++){
+    pivot = (N - 1 + i) / 2;
+    v[p[pivot]] = i;
+    _swap(p + pivot, p + i);
+  }
+
+  free(p);
+  return v;
 }
 
 int *generate_quicksort_worst_perm_v3(int N){

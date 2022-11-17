@@ -21,9 +21,9 @@ void _swap(int *e1, int *e2) {
 int main(){
     int *array, i;
 
-    array = generate_quicksort_worst_perm_v3(3);
+    array = generate_quicksort_worst_perm_v2(15);
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 15; i++)
         printf("%d ", array[i]);
     
     free(array);
@@ -59,7 +59,7 @@ int *generate_mergesort_worst_perm(int pot) {
   return array;
 }
 
-int *generate_quicksort_worst_perm_v2(int N){
+/*int *generate_quicksort_worst_perm_v2(int N){
   int *array, i, j, k;
 
   array = (int*) malloc(N * sizeof(int));
@@ -79,13 +79,39 @@ int *generate_quicksort_worst_perm_v2(int N){
   }
 
   return array;
+} */
+
+int *generate_quicksort_worst_perm_v2(int N){
+  int *p, *v, i, pivot;
+
+  p = (int*) malloc(N * sizeof(int));
+  if (!p)
+    return NULL;
+
+  v = (int*) malloc(N * sizeof(int));
+  if (!v){
+    free(p);
+    return NULL;
+  }
+
+  for (i = 0; i < N; i++)
+    p[i] = i;
+
+  for (i = 0; i < N; i++){
+    pivot = (N - 1 + i) / 2;
+    v[p[pivot]] = i;
+    _swap(p + pivot, p + i);
+  }
+
+  free(p);
+  return v;
 }
 
 int *generate_quicksort_worst_perm_v3(int N){
   int *p, *v, i, pivot0, pivot1;
 
   N *= 2;
-  
+
   p = (int*) malloc(N * sizeof(int));
   if (!p)
     return NULL;
