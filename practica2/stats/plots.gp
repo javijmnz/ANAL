@@ -151,8 +151,8 @@ plot    'data/MergeSort_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' us
         'data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v1" with l, \
         'data/Quicksort_v2_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v2" with l, \
         'data/Quicksort_v3_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v3" with l, \
-        x title 'n' with lw 2, \
-        x * log(x) / log(2) title 'nlog(n)' with lw 2
+        x title 'n' with l lw 2, \
+        x * log(x) / log(2) title 'nlog(n)' with l lw 2
 
 #__________________________________________________________________________________________________________________________________________
 
@@ -183,8 +183,8 @@ plot    'data/MergeSort_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' us
         'data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v1" with l, \
         'data/Quicksort_v2_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v2" with l, \
         'data/Quicksort_v3_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v3" with l, \
-        x title 'n' with lw 2, \
-        x * log(x) / log(2) title 'nlog(n)' with lw 2
+        x title 'n' with l lw 2, \
+        x * log(x) / log(2) title 'nlog(n)' with l lw 2
 
 #__________________________________________________________________________________________________________________________________________
 
@@ -219,8 +219,8 @@ plot    'data/MergeSort_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' us
         'data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v1" with l, \
         'data/Quicksort_v2_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v2" with l, \
         'data/Quicksort_v3_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title "Quicksort_v3" with l, \
-        x title 'n' with lw 2, \
-        x * log(x) / log(2) title 'nlog(n)' with lw 2
+        x title 'n' with l lw 2, \
+        x * log(x) / log(2) title 'nlog(n)' with l lw 2
 
 #__________________________________________________________________________________________________________________________________________
 #COMPARACIÓN TIEMPOS
@@ -351,8 +351,8 @@ do for [alg in "MergeSort QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"]{
         plot    'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:3 title alg." avg" with l, \
                 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:4 title alg." worst" with l, \
                 'data/'.alg.'_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'.log' using 1:5 title alg." best" with l, \
-                x title 'n' with lw 2, \
-                x * log(x) / log(2) title 'nlog(n)' with lw 2
+                x title 'n' with l lw 2, \
+                x * log(x) / log(2) title 'nlog(n)' with l lw 2
 }
 
 #__________________________________________________________________________________________________________________________________________
@@ -428,10 +428,19 @@ incr = "100"
 pot_min = "1"
 pot_max = "20"
 
+fm(x) = km * x * log(x) / log(2)
+fq1(x) = kq1 * x * x
+fq2(x) = kq2 * x * x
+fq3(x) = kq3 * x * x
+fit fm(x) 'worst_data/MergeSort_pot'.pot_min.'-pot'.pot_max.'_with_worst_Mergesort.log' using 1:3 via km
+fit fq1(x) 'worst_data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_Quicksort_v1.log' using 1:3 via kq1
+fit fq2(x) 'worst_data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_Quicksort_v2.log' using 1:3 via kq2
+fit fq3(x) 'worst_data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_Quicksort_v3.log' using 1:3 via kq3
+
 # OBs
 set terminal png size 1000,1000
 set output 'comp_graph/comp_worst_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_ob.png'
-set title 'Comparación Caso Peor propio forzado'
+set title 'Comparación Caso Peor propio forzado'."\n".sprintf("Mergesort -> %f*nlogn \n", km).sprintf("Quicksort v1 -> %f*n^2 \n", kq1).sprintf("Quicksort v2 -> %f*n^2 \n", kq2).sprintf("Quicksort v3 -> %f*n^2 ", kq3)
 
 set xlabel 'Tamaño'
 set ylabel 'OB'
@@ -446,9 +455,19 @@ plot    x title 'n' with l lw 2, \
         'worst_data/Quicksort_v3_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_Quicksort_v3.log' using 1:3 title "Quicksort_v3" with l
 
 # Tiempo
+
+fm(x) = km * x * log(x) / log(2)
+fq1(x) = kq1 * x * x
+fq2(x) = kq2 * x * x
+fq3(x) = kq3 * x * x
+fit fm(x) 'worst_data/MergeSort_pot'.pot_min.'-pot'.pot_max.'_with_worst_Mergesort.log' using 1:2 via km
+fit fq1(x) 'worst_data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_Quicksort_v1.log' using 1:2 via kq1
+fit fq2(x) 'worst_data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_Quicksort_v2.log' using 1:2 via kq2
+fit fq3(x) 'worst_data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_Quicksort_v3.log' using 1:2 via kq3
+
 set terminal png size 1000,1000
 set output 'comp_graph/comp_worst_'.num_min.'-'.num_max.'_incr'.incr.'_per'.perm.'_avg_time.png'
-set title 'Comparación Caso Peor propio forzado'
+set title 'Comparación Caso Peor propio forzado'."\n".sprintf("Mergesort -> %f*nlogn \n", km).sprintf("Quicksort v1 -> %f*n^2 \n", kq1).sprintf("Quicksort v2 -> %f*n^2 \n", kq2).sprintf("Quicksort v3 -> %f*n^2 ", kq3)
 
 set xlabel 'Tamaño'
 set ylabel 'Tiempo (microsegundos)'
@@ -501,16 +520,7 @@ do for [alg in "QuickSort\_v1 QuickSort\_v2 QuickSort\_v3"]{
         set ylabel 'Tiempo (microsegundos)'
 
         set xrange [int(num_min): int(num_max)]
-        #f1(x) = k * x 
-        #f2(x) = k * x * log(x) / log(2)
-        #f3(x) = k * x * x * 0.5
-        #f4(x) = k * x * x * 0.25
-        #fit f4(x) 'worst_data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:2 via k
-
-        #plot    f1(x) title 'kn' with l lw 2, \
-        #        f2(x) title 'knlog(n)' with l lw 2, \
-        #        f3(x) title 'kx^2/2' with l lw 2, \
-        #        f4(x) title 'kx^2/4' with l lw 2, \
+        
         plot    'worst_data/MergeSort_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:2 title "MergeSort" with l, \
                 'worst_data/Quicksort_v1_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:2 title "Quicksort_v1" with l, \
                 'worst_data/Quicksort_v2_'.num_min.'-'.num_max.'_incr'.incr.'_with_worst_'.alg.'.log' using 1:2 title "Quicksort_v2" with l, \
