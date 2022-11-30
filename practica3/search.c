@@ -19,9 +19,16 @@ int _print_int(FILE *pf, const void *c){
 }
 
 int _cmp_int(const void * c1, const void * c2){
-    return *((int*)c1) - *((int*)c2);
+    return *(((int*)c1) - *((int*)c2));
 }
 
+void _swap(int *a1, int *a2) {
+  int aux;
+
+  aux = *a1;
+  *a1 = *a2;
+  *a2 = aux;
+}
 
 /**
  *  Key generation functions
@@ -130,9 +137,8 @@ int massive_insertion_dictionary (PDICT pdict,int *keys, int n_keys)
   
   for (i = 0; i < n_keys; i++){
     ret = insert_dictionary (pdict, key[i]);
-    if(ret == ERR){
+    if (ret == ERR)
       return ERR;
-    }
     ob += ret;
   }
 
@@ -146,7 +152,7 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
     return ERR;
   }
 
-  if ((pdict->order == SORTED && method != bin_search) || (pdict->order == NOT_SORTED && method == bin_search))
+  if (pdict->order == NOT_SORTED && (method == bin_search || method == lin_search_sorted))
     return ERR;
   
   return method(pdict->table, 0, pdict->n_data - 1, key, ppos);  
@@ -154,20 +160,92 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
 
 
 /* Search functions of the Dictionary ADT */
-int bin_search(int *table,int F,int L,int key, int *ppos)
-{
+int bin_search(int *table,int F,int L,int key, int *ppos){
+	int med = (L - F)/2, ob = 0;
+  
+  if (!table || F < 0 || L < F || !ppos)
+    return ERR;
+    
+  while (F < L) {
+    if (table[med] == key) {
+      *ppos = med;
+      return ob + 1;
+    } else if (table[med] > key)
+      L = med;
+    else
+      F = med + 1;
+    med = (L - F)/2;
+    ob++;
+  }
+  
+  *ppos = NOT_FOUND;       
+  return ob;
+  
+
+  
+  
+}
+
+int lin_search(int *table,int F,int L,int key, int *ppos) {
+  int i;
+  
 	if (!table || F < 0 || L < F || !ppos)
     return ERR;
+    
+  i = F;
+  while (table[i] != key && i <= L)
+    i++;
+
+  if (i > L) {
+    *ppos = NOT_FOUND;
+    i = L;
+  } else
+    *ppos = i;
+
+  return i - F + 1; // OBs
 }
 
-int lin_search(int *table,int F,int L,int key, int *ppos)
-{
-	/* your code */
+int lin_search_sorted(int *table,int F,int L,int key, int *ppos) {
+	int i;
+  
+	if (!table || F < 0 || L < F || !ppos)
+    return ERR;
+    
+  i = F;
+  while (table[i] < key && i <= L)
+    i++;
+
+  if (i > L) {
+    *ppos = NOT_FOUND;
+    i = L;
+  } else if (table[i] > key)
+    *ppos = NOT_FOUND;
+  else
+    *ppos = i;
+
+  return i - F + 1; // OBs
 }
 
-int lin_auto_search(int *table,int F,int L,int key, int *ppos)
-{
-	/* your code */
+int lin_auto_search(int *table,int F,int L,int key, int *ppos) {
+	int i;
+  
+	if (!table || F < 0 || L < F || !ppos)
+    return ERR;
+    
+  i = F;
+  while (table[i] != key && i <= L)
+    i++;
+
+  if (i > L) {
+    *ppos = NOT_FOUND;
+    i = L;
+  } else {
+    *ppos = i;
+    if (i != F)
+      _swap(tabla + i, tabla + i - 1);
+  }
+
+  return i - F + 1; // OBs
 }
 
 
