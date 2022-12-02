@@ -12,6 +12,7 @@
 #include "search.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 
 int _print_int(FILE *pf, const void *c){
@@ -113,7 +114,7 @@ int insert_dictionary(PDICT pdict, int key)
   pdict->table[pdict->n_data] = key;
   pdict->n_data++;
 
-  if (pdict->order = NOT_SORTED)
+  if (pdict->order == NOT_SORTED)
     return ob;
   
   
@@ -136,7 +137,7 @@ int massive_insertion_dictionary (PDICT pdict,int *keys, int n_keys)
     return ERR;
   
   for (i = 0; i < n_keys; i++){
-    ret = insert_dictionary (pdict, key[i]);
+    ret = insert_dictionary (pdict, keys[i]);
     if (ret == ERR)
       return ERR;
     ob += ret;
@@ -202,7 +203,7 @@ int lin_search(int *table,int F,int L,int key, int *ppos) {
   } else
     *ppos = i;
 
-  return i - F + 1; // OBs
+  return i - F + 1; /* OBs */
 }
 
 int lin_search_sorted(int *table,int F,int L,int key, int *ppos) {
@@ -223,7 +224,7 @@ int lin_search_sorted(int *table,int F,int L,int key, int *ppos) {
   else
     *ppos = i;
 
-  return i - F + 1; // OBs
+  return i - F + 1; /* OBs */
 }
 
 int lin_auto_search(int *table,int F,int L,int key, int *ppos) {
@@ -242,10 +243,8 @@ int lin_auto_search(int *table,int F,int L,int key, int *ppos) {
   } else {
     *ppos = i;
     if (i != F)
-      _swap(tabla + i, tabla + i - 1);
+      _swap(table + i, table + i - 1);
   }
 
   return i - F + 1; // OBs
 }
-
-

@@ -12,8 +12,6 @@
 #ifndef SEARCH_H_
 #define SEARCH_H_
 
-#include "bstree.h"
-
 /* constantes */
 
 #ifndef ERR
@@ -35,12 +33,6 @@ typedef struct dictionary {
   int *table;  /* data table */
 } DICT, *PDICT;
 
-/* type definitions */
-typedef struct tree_dictionary {
-  BSTree *tree_dict;
-  int n_data;
-} TREE_DICT, *TREE_PDICT;
-
 typedef int (* pfunc_search)(int*, int, int, int, int*);
 typedef void (* pfunc_key_generator)(int*, int, int);
 
@@ -55,6 +47,7 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method);
 /* Search functions for the Dictionary ADT */
 int bin_search(int *table,int F,int L,int key, int *ppos);
 int lin_search(int *table,int F,int L,int key, int *ppos);
+int lin_search_sorted(int *table,int F,int L,int key, int *ppos);
 int lin_auto_search(int *table,int F,int L,int key, int *ppos);
 
 /**
@@ -71,4 +64,3 @@ void potential_key_generator(int *keys, int n_keys, int max);
 
 
 #endif
-
