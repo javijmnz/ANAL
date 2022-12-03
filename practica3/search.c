@@ -162,29 +162,25 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
 
 /* Search functions of the Dictionary ADT */
 int bin_search(int *table,int F,int L,int key, int *ppos){
-	int med = (L - F)/2, ob = 0;
+	int med = (L + F)/2, ob = 0;
   
   if (!table || F < 0 || L < F || !ppos)
     return ERR;
     
-  while (F < L) {
-    if (table[med] == key) {
+  while (F <= L) {
+    if (key == table[med]) {
       *ppos = med;
       return ob + 1;
-    } else if (table[med] > key)
-      L = med;
+    } else if (key < table[med])
+      L = med - 1;
     else
       F = med + 1;
-    med = (L - F)/2;
+    med = (L + F)/2;
     ob++;
   }
   
   *ppos = NOT_FOUND;       
-  return ob;
-  
-
-  
-  
+  return ERR;
 }
 
 int lin_search(int *table,int F,int L,int key, int *ppos) {
@@ -199,11 +195,11 @@ int lin_search(int *table,int F,int L,int key, int *ppos) {
 
   if (i > L) {
     *ppos = NOT_FOUND;
-    i = L;
-  } else
+    return ERR;
+  } else {
     *ppos = i;
-
-  return i - F + 1; /* OBs */
+    return i - F + 1; /* OBs */
+  }
 }
 
 int lin_search_sorted(int *table,int F,int L,int key, int *ppos) {
@@ -218,13 +214,14 @@ int lin_search_sorted(int *table,int F,int L,int key, int *ppos) {
 
   if (i > L) {
     *ppos = NOT_FOUND;
-    i = L;
-  } else if (table[i] > key)
+    return ERR;
+  } else if (table[i] > key) {
     *ppos = NOT_FOUND;
-  else
+    return ERR;
+  } else {
     *ppos = i;
-
-  return i - F + 1; /* OBs */
+    return i - F + 1; /* OBs */
+  }
 }
 
 int lin_auto_search(int *table,int F,int L,int key, int *ppos) {
@@ -239,12 +236,11 @@ int lin_auto_search(int *table,int F,int L,int key, int *ppos) {
 
   if (i > L) {
     *ppos = NOT_FOUND;
-    i = L;
+    return ERR;
   } else {
     *ppos = i;
     if (i != F)
       _swap(table + i, table + i - 1);
+    return i - F + 1; /* OBs */
   }
-
-  return i - F + 1; // OBs
 }

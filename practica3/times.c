@@ -83,7 +83,7 @@ short generate_search_times(pfunc_search method, pfunc_key_generator generator, 
 }
 
 short average_search_time(pfunc_search metodo, pfunc_key_generator generator, char order, int N, int n_times, PTIME_AA ptime) {
-  int *perm = NULL, *keys = NULL, ppos, i, ob, min_ob, max_ob;
+  int *perm = NULL, *keys = NULL, pos, i, ob, min_ob, max_ob;
   clock_t comienzo, final;
   long long total_ob = 0;
   PDICT dict = NULL;
@@ -121,7 +121,7 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, ch
 
   for (i = 0; i < n_times * N; i++) {
     /* Busca la clave i-ésima */
-    ob = metodo(dict->table, 0, N - 1, keys[i], &ppos);
+    ob = search_dictionary(dict, keys[i], &pos, metodo);
     if (ob == ERR) {
       free(keys);
       free(perm);
