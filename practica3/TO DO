@@ -1,0 +1,61 @@
+
+TESTS (10.000.000 de búsquedas) 
+
+N 100 n_times 100000
+
+NUM_MIN = 1
+NUM_MAX = 101
+INCR = 1
+N_TIMES = 100000
+KEY_GEN = 1
+
+NUM_MIN = 1
+NUM_MAX = 101
+INCR = 1
+N_TIMES = 100000
+KEY_GEN = 2
+
+N 100000 n_times 100
+
+NUM_MIN = 1
+NUM_MAX = 100001
+INCR = 100
+N_TIMES = 100
+KEY_GEN = 1
+
+NUM_MIN = 1
+NUM_MAX = 100001
+INCR = 100
+N_TIMES = 100
+KEY_GEN = 2
+
+sorted 
+    bin search
+    lin search
+not sorted 
+    lin search
+    lin auto search
+
+GRÁFICAS
+    Uniform Key Gen
+        Tiempo
+            -comp sorted
+            -comp not sorted 
+            -comp all
+        OBs
+            -bin search
+            -comp all
+    Potential Key Gen?
+        Tiempo
+            -comp sorted
+            -comp not sorted 
+            -comp all
+        OBs
+            -bin search
+            -comp all
+    Comp uniform vs Potential
+        bin search
+        lin search
+        lin auto search
+        
+    

@@ -27,22 +27,28 @@
 
 int main(int argc, char** argv)
 {
-  int i, num_min,num_max,incr,n_times;
+  int i, num_min,num_max,incr,n_times, search, key_gen;
   char name[256];
   short ret;
+  pfunc_search search_functions[5] = {bin_search, lin_search, lin_search_sorted, lin_auto_search};
+  pfunc_key_generator key_gen_functions[2] = {uniform_key_generator, potential_key_generator};
+  char sorted_array[5] = {SORTED, NOT_SORTED, SORTED, NOT_SORTED, SORTED};
+  char *search_names[5] = {"bin_search", "lin_search", "lin_search_sorted", "lin_auto_search", "bad_lin_search_sorted"};
+  char *key_gen_names[2] = {"unif", "pot"};
  
   srand(time(NULL));
 
   if (argc != 11) {
     fprintf(stderr, "Error in the input parameters:\n\n");
     fprintf(stderr, "%s -num_min <int> -num_max <int> -incr <int>\n", argv[0]);
-    fprintf(stderr, "\t\t -n_keys <int> -n_times <int> -outputFile <string> \n");
+    fprintf(stderr, "\t\t-n_times <int> -search <int> -key_gen <int> \n");
     fprintf(stderr, "Where:\n");
     fprintf(stderr, "-num_min: minimum number of elements of the table\n");
     fprintf(stderr, "-num_max: maximum number of elements of the table\n");
     fprintf(stderr, "-incr: increment\n");
     fprintf(stderr, "-n_times: number of times each key is searched\n");
-    fprintf(stderr, "-outputFile: Output file name\n");
+    fprintf(stderr, "-search: 1: bin_search 2: lin_search 3: lin_search_sorted 4: lin_auto_search 5: lin_search mala sorted\n");
+    fprintf(stderr, "-key_gen: 1: uniform 2: potential\n");
     exit(-1);
   }
 
@@ -60,16 +66,20 @@ int main(int argc, char** argv)
       incr = atoi(argv[++i]);
     } else if (strcmp(argv[i], "-n_times") == 0) {
       n_times = atoi(argv[++i]);
-    } else if (strcmp(argv[i], "-outputFile") == 0) {
-      strcpy(name, argv[++i]);
+    } else if (strcmp(argv[i], "-search") == 0) {
+      search = atoi(argv[++i]);
+    }else if (strcmp(argv[i], "-key_gen") == 0) {
+      key_gen = atoi(argv[++i]);
     } else {
       fprintf(stderr, "Parameter %s is invalid\n", argv[i]);
       exit(-1);
     }
   }
 
+  sprintf(name,"stats/%s_key_gen_%s_%d-%d_incr%d_n_times%d.log",search_names[search - 1], key_gen_names[key_gen - 1], num_min, num_max, incr, n_times);
+
   /* calculamos los tiempos */
-  ret = generate_search_times(lin_search, uniform_key_generator, NOT_SORTED, 
+  ret = generate_search_times(search_functions[search - 1], key_gen_functions[key_gen - 1], sorted_array[search - 1], 
                                 name, num_min, num_max, incr, n_times);
   if (ret == ERR) { 
     printf("Error in function generate_search_times\n");

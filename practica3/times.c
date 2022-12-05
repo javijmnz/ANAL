@@ -95,11 +95,19 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, ch
   if (!dict)
     return ERR;
 
-  perm = generate_perm(N);
+  /*Optimización*/
+
+  if (order == NOT_SORTED)
+    perm = generate_perm(N);
+  else
+    perm = generate_sorted_perm(N);
+    
   if (!perm){
-    free_dictionary(dict);
-    return ERR;
-  }
+      free_dictionary(dict);
+      return ERR;
+    }
+
+  
     
   massive_insertion_dictionary(dict, perm, N);
   

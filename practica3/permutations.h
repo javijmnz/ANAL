@@ -33,4 +33,6 @@ int * generate_quicksort_worst_perm_v3(int N);
 int **copy_permutations(int **array, int n_perms, int N);
 int *copy_perm(int *array, int N);
 
+int generate_sorted_perm(int N);
+
 #endif

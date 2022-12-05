@@ -296,6 +296,10 @@ int *generate_quicksort_worst_perm_v1(int N){
   return array;
 }
 
+int generate_sorted_perm(int N){
+  return generate_quicksort_worst_perm_v1(N);
+}
+
 int *generate_quicksort_worst_perm_v2(int N){
   int *p, *v, i, pivot;
 
