@@ -30,15 +30,15 @@ int main(int argc, char** argv)
   int i, num_min,num_max,incr,n_times, search, key_gen;
   char name[256];
   short ret;
-  pfunc_search search_functions[5] = {bin_search, lin_search, lin_search_sorted, lin_auto_search};
+  pfunc_search search_functions[5] = {bin_search, lin_search, lin_search_sorted, lin_auto_search, lin_search};
   pfunc_key_generator key_gen_functions[2] = {uniform_key_generator, potential_key_generator};
-  char sorted_array[5] = {SORTED, NOT_SORTED, SORTED, NOT_SORTED, SORTED};
+  int sorted_array[5] = {SORTED, NOT_SORTED, SORTED, NOT_SORTED, SORTED};
   char *search_names[5] = {"bin_search", "lin_search", "lin_search_sorted", "lin_auto_search", "bad_lin_search_sorted"};
   char *key_gen_names[2] = {"unif", "pot"};
  
   srand(time(NULL));
 
-  if (argc != 11) {
+  if (argc != 13) {
     fprintf(stderr, "Error in the input parameters:\n\n");
     fprintf(stderr, "%s -num_min <int> -num_max <int> -incr <int>\n", argv[0]);
     fprintf(stderr, "\t\t-n_times <int> -search <int> -key_gen <int> \n");
@@ -75,6 +75,11 @@ int main(int argc, char** argv)
       exit(-1);
     }
   }
+
+  if(search < 1 || search > 5 || key_gen < 1 || key_gen > 5 || num_min > num_max || incr < 1 || n_times < 1){
+    fprintf(stderr, "Wrong arguments\n");
+  }
+
 
   sprintf(name,"stats/%s_key_gen_%s_%d-%d_incr%d_n_times%d.log",search_names[search - 1], key_gen_names[key_gen - 1], num_min, num_max, incr, n_times);
 

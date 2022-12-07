@@ -1,6 +1,14 @@
 
 TESTS (10.000.000 de búsquedas) 
 
+SOLO PARA TESTEAR
+
+NUM_MIN = 1
+NUM_MAX = 101
+INCR = 10
+N_TIMES = 100
+KEY_GEN = 1
+
 N 100 n_times 100000
 
 NUM_MIN = 1

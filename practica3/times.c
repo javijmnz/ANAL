@@ -62,8 +62,10 @@ short generate_search_times(pfunc_search method, pfunc_key_generator generator, 
 
   /* Reserva de memoria para las estructuras que almacenan los datos */
   sorting_times = (PTIME_AA) malloc(num_ptimes * sizeof(TIME_AA));
-  if (!sorting_times)
+  if (!sorting_times){
     return ERR;
+  }
+    
   
   /* Cálculo de los sorting times para cada tamaño */
   for (i = num_min, j = 0, flag = OK; i <= num_max && flag == OK; i+= incr, j++)
@@ -88,12 +90,14 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, ch
   long long total_ob = 0;
   PDICT dict = NULL;
 
-  if (!metodo || !generator || N <= 0 || n_times <= 0 || !ptime || (order != 0 && order!= 1))
+  if (!metodo || !generator || N <= 0 || n_times <= 0 || !ptime || (order != 0 && order!= 1)){
     return ERR;
+  }    
 
   dict = init_dictionary(N, order);
-  if (!dict)
+  if (!dict){
     return ERR;
+  }
 
   /*Optimización*/
 
@@ -101,18 +105,23 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, ch
     perm = generate_perm(N);
   else
     perm = generate_sorted_perm(N);
-    
+
   if (!perm){
-      free_dictionary(dict);
-      return ERR;
-    }
+    free_dictionary(dict);
+    return ERR;
+  }
 
   
     
-  massive_insertion_dictionary(dict, perm, N);
+  if (massive_insertion_dictionary(dict, perm, N) == ERR){
+    free(perm);
+    free_dictionary(dict);
+    return ERR;
+  }
   
   keys = malloc(n_times * N * sizeof(int));
   if (!keys){
+    printf("ERROR: memory");
     free(perm);
     free_dictionary(dict);
     return ERR;

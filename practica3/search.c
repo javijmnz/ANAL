@@ -180,7 +180,7 @@ int bin_search(int *table,int F,int L,int key, int *ppos){
   }
   
   *ppos = NOT_FOUND;       
-  return ERR;
+  return OK;
 }
 
 int lin_search(int *table,int F,int L,int key, int *ppos) {
@@ -195,7 +195,7 @@ int lin_search(int *table,int F,int L,int key, int *ppos) {
 
   if (i > L) {
     *ppos = NOT_FOUND;
-    return ERR;
+    return i - F + 1;
   } else {
     *ppos = i;
     return i - F + 1; /* OBs */
@@ -214,13 +214,13 @@ int lin_search_sorted(int *table,int F,int L,int key, int *ppos) {
 
   if (i > L) {
     *ppos = NOT_FOUND;
-    return ERR;
+    return i - F + 1;
   } else if (table[i] > key) {
     *ppos = NOT_FOUND;
-    return ERR;
+    return i - F + 1;
   } else {
     *ppos = i;
-    return i - F + 1; /* OBs */
+    return i - F + 1; /* OBs Seguro que es un +1??? */
   }
 }
 

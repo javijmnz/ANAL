@@ -290,13 +290,13 @@ int *generate_quicksort_worst_perm_v1(int N){
 
   /* Genera la permutación */
   for (i = 0; i < N; i++){
-    array[i] = i;
+    array[i] = i + 1;
   }
 
   return array;
 }
 
-int generate_sorted_perm(int N){
+int* generate_sorted_perm(int N){
   return generate_quicksort_worst_perm_v1(N);
 }
 
