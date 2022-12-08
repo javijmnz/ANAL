@@ -32,7 +32,7 @@ int main(int argc, char** argv)
   short ret;
   pfunc_search search_functions[5] = {bin_search, lin_search, lin_search_sorted, lin_auto_search, lin_search};
   pfunc_key_generator key_gen_functions[2] = {uniform_key_generator, potential_key_generator};
-  int sorted_array[5] = {SORTED, NOT_SORTED, SORTED, NOT_SORTED, SORTED};
+  int sorted_array[5] = {SORTED, NOT_SORTED, NOT_SORTED, SORTED};
   char *search_names[5] = {"bin_search", "lin_search", "lin_search_sorted", "lin_auto_search", "bad_lin_search_sorted"};
   char *key_gen_names[2] = {"unif", "pot"};
  
@@ -47,7 +47,7 @@ int main(int argc, char** argv)
     fprintf(stderr, "-num_max: maximum number of elements of the table\n");
     fprintf(stderr, "-incr: increment\n");
     fprintf(stderr, "-n_times: number of times each key is searched\n");
-    fprintf(stderr, "-search: 1: bin_search 2: lin_search 3: lin_search_sorted 4: lin_auto_search 5: lin_search mala sorted\n");
+    fprintf(stderr, "-search: 1: bin_search 2: lin_search 3: lin_auto_search 4: lin_search sorted\n");
     fprintf(stderr, "-key_gen: 1: uniform 2: potential\n");
     exit(-1);
   }
@@ -76,7 +76,7 @@ int main(int argc, char** argv)
     }
   }
 
-  if(search < 1 || search > 5 || key_gen < 1 || key_gen > 5 || num_min > num_max || incr < 1 || n_times < 1){
+  if(search < 1 || search > 4 || key_gen < 1 || key_gen > 5 || num_min > num_max || incr < 1 || n_times < 1){
     fprintf(stderr, "Wrong arguments\n");
   }
 

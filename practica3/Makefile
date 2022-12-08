@@ -61,19 +61,16 @@ stats_lin_search:
 	@echo "Lin search $(NUM_MIN)-$(NUM_MAX) incr: $(INCR) n times: $(N_TIMES) key_gen: $(KEY_GEN)"
 	@./stats_all -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -n_times $(N_TIMES) -search 2 -key_gen $(KEY_GEN)
 
-stats_lin_search_sorted:
+stats_lin_auto_search:
 	@echo "#---------------------------------------------------------------"
 	@echo "Lin search sorted $(NUM_MIN)-$(NUM_MAX) incr: $(INCR) n times: $(N_TIMES) key_gen: $(KEY_GEN)"
 	@./stats_all -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -n_times $(N_TIMES) -search 3 -key_gen $(KEY_GEN)
 
-stats_lin_auto_search:
+stats_lin_search_sorted:
 	@echo "#---------------------------------------------------------------"
 	@echo "Lin auto search $(NUM_MIN)-$(NUM_MAX) incr: $(INCR) n times: $(N_TIMES) key_gen: $(KEY_GEN)"
 	@./stats_all -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -n_times $(N_TIMES) -search 4 -key_gen $(KEY_GEN)
 
-stats_bad_lin_search_sorted:
-	@echo "#---------------------------------------------------------------"
-	@echo "Bad lin search sorted $(NUM_MIN)-$(NUM_MAX) incr: $(INCR) n times: $(N_TIMES) key_gen: $(KEY_GEN)"
-	@./stats_all -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -n_times $(N_TIMES) -search 5 -key_gen $(KEY_GEN)
 
-exec_stats: stats_bin_search stats_lin_search stats_lin_search_sorted stats_lin_auto_search stats_bad_lin_search_sorted
+
+exec_stats: stats_bin_search stats_lin_search stats_lin_search_sorted stats_lin_auto_search
