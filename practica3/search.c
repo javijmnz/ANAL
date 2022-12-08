@@ -153,7 +153,7 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
     return ERR;
   }
 
-  if (pdict->order == NOT_SORTED && (method == bin_search || method == lin_search_sorted))
+  if (pdict->order == NOT_SORTED && method == bin_search)
     return ERR;
   
   return method(pdict->table, 0, pdict->n_data - 1, key, ppos);  

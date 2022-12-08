@@ -14,27 +14,27 @@ N 100 n_times 100000
 NUM_MIN = 1
 NUM_MAX = 101
 INCR = 1
-N_TIMES = 100000
+N_TIMES = 1
 KEY_GEN = 1
 
 NUM_MIN = 1
 NUM_MAX = 101
 INCR = 1
-N_TIMES = 100000
+N_TIMES = 1000000
 KEY_GEN = 2
 
 N 100000 n_times 100
 
 NUM_MIN = 1
 NUM_MAX = 100001
-INCR = 100
-N_TIMES = 100
+INCR = 1000
+N_TIMES = 1
 KEY_GEN = 1
 
 NUM_MIN = 1
 NUM_MAX = 100001
-INCR = 100
-N_TIMES = 100
+INCR = 1000
+N_TIMES = 1000
 KEY_GEN = 2
 
 sorted 
@@ -67,3 +67,16 @@ GRÁFICAS
         lin auto search
         
     
+
+
+
+
+array Num_max[2]
+num_max[0] = 101
+num_max[1] = 100001
+array Incr[2]
+Incr[0] = 1
+Incr[1] = 100
+array N_times[2]
+N_times[0] = 100000
+N_times[1] = 100

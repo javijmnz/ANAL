@@ -46,10 +46,10 @@ exercise1_test:
 	@./exercise1 -size 10 -key 5
 
 NUM_MIN = 1
-NUM_MAX = 101
-INCR = 10
+NUM_MAX = 100001
+INCR = 1000
 N_TIMES = 100
-KEY_GEN = 1
+KEY_GEN = 2
 
 stats_bin_search:
 	@echo "#---------------------------------------------------------------"
@@ -73,4 +73,4 @@ stats_lin_search_sorted:
 
 
 
-exec_stats: stats_bin_search stats_lin_search stats_lin_search_sorted stats_lin_auto_search
+exec_stats: stats_bin_search stats_lin_search

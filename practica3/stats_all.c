@@ -30,7 +30,7 @@ int main(int argc, char** argv)
   int i, num_min,num_max,incr,n_times, search, key_gen;
   char name[256];
   short ret;
-  pfunc_search search_functions[5] = {bin_search, lin_search, lin_search_sorted, lin_auto_search, lin_search};
+  pfunc_search search_functions[5] = {bin_search, lin_search, lin_auto_search, lin_search};
   pfunc_key_generator key_gen_functions[2] = {uniform_key_generator, potential_key_generator};
   int sorted_array[5] = {SORTED, NOT_SORTED, NOT_SORTED, SORTED};
   char *search_names[5] = {"bin_search", "lin_search", "lin_search_sorted", "lin_auto_search", "bad_lin_search_sorted"};

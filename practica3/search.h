@@ -47,7 +47,6 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method);
 /* Search functions for the Dictionary ADT */
 int bin_search(int *table,int F,int L,int key, int *ppos);
 int lin_search(int *table,int F,int L,int key, int *ppos);
-int lin_search_sorted(int *table,int F,int L,int key, int *ppos);
 int lin_auto_search(int *table,int F,int L,int key, int *ppos);
 
 /**
