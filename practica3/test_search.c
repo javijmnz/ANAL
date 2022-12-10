@@ -23,18 +23,22 @@
 int main(int argc, char** argv)
 {
   int i, nob, pos;
-  unsigned int key, size;
+  unsigned int key, size, search;
   PDICT pdict;
   int *perm;
+  pfunc_search search_functions[3] = {bin_search, lin_search, lin_auto_search};
+  int sorted_array[3] = {SORTED, NOT_SORTED, NOT_SORTED};
 
   srand(time(NULL));
 
-  if (argc != 5) {
+  if (argc != 7) {
     fprintf(stderr, "Error in the input parameters:\n\n");
     fprintf(stderr, "%s -size <int> -key <int>\n", argv[0]);
     fprintf(stderr, "where:\n");
     fprintf(stderr, " -size : number of elements in the table.\n");
     fprintf(stderr, " -key : key to search.\n");
+    fprintf(stderr, " -search : 1 -> bin search 2 -> lin search 3 -> lin auto search.\n");
+
     exit(-1);
   }
 
@@ -48,16 +52,22 @@ int main(int argc, char** argv)
       size = atoi(argv[++i]);
     } else if (strcmp(argv[i], "-key") == 0) {
       key = atoi(argv[++i]);
+    } else if (strcmp(argv[i], "-search") == 0) {
+      search = atoi(argv[++i]);
     } else {
-      fprintf(stderr, "Parameter %s is invalid\n", argv[i]);
+      fprintf(stderr, "Error: Parameter %s is invalid\n", argv[i]);
     }
   }
 
-  pdict = init_dictionary(size,NOT_SORTED);
+  if (search < 1 || search > 3 || size < 1){
+    fprintf(stderr, "Error: Wrong input parameters\n");
+  }
+
+  pdict = init_dictionary(size, sorted_array[search - 1]);
 
   if (pdict == NULL) {
     /* error */
-    printf("Error: Dictionary could not be initialized\n");
+    fprintf(stderr, "Error: Dictionary could not be initialized\n");
     exit(-1);
   }
 
@@ -65,7 +75,7 @@ int main(int argc, char** argv)
 
   if (perm == NULL) {
     /* error */
-    printf("Error: No hay memoria\n");
+    fprintf(stderr, "Error: No hay memoria\n");
     free_dictionary(pdict);
     exit(-1);
   }
@@ -74,13 +84,18 @@ int main(int argc, char** argv)
 
   if (nob == ERR) {
     /* error */
-    printf("Error: Dictionary could not be created\n");
+    fprintf(stderr, "Error: Dictionary could not be created\n");
     free(perm);
     free_dictionary(pdict);
     exit(-1);
   }
+  
+  printf("Array to search: ");
+  for (i = 0; i < size; i++)
+    printf("%d ",pdict->table[i]);
+  printf("\n");
 
-  nob = search_dictionary(pdict,key,&pos,lin_search);
+  nob = search_dictionary(pdict, key, &pos, search_functions[search - 1]);
 
   if (nob >= 0) {
     printf("Key %d found in position %d in %d basic op.\n",key,pos,nob);

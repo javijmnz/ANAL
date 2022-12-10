@@ -5,7 +5,7 @@
 
 CC = gcc -ansi -pedantic
 CFLAGS = -Wall 
-EXE = exercise1 stats_all
+EXE = test_search stats_all
 
 all : $(EXE)
 
@@ -46,10 +46,21 @@ exercise1_test:
 	@./exercise1 -size 10 -key 5
 
 NUM_MIN = 1
-NUM_MAX = 100001
-INCR = 1000
-N_TIMES = 100
+NUM_MAX = 101
+INCR = 1
+N_TIMES = 1000
 KEY_GEN = 2
+
+test_search_all:
+	@echo "#---------------------------------------------------------------"
+	@echo "Running test search \n"
+	@echo "\nBinary search \n"
+	@./test_search -size 10 -key 5 -search 1
+	@echo "\nLineal search \n"
+	@./test_search -size 10 -key 5 -search 2
+	@echo "\nLineal autoorganized search \n"
+	@./test_search -size 10 -key 5 -search 3
+
 
 stats_bin_search:
 	@echo "#---------------------------------------------------------------"
