@@ -42,9 +42,9 @@ int main(int argc, char** argv)
     exit(-1);
   }
 
-  printf("Pratice number 3, section 1\n");
-  printf("Done by: Your names\n");
-  printf("Group: Your group\n");
+  printf("Practice number 3, section 1\n");
+  printf("Done by: Javier Jiménez y Pablo Fernández\n");
+  printf("Group: 120\n");
 
   /* comprueba la linea de comandos */
   for(i = 1; i < argc; i++) {

@@ -55,11 +55,11 @@ test_search_all:
 	@echo "#---------------------------------------------------------------"
 	@echo "Running test search \n"
 	@echo "\nBinary search \n"
-	@./test_search -size 10 -key 5 -search 1
+	@./test_search -size 20 -key 5 -search 1
 	@echo "\nLineal search \n"
-	@./test_search -size 10 -key 5 -search 2
+	@./test_search -size 20 -key 8 -search 2
 	@echo "\nLineal autoorganized search \n"
-	@./test_search -size 10 -key 5 -search 3
+	@./test_search -size 20 -key 9 -search 3
 
 
 stats_bin_search:
