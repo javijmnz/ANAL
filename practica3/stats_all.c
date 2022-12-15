@@ -53,7 +53,7 @@ int main(int argc, char** argv)
     exit(-1);
   } else if (argc == 13){
 
-    // Caso sin n_perms
+    /* Caso sin n_perms*/
 
     printf("Practice number 3, section 2\n");
     printf("Done by: Javier Jiménez y Pablo Fernández\n");
@@ -99,7 +99,7 @@ int main(int argc, char** argv)
     return 0;
   }
 
-  // Caso con n_perms
+  /* Caso con n_perms*/
 
   printf("Practice number 3, section 2\n");
   printf("Done by: Javier Jiménez y Pablo Fernández\n");
