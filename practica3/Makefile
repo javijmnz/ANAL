@@ -5,7 +5,7 @@
 
 CC = gcc -ansi -pedantic
 CFLAGS = -Wall 
-EXE = test_search stats_all
+EXE = test_search stats_all test_generator test_potential_evolution
 
 all : $(EXE)
 
@@ -46,11 +46,11 @@ exercise1_test:
 	@./exercise1 -size 10 -key 5
 
 NUM_MIN = 1
-NUM_MAX = 101
-INCR = 1
-N_TIMES = 10
+NUM_MAX = 100001
+INCR = 1000
+N_TIMES = 1
 KEY_GEN = 2
-N_PERMS = 1000
+N_PERMS = 100
 
 test_search_all:
 	@echo "#---------------------------------------------------------------"
@@ -84,5 +84,5 @@ exec_stats: stats_bin_search stats_lin_search
 
 stats_lin_auto_search_n_perms:
 	@echo "#---------------------------------------------------------------"
-	@echo "Lin  $(NUM_MIN)-$(NUM_MAX) incr: $(INCR) n times: $(N_TIMES) key_gen: $(KEY_GEN)"
+	@echo "Lin auto search $(NUM_MIN)-$(NUM_MAX) incr: $(INCR) n times: $(N_TIMES) key_gen: $(KEY_GEN) n perms: $(N_PERMS)"
 	@./stats_all -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -n_times $(N_TIMES) -search 3 -key_gen $(KEY_GEN) -n_perms $(N_PERMS) 

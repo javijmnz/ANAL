@@ -216,6 +216,7 @@ short average_search_time_n_perms(pfunc_search metodo, pfunc_key_generator gener
   double tiempo = 0;
   PDICT dict = NULL;
 
+  printf("Permutación número: %d\n", N);
   if (!metodo || !generator || N <= 0 || n_times <= 0 || n_perms <= 0 || !ptime || (order != 0 && order!= 1)){
     return ERR;
   }    
