@@ -370,7 +370,7 @@ fit f2(x) 'data/lin_auto_search_key_gen_pot_'.num_min.'-'.num_max.'_incr'.incr.'
 
 set terminal png size 1000,1000
 set output 'graph/comp_bin_lin_auto_search_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_avg_ob.png'
-set title "Comparación búsqueda binaria y lineal autoorganizada\n".' Caso Medio (incr = '.incr.', n times = '.n_times. ')'."\n".sprintf("Bin search -> %.2f*logn \n", k1).sprintf("Lin auto search -> %.2f*n \n", k2)
+set title "Comparación búsqueda binaria y lineal autoorganizada\n".' Caso Medio (incr = '.incr.', n times = '.n_times. ')'."\n".sprintf("Bin search -> %.2f*logn \n", k1).sprintf("Lin auto search -> %.2f*logn \n", k2)
 
 set xlabel 'Tamaño'
 set ylabel 'OB'
@@ -395,7 +395,7 @@ fit f2(x) 'data/lin_auto_search_key_gen_pot_'.num_min.'-'.num_max.'_incr'.incr.'
 
 set terminal png size 1000,1000
 set output 'graph/comp_bin_lin_auto_search_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_avg_ob.png'
-set title "Comparación búsqueda binaria y lineal autoorganizada\n".'Caso Medio (incr = '.incr.', n times = '.n_times. ')'."\n".sprintf("Bin search -> %.2f*logn \n", k1).sprintf("Lin auto search -> %.2f*n \n", k2)
+set title "Comparación búsqueda binaria y lineal autoorganizada\n".'Caso Medio (incr = '.incr.', n times = '.n_times. ')'."\n".sprintf("Bin search -> %.2f*logn \n", k1).sprintf("Lin auto search -> %.2f*logn \n", k2)
 
 set xlabel 'Tamaño'
 set ylabel 'OB'

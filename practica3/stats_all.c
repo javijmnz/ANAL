@@ -27,7 +27,7 @@
 
 int main(int argc, char** argv)
 {
-  int i, num_min,num_max,incr,n_times, search, key_gen;
+  int i, num_min,num_max,incr,n_times, search, key_gen, n_perms;
   char name[256];
   short ret;
   pfunc_search search_functions[5] = {bin_search, lin_search, lin_auto_search, lin_search};
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
  
   srand(time(NULL));
 
-  if (argc != 13) {
+  if (argc != 13 && argc != 15) {
     fprintf(stderr, "Error in the input parameters:\n\n");
     fprintf(stderr, "%s -num_min <int> -num_max <int> -incr <int>\n", argv[0]);
     fprintf(stderr, "\t\t-n_times <int> -search <int> -key_gen <int> \n");
@@ -49,8 +49,57 @@ int main(int argc, char** argv)
     fprintf(stderr, "-n_times: number of times each key is searched\n");
     fprintf(stderr, "-search: 1: bin_search 2: lin_search 3: lin_auto_search 4: lin_search sorted\n");
     fprintf(stderr, "-key_gen: 1: uniform 2: potential\n");
+    fprintf(stderr, "-n_perms: number of permutations to run the test\n");
     exit(-1);
+  } else if (argc == 13){
+
+    // Caso sin n_perms
+
+    printf("Practice number 3, section 2\n");
+    printf("Done by: Javier Jiménez y Pablo Fernández\n");
+    printf("Group: 120\n");
+
+    /* check the command line */
+    for(i = 1; i < argc ; i++) {
+      if (strcmp(argv[i], "-num_min") == 0) {
+        num_min = atoi(argv[++i]);
+      } else if (strcmp(argv[i], "-num_max") == 0) {
+        num_max = atoi(argv[++i]);
+      } else if (strcmp(argv[i], "-incr") == 0) {
+        incr = atoi(argv[++i]);
+      } else if (strcmp(argv[i], "-n_times") == 0) {
+        n_times = atoi(argv[++i]);
+      } else if (strcmp(argv[i], "-search") == 0) {
+        search = atoi(argv[++i]);
+      }else if (strcmp(argv[i], "-key_gen") == 0) {
+        key_gen = atoi(argv[++i]);
+      } else {
+        fprintf(stderr, "Parameter %s is invalid\n", argv[i]);
+        exit(-1);
+      }
+    }
+
+    if(search < 1 || search > 4 || key_gen < 1 || key_gen > 5 || num_min > num_max || incr < 1 || n_times < 1){
+      fprintf(stderr, "Wrong arguments\n");
+    }
+
+
+    sprintf(name,"stats/%s_key_gen_%s_%d-%d_incr%d_n_times%d.log",search_names[search - 1], key_gen_names[key_gen - 1], num_min, num_max, incr, n_times);
+
+    /* calculamos los tiempos */
+    ret = generate_search_times(search_functions[search - 1], key_gen_functions[key_gen - 1], sorted_array[search - 1], 
+                                  name, num_min, num_max, incr, n_times);
+    if (ret == ERR) { 
+      printf("Error in function generate_search_times\n");
+      exit(-1);
+    }
+
+    printf("Correct output \n");
+
+    return 0;
   }
+
+  // Caso con n_perms
 
   printf("Practice number 3, section 2\n");
   printf("Done by: Javier Jiménez y Pablo Fernández\n");
@@ -68,7 +117,9 @@ int main(int argc, char** argv)
       n_times = atoi(argv[++i]);
     } else if (strcmp(argv[i], "-search") == 0) {
       search = atoi(argv[++i]);
-    }else if (strcmp(argv[i], "-key_gen") == 0) {
+    } else if (strcmp(argv[i], "-n_perms") == 0) {
+      n_perms = atoi(argv[++i]);
+    } else if (strcmp(argv[i], "-key_gen") == 0) {
       key_gen = atoi(argv[++i]);
     } else {
       fprintf(stderr, "Parameter %s is invalid\n", argv[i]);
@@ -76,23 +127,23 @@ int main(int argc, char** argv)
     }
   }
 
-  if(search < 1 || search > 4 || key_gen < 1 || key_gen > 5 || num_min > num_max || incr < 1 || n_times < 1){
+  if(search < 1 || search > 4 || key_gen < 1 || key_gen > 5 || num_min > num_max || incr < 1 || n_times < 1 || n_perms <= 0){
     fprintf(stderr, "Wrong arguments\n");
   }
 
 
-  sprintf(name,"stats/%s_key_gen_%s_%d-%d_incr%d_n_times%d.log",search_names[search - 1], key_gen_names[key_gen - 1], num_min, num_max, incr, n_times);
+  sprintf(name,"stats/%s_key_gen_%s_%d-%d_incr%d_n_times%d_n_perms_%d.log",search_names[search - 1], key_gen_names[key_gen - 1], num_min, num_max, incr, n_times, n_perms);
 
   /* calculamos los tiempos */
-  ret = generate_search_times(search_functions[search - 1], key_gen_functions[key_gen - 1], sorted_array[search - 1], 
-                                name, num_min, num_max, incr, n_times);
+  ret = generate_search_times_n_perm(search_functions[search - 1], key_gen_functions[key_gen - 1], sorted_array[search - 1], 
+                                name, num_min, num_max, incr, n_perms, n_times);
   if (ret == ERR) { 
-    printf("Error in function generate_search_times\n");
+    printf("Error in function generate_search_times_n_perm\n");
     exit(-1);
   }
 
   printf("Correct output \n");
 
-  return 0;
+  return 0;  
 }
 
