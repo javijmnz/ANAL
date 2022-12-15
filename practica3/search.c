@@ -3,7 +3,7 @@
  * Description: Implementation of functions for search
  *
  * File: search.c
- * Author: Carlos Aguirre and Javier Sanz-Cruzado
+ * Author: Javier Jiménez, Pablo Fernández
  * Version: 1.0
  * Date: 14-11-2016
  *
@@ -15,16 +15,12 @@
 #include <stdio.h>
 #include <math.h>
 
-int _print_int(FILE *pf, const void *c){
-    return fprintf(pf,"%d ",*((int*)c));
-}
-
-int _cmp_int(const void * c1, const void * c2){
-    return *(((int*)c1) - *((int*)c2));
-}
-
 void _swap(int *a1, int *a2) {
   int aux;
+
+  /* Comprobación de parámetros */
+  if (!a1 || !a2)
+    return;
 
   aux = *a1;
   *a1 = *a2;
@@ -45,8 +41,7 @@ void _swap(int *a1, int *a2) {
  *               This function generates all keys from 1 to max in a sequential
  *               manner. If n_keys == max, each key will just be generated once.
  */
-void uniform_key_generator(int *keys, int n_keys, int max)
-{
+void uniform_key_generator(int *keys, int n_keys, int max) {
   int i;
 
   for(i = 0; i < n_keys; i++) keys[i] = 1 + (i % max);
@@ -61,8 +56,7 @@ void uniform_key_generator(int *keys, int n_keys, int max)
  *               likely than the bigger ones. Value 1 has a 50%
  *               probability, value 2 a 17%, value 3 the 9%, etc.
  */
-void potential_key_generator(int *keys, int n_keys, int max)
-{
+void potential_key_generator(int *keys, int n_keys, int max) {
   int i;
 
   for(i = 0; i < n_keys; i++) 
@@ -73,51 +67,61 @@ void potential_key_generator(int *keys, int n_keys, int max)
   return;
 }
 
-PDICT init_dictionary (int size, char order)
-{
+PDICT init_dictionary (int size, char order) {
 	PDICT pdict;
 
-  if (size < 1 || order < NOT_SORTED || order > SORTED)
+  /* Comprobación de parámetros */
+  if (size < 1 || (order != NOT_SORTED && order != SORTED))
     return NULL;
 
+  /* Reservamos memoria para la estructura diccionario */
   pdict = malloc(sizeof(DICT));
   if (!pdict)
     return NULL;
   
+  /* Asignamos los valores correspondientes */
   pdict->size = size;
   pdict->order = order;
   pdict->n_data = 0;
 
+  /* Reservamos memoria para el array de elementos */
   pdict->table = malloc(sizeof(int) * size);
   if (!pdict->table){
     free(pdict);
     return NULL;
   }
+
   return pdict;
 }
 
-void free_dictionary(PDICT pdict)
-{
+void free_dictionary(PDICT pdict) {
+  /* Comprobación de parámetros */
+  if (!pdict)
+    return;
+  
+  /* Liberamos la memoria */
 	free(pdict->table);
   free(pdict);
 }
 
-int insert_dictionary(PDICT pdict, int key)
-{
+int insert_dictionary(PDICT pdict, int key) {
   int A, j, ob = 0;
+
+  /* Comprobación de parámetros */
   if (!pdict)
     return ERR;
   
-  if (pdict->size == pdict->n_data)
+  if (!pdict->table || pdict->size == pdict->n_data)
     return ERR;
   
+  /* Insertamos el elemento en el array */
   pdict->table[pdict->n_data] = key;
   pdict->n_data++;
 
   if (pdict->order == NOT_SORTED)
     return ob;
   
-  
+  /* Si el diccionario es ordenado, lo reordena todo */
   A = pdict->table[pdict->n_data - 1];
   j = pdict->n_data - 2;
   while (j >= 0 && pdict->table[j] > A) {
@@ -130,12 +134,14 @@ int insert_dictionary(PDICT pdict, int key)
   return ob;
 }
 
-int massive_insertion_dictionary (PDICT pdict,int *keys, int n_keys)
-{
+int massive_insertion_dictionary (PDICT pdict, int *keys, int n_keys) {
   int i, ob = 0, ret;
+
+  /* Comprobación de parámetros */
   if (!pdict || !keys || n_keys < 0)
     return ERR;
   
+  /* Inserciones */
   for (i = 0; i < n_keys; i++){
     ret = insert_dictionary (pdict, keys[i]);
     if (ret == ERR)
@@ -144,15 +150,16 @@ int massive_insertion_dictionary (PDICT pdict,int *keys, int n_keys)
   }
 
   return ob; 
-	
 }
 
-int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
-{
+int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method) {
+
+  /* Comprobación de parámetros */
 	if (!pdict || !ppos || !method){
     return ERR;
   }
 
+  /* No se puede hacer búsqueda binaria sobre permutaciones no ordenadas */
   if (pdict->order == NOT_SORTED && method == bin_search)
     return ERR;
   
@@ -161,14 +168,18 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
 
 
 /* Search functions of the Dictionary ADT */
-int bin_search(int *table,int F,int L,int key, int *ppos){
-	int med = (L + F)/2, ob = 0;
+int bin_search(int *table,int F,int L,int key, int *ppos) {
+	int med, ob = 0;
   
+  /* Comprobación de errores*/
   if (!table || F < 0 || L < F || !ppos)
     return ERR;
-    
+  
+  /* Bucle principal */
+  med = (L + F)/2;
   while (F <= L) {
     if (key == table[med]) {
+      /* Encontrada */
       *ppos = med;
       return ob + 1;
     } else if (key < table[med])
@@ -179,27 +190,30 @@ int bin_search(int *table,int F,int L,int key, int *ppos){
     ob++;
   }
   
+  /* No encontrada */
   *ppos = NOT_FOUND;       
-  return OK;
+  return ob;
 }
 
 int lin_search(int *table,int F,int L,int key, int *ppos) {
   int i;
   
+  /* Comprobación de parámetros */
 	if (!table || F < 0 || L < F || !ppos)
     return ERR;
-    
+  
+  /* Bucle principal */
   i = F;
   while (table[i] != key && i <= L)
     i++;
 
-  if (i > L) {
+  /* Comprobamos si la hemos encontrado o hemos llegado al final del array */
+  if (i > L)
     *ppos = NOT_FOUND;
-    return i - F + 1;
-  } else {
+  else
     *ppos = i;
-    return i - F + 1; /* OBs */
-  }
+  
+  return i - F + 1; /* OBs */
 }
 
 /*
@@ -229,20 +243,23 @@ int lin_search_sorted(int *table,int F,int L,int key, int *ppos) {
 int lin_auto_search(int *table,int F,int L,int key, int *ppos) {
 	int i;
   
+  /* Comprobación de parámetros */
 	if (!table || F < 0 || L < F || !ppos)
     return ERR;
-    
+  
+  /* Bucle principal */
   i = F;
   while (table[i] != key && i <= L)
     i++;
 
-  if (i > L) {
+  /* Comprobamos si la hemos encontrado o hemos llegado al final del array */
+  if (i > L)
     *ppos = NOT_FOUND;
-    return ERR;
-  } else {
+  else {
     *ppos = i;
     if (i != F)
       _swap(table + i, table + i - 1);
-    return i - F + 1; /* OBs */
   }
+  
+  return i - F + 1; /* OBs */
 }

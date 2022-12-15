@@ -50,7 +50,7 @@ void free_perms(int **array, int num){
 /***************************************************/
 
 short generate_search_times(pfunc_search method, pfunc_key_generator generator, int order, char* file, int num_min, int num_max, int incr, int n_times){
-  PTIME_AA sorting_times;
+  PTIME_AA search_times;
   int i, j, flag, num_ptimes;
   
   /* Comprueba parámetros */
@@ -61,25 +61,25 @@ short generate_search_times(pfunc_search method, pfunc_key_generator generator, 
   num_ptimes = (num_max - num_min) / incr + 1;
 
   /* Reserva de memoria para las estructuras que almacenan los datos */
-  sorting_times = (PTIME_AA) malloc(num_ptimes * sizeof(TIME_AA));
-  if (!sorting_times){
+  search_times = (PTIME_AA) malloc(num_ptimes * sizeof(TIME_AA));
+  if (!search_times){
     return ERR;
   }
     
   
-  /* Cálculo de los sorting times para cada tamaño */
+  /* Cálculo de los search times para cada tamaño */
   for (i = num_min, j = 0, flag = OK; i <= num_max && flag == OK; i+= incr, j++)
-    flag = average_search_time(method, generator, order, i, n_times, sorting_times + j);
+    flag = average_search_time(method, generator, order, i, n_times, search_times + j);
   
   /* Control de errores */
   if (flag == ERR) {
-    free(sorting_times);
+    free(search_times);
     return ERR;
   }
 
-  /* Guarda los sorting times en un fichero */
-  flag = save_time_table(file, sorting_times, num_ptimes);
-  free(sorting_times);
+  /* Guarda los search times en un fichero */
+  flag = save_time_table(file, search_times, num_ptimes);
+  free(search_times);
 
   return flag;
 }
@@ -125,35 +125,34 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator, ch
   long long total_ob = 0;
   PDICT dict = NULL;
 
-  if (!metodo || !generator || N <= 0 || n_times <= 0 || !ptime || (order != 0 && order!= 1)){
+  /* Comprobación de parámetros */
+  if (!metodo || !generator || N <= 0 || n_times <= 0 || !ptime || (order != SORTED && order!= NOT_SORTED))
     return ERR;
-  }    
 
   dict = init_dictionary(N, order);
-  if (!dict){
+  if (!dict)
     return ERR;
-  }
 
-  /*Optimización*/
+  /* Optimización */
 
   if (order == NOT_SORTED)
     perm = generate_perm(N);
   else
     perm = generate_sorted_perm(N);
 
-  if (!perm){
+  if (!perm) {
     free_dictionary(dict);
     return ERR;
   }
 
-  
-    
+  /* Insertamos la permutación en el diccionario */
   if (massive_insertion_dictionary(dict, perm, N) == ERR){
     free(perm);
     free_dictionary(dict);
     return ERR;
   }
   
+  /* Reservamos memoria para las claves a buscar y las generamos */
   keys = malloc(n_times * N * sizeof(int));
   if (!keys){
     printf("ERROR: memory");
