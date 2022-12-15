@@ -48,9 +48,9 @@ exercise1_test:
 NUM_MIN = 1
 NUM_MAX = 100001
 INCR = 1000
-N_TIMES = 1
+N_TIMES = 10
 KEY_GEN = 2
-N_PERMS = 100
+N_PERMS = 10
 
 test_search_all:
 	@echo "#---------------------------------------------------------------"
@@ -86,3 +86,8 @@ stats_lin_auto_search_n_perms:
 	@echo "#---------------------------------------------------------------"
 	@echo "Lin auto search $(NUM_MIN)-$(NUM_MAX) incr: $(INCR) n times: $(N_TIMES) key_gen: $(KEY_GEN) n perms: $(N_PERMS)"
 	@./stats_all -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -n_times $(N_TIMES) -search 3 -key_gen $(KEY_GEN) -n_perms $(N_PERMS) 
+
+stats_lin_search_n_perms:
+	@echo "#---------------------------------------------------------------"
+	@echo "Lin search $(NUM_MIN)-$(NUM_MAX) incr: $(INCR) n times: $(N_TIMES) key_gen: $(KEY_GEN) n perms: $(N_PERMS)"
+	@./stats_all -num_min $(NUM_MIN) -num_max $(NUM_MAX) -incr $(INCR) -n_times $(N_TIMES) -search 2 -key_gen $(KEY_GEN) -n_perms $(N_PERMS) 

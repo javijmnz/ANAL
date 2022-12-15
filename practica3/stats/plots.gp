@@ -133,7 +133,7 @@ fit f1(x) 'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_t
 fit f2(x) 'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:4 via k2
 set terminal png size 1000,1000
 set output 'graph/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_best_avg_worst_ob.png'
-set title 'Búsqueda binaria (incr = '.incr.')'."\n".sprintf("Caso medio -> %.2f*logn \n", k1).sprintf("Peor caso -> %.2f*logn \n", k2)
+set title 'Búsqueda binaria (incr = '.incr.')'."\n".sprintf("Caso medio -> %.2f*logn \n", k1).sprintf("Peor caso -> ceil(logn) \n")
 
 set xlabel 'Tamaño'
 set ylabel 'OB'
@@ -142,7 +142,8 @@ set xrange [int(num_min): int(num_max)]
 
 plot    'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:3 title 'caso medio' with l, \
         'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:4 title 'peor caso' with l, \
-        'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:5 title 'mejor caso' with l
+        'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:5 title 'mejor caso' with l, \
+        log(x) / log(2) title "log" with l
 
 
 #lin search
@@ -200,7 +201,7 @@ fit f1(x) 'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_t
 fit f2(x) 'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:4 via k2
 set terminal png size 1000,1000
 set output 'graph/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_best_avg_worst_ob.png'
-set title 'Búsqueda binaria (incr = '.incr.')'."\n".sprintf("Caso medio -> %.2f*logn \n", k1).sprintf("Peor caso -> %.2f*logn \n", k2)
+set title 'Búsqueda binaria (incr = '.incr.')'."\n".sprintf("Caso medio -> %.2f*logn \n", k1).sprintf("Peor caso -> ceil(logn) \n")
 
 set xlabel 'Tamaño'
 set ylabel 'OB'
@@ -209,7 +210,8 @@ set xrange [int(num_min): int(num_max)]
 
 plot    'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:3 title 'caso medio' with l, \
         'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:4 title 'peor caso' with l, \
-        'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:5 title 'mejor caso' with l
+        'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:5 title 'mejor caso' with l, \
+        log(x) / log(2) title "log" with l
 
 
 #lin search
@@ -356,6 +358,61 @@ plot    'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_tim
 #--------------------------------------------------------------------------------------------------------------------------------------------------
 
 #OB
+
+# N_times = 1
+
+num_min = "1"
+num_max = "101"
+incr = "1"
+n_times = "1"
+n_perms = "1000"
+
+f1(x) = k1 * log(x) / log(2)
+f2(x) = k2 * log(x) / log(2)
+
+fit f1(x) 'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:3 via k1
+fit f2(x) 'data/lin_auto_search_key_gen_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_n_perms_'.n_perms.'.log' using 1:3 via k2
+
+set terminal png size 1000,1000
+set output 'graph/comp_bin_lin_auto_search_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_avg_ob.png'
+set title 'Comparación búsqueda binaria y lineal autoorganizada n_times = '.n_times."\n".' Caso Medio (incr = '.incr.', n times = '.n_times. ')'."\n".sprintf("Bin search -> %.2f*logn \n", k1).sprintf("Lin auto search -> %.2f*logn \n", k2)
+
+set xlabel 'Tamaño'
+set ylabel 'OB'
+
+set xrange [int(num_min): int(num_max)]
+
+plot    'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:3 title 'bin search' with l, \
+        'data/lin_auto_search_key_gen_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_n_perms_'.n_perms.'.log' using 1:3 title 'lin auto search' with l
+
+
+# N_times = 1.000
+
+num_min = "1"
+num_max = "101"
+incr = "1"
+n_times = "1000"
+n_perms = "1000"
+
+f1(x) = k1 * log(x) / log(2)
+f2(x) = k2 * log(x) / log(2)
+
+fit f1(x) 'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:3 via k1
+fit f2(x) 'data/lin_auto_search_key_gen_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_n_perms_'.n_perms.'.log' using 1:3 via k2
+
+set terminal png size 1000,1000
+set output 'graph/comp_bin_lin_auto_search_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_avg_ob.png'
+set title "Comparación búsqueda binaria y lineal autoorganizada\n".' Caso Medio (incr = '.incr.', n times = '.n_times. ')'."\n".sprintf("Bin search -> %.2f*logn \n", k1).sprintf("Lin auto search -> %.2f*logn \n", k2)
+
+set xlabel 'Tamaño'
+set ylabel 'OB'
+
+set xrange [int(num_min): int(num_max)]
+
+plot    'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:3 title 'bin search' with l, \
+        'data/lin_auto_search_key_gen_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_n_perms_'.n_perms.'.log' using 1:3 title 'lin auto search' with l
+
+# N_times = 1.000.000
 
 num_min = "1"
 num_max = "101"
@@ -695,7 +752,7 @@ f2(x) = k2 * log(x) / log(2)
 fit f1(x) 'data/bin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:3 via k1
 fit f2(x) 'data/bin_search_key_gen_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'.log' using 1:3 via k2
 set terminal png size 1000,1000
-set output 'graph/bin_search_comp_unif_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_best_avg_worst_ob.png'
+set output 'graph/bin_search_comp_unif_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_avg_ob.png'
 set title "Comparación generación de claves uniforme y potencial\n".'Búsqueda binaria (incr = '.incr.')'."\n".sprintf("Uniforme -> %.2f*logn \n", k1).sprintf("Potencial -> %.2f*logn \n", k2)
 
 set xlabel 'Tamaño'
@@ -715,7 +772,7 @@ f2(x) = k2 * x
 fit f1(x) 'data/lin_search_key_gen_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times1.log' using 1:3 via k1
 fit f2(x) 'data/lin_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'.log' using 1:3 via k2
 set terminal png size 1000,1000
-set output 'graph/lin_search_comp_unif_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_best_avg_worst_ob.png'
+set output 'graph/lin_search_comp_unif_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_avg_ob.png'
 set title "Comparación generación de claves uniforme y potencial\n".'Búsqueda lineal (incr = '.incr.')'."\n".sprintf("Uniforme -> %.2f*n \n", k1).sprintf("Potencial -> %.2f*n \n", k2)
 
 set xlabel 'Tamaño'
@@ -734,7 +791,7 @@ f2(x) = k2 * log(x) / log(2)
 fit f1(x) 'data/lin_auto_search_key_gen_unif_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'.log' using 1:3 via k1
 fit f2(x) 'data/lin_auto_search_key_gen_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'0.log' using 1:3 via k2
 set terminal png size 1000,1000
-set output 'graph/lin_auto_search_comp_unif_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_best_avg_worst_ob.png'
+set output 'graph/lin_auto_search_comp_unif_pot_'.num_min.'-'.num_max.'_incr'.incr.'_n_times'.n_times.'_avg_ob.png'
 set title "Comparación generación de claves uniforme y potencial\n".'Búsqueda lineal autoorganizada (incr = '.incr.')'."\n".sprintf("Uniforme -> %.2f*n \n", k1).sprintf("Potencial -> %.2f*logn \n", k2)
 
 set xlabel 'Tamaño'
