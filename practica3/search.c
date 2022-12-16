@@ -216,30 +216,6 @@ int lin_search(int *table,int F,int L,int key, int *ppos) {
   return i - F + 1; /* OBs */
 }
 
-/*
-int lin_search_sorted(int *table,int F,int L,int key, int *ppos) {
-	int i;
-  
-	if (!table || F < 0 || L < F || !ppos)
-    return ERR;
-    
-  i = F;
-  while (table[i] < key && i <= L)
-    i++;
-
-  if (i > L) {
-    *ppos = NOT_FOUND;
-    return i - F + 1;
-  } else if (table[i] > key) {
-    *ppos = NOT_FOUND;
-    return i - F + 1;
-  } else {
-    *ppos = i;
-    return i - F + 1; 
-  }
-}
-*/
-
 int lin_auto_search(int *table,int F,int L,int key, int *ppos) {
 	int i;
   

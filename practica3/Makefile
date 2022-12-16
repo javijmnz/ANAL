@@ -46,11 +46,11 @@ exercise1_test:
 	@./exercise1 -size 10 -key 5
 
 NUM_MIN = 1
-NUM_MAX = 100001
-INCR = 1000
-N_TIMES = 10
-KEY_GEN = 2
-N_PERMS = 10
+NUM_MAX = 10001
+INCR = 100
+N_TIMES = 1000
+KEY_GEN = 1
+N_PERMS = 1
 
 test_search_all:
 	@echo "#---------------------------------------------------------------"
