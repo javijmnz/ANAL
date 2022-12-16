@@ -11,14 +11,12 @@ int cmp_int(const void *e1, const void *e2) {
 
 int main() {
     int claves[NUMKEYS], i;
-    int *porcentajes;
+    double *porcentajes;
     porcentajes = (double *) calloc(MAX, sizeof(double));
     if (!porcentajes)
         return EXIT_FAILURE;
     potential_key_generator(claves, NUMKEYS, MAX);
-    //qsort(claves, NUMKEYS, sizeof(int), cmp_int);
     for (i = 0; i < NUMKEYS; i++) {
-        //printf("%d ", claves[i]);
         porcentajes[claves[i]-1]++;
     }
     printf("\n");

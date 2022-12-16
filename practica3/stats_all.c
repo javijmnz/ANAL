@@ -33,7 +33,7 @@ int main(int argc, char** argv)
   pfunc_search search_functions[5] = {bin_search, lin_search, lin_auto_search, lin_search};
   pfunc_key_generator key_gen_functions[2] = {uniform_key_generator, potential_key_generator};
   int sorted_array[5] = {SORTED, NOT_SORTED, NOT_SORTED, SORTED};
-  char *search_names[5] = {"bin_search", "lin_search", "lin_search_sorted", "lin_auto_search", "bad_lin_search_sorted"};
+  char *search_names[5] = {"bin_search", "lin_search", "lin_auto_search", "lin_search_sorted"};
   char *key_gen_names[2] = {"unif", "pot"};
  
   srand(time(NULL));
@@ -51,7 +51,7 @@ int main(int argc, char** argv)
     fprintf(stderr, "-key_gen: 1: uniform 2: potential\n");
     fprintf(stderr, "-n_perms: number of permutations to run the test\n");
     exit(-1);
-  } else if (argc == 13){
+  } else if (argc == 13) {
 
     /* Caso sin n_perms*/
 
@@ -79,8 +79,9 @@ int main(int argc, char** argv)
       }
     }
 
-    if(search < 1 || search > 4 || key_gen < 1 || key_gen > 5 || num_min > num_max || incr < 1 || n_times < 1){
+    if(search < 1 || search > 4 || key_gen < 1 || key_gen > 2 || num_min > num_max || incr < 1 || n_times < 1){
       fprintf(stderr, "Wrong arguments\n");
+      exit(-1);
     }
 
 
@@ -127,7 +128,7 @@ int main(int argc, char** argv)
     }
   }
 
-  if(search < 1 || search > 4 || key_gen < 1 || key_gen > 5 || num_min > num_max || incr < 1 || n_times < 1 || n_perms <= 0){
+  if(search < 1 || search > 4 || key_gen < 1 || key_gen > 2 || num_min > num_max || incr < 1 || n_times < 1 || n_perms <= 0){
     fprintf(stderr, "Wrong arguments\n");
   }
 

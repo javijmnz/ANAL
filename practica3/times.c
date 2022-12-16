@@ -66,7 +66,6 @@ short generate_search_times(pfunc_search method, pfunc_key_generator generator, 
     return ERR;
   }
     
-  
   /* Cálculo de los search times para cada tamaño */
   for (i = num_min, j = 0, flag = OK; i <= num_max && flag == OK; i+= incr, j++)
     flag = average_search_time(method, generator, order, i, n_times, search_times + j);
@@ -295,10 +294,8 @@ short average_search_time_n_perms(pfunc_search metodo, pfunc_key_generator gener
     free_dictionary(dict);
   }
   
-  
-
   /* Almacenamos los datos necesarios en la estructura ptime */
-  ptime->n_elems = n_times * N * n_perms;
+  ptime->n_elems = n_times * N;
   ptime->N = N;
   ptime->time = tiempo / (double)(n_times * N * n_perms);
   ptime->average_ob = (double)total_ob / (double)(n_times * N * n_perms);

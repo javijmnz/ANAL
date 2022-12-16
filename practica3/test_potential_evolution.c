@@ -5,7 +5,7 @@
 #include "permutations.h"
 
 #define N 100
-#define N_TIMES 1000000
+#define N_TIMES 100000
 
 int cmp_int(const void *e1, const void *e2) {
     return *((int *) e1) - *((int *) e2);
@@ -51,11 +51,16 @@ int main() {
         exit(-1);
     }
 
-    potential_key_generator(claves, N * N_TIMES, N);
-    for (i = 0; i < N * N_TIMES; i++) {
-        search_dictionary(pdict, claves[i], &pos, lin_auto_search);
-        if (i % N == 0) {
-            printf("Array tras %d iteraciones: ", i/N);
+    printf("Array inicial: \n");
+    for (j = 0; j < N; j++)
+        printf("%d ", pdict->table[j]);
+    printf("\n");
+
+    uniform_key_generator(claves, N * N_TIMES, N);
+    for (i = 1; i <= N * N_TIMES; i++) {
+        search_dictionary(pdict, claves[i-1], &pos, lin_auto_search);
+        if (i % (N * 1000) == 0 || i == N || i == 10*N || i == 100*N || i == 1000*N) {
+            printf("Array tras %d búsquedas: \n", i);
             for (j = 0; j < N; j++)
                 printf("%d ", pdict->table[j]);
             printf("\n");
